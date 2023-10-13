@@ -110,10 +110,10 @@ public class StickerController : ControllerBase
 
     
     [HttpPut("Update/{id}")]
-    public ActionResult<Sticker> Update(int id, string productName, string legalName,
-        string ingredientsList, string allergens, string nutritions,
-        string producer, string countryOfOrigin, int netWeight, int netVolume,
-        string storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
+    public ActionResult<Sticker> Update(int id, string? productName, string legalName,
+        string? ingredientsList, string? allergens, string? nutritions,
+        string? producer, string? countryOfOrigin, int netWeight, int netVolume,
+        string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
     {
         Sticker existingSticker = Stickers.FirstOrDefault(s => s.Id == id);
 
@@ -122,16 +122,16 @@ public class StickerController : ControllerBase
             return NotFound();
         }
 
-        existingSticker.ProductName = productName == "" ? existingSticker.ProductName : productName;
-        existingSticker.LegalName = legalName == "" ? existingSticker.LegalName : legalName;
-        existingSticker.IngredientsList = ingredientsList == "" ? existingSticker.IngredientsList : ingredientsList;
-        existingSticker.Allergens = allergens == "" ? existingSticker.Allergens : allergens;
-        existingSticker.Nutritions = nutritions == "" ? existingSticker.Nutritions : nutritions;
-        existingSticker.Producer = producer == "" ? existingSticker.Producer : producer;
-        existingSticker.CountryOfOrigin = countryOfOrigin == "" ? existingSticker.CountryOfOrigin : countryOfOrigin;
+        existingSticker.ProductName = string.IsNullOrEmpty(productName) ? existingSticker.ProductName : productName;
+        existingSticker.LegalName = string.IsNullOrEmpty(legalName) ? existingSticker.LegalName : legalName;
+        existingSticker.IngredientsList = string.IsNullOrEmpty(ingredientsList) ? existingSticker.IngredientsList : ingredientsList;
+        existingSticker.Allergens = string.IsNullOrEmpty(allergens) ? existingSticker.Allergens : allergens;
+        existingSticker.Nutritions = string.IsNullOrEmpty(nutritions) ? existingSticker.Nutritions : nutritions;
+        existingSticker.Producer = string.IsNullOrEmpty(producer) ? existingSticker.Producer : producer;
+        existingSticker.CountryOfOrigin = string.IsNullOrEmpty(countryOfOrigin) ? existingSticker.CountryOfOrigin : countryOfOrigin;
         existingSticker.NetWeight = netWeight == 0 ? existingSticker.NetWeight : netWeight;
         existingSticker.NetVolume = netVolume == 0 ? existingSticker.NetVolume :netVolume;
-        existingSticker.Storage = storage == "" ? existingSticker.Storage : storage;
+        existingSticker.Storage = string.IsNullOrEmpty(storage) ? existingSticker.Storage : storage;
         existingSticker.UBD = ubd == new DateTime() ? existingSticker.UBD : ubd;
         existingSticker.BBD = bbd == new DateTime() ? existingSticker.BBD : bbd;
         existingSticker.BBE = bbe == new DateTime() ? existingSticker.BBE : bbe;

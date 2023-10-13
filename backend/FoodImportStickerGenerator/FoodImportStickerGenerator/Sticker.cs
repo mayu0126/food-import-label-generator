@@ -13,7 +13,7 @@ public class Sticker
     public string? Allergens { get; set; }
     public string Nutritions { get; set; }
     public string Producer { get; set; }
-    public string? CountryOfOrigin { get; set; }
+    public string CountryOfOrigin { get; set; }
     public int? NetWeight { get; set; }
     public int? NetVolume { get; set; }
     public string Storage { get; set; }
