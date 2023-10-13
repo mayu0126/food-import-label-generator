@@ -72,17 +72,17 @@ public class StickerController : ControllerBase
         return existingSticker;
     }
     
-    
     [HttpPost("Add")]
-    public ActionResult<IEnumerable<Sticker>> Add(string productName, [Required]string legalName,
-        string ingredientsList, string allergens, [Required]string nutritions,
-        [Required]string producer, string countryOfOrigin, int netWeight, int netVolume,
-        [Required]string storage, DateTime ubd, DateTime bbd, DateTime bbe, [Required]bool organic)
+    public ActionResult<IEnumerable<Sticker>> Add(string? productName, [Required]string legalName,
+        string? ingredientsList, string? allergens, [Required]string nutritions,
+        string? producer, [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
+        [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest("Missing or invalid input data");
         }
+        
         Sticker newSticker = new Sticker()
         {
             Id = Stickers.Count()+1,
@@ -93,6 +93,7 @@ public class StickerController : ControllerBase
             Allergens = allergens,
             Nutritions = nutritions,
             Producer = producer,
+            Distributor = distributor,
             CountryOfOrigin = countryOfOrigin,
             NetWeight = netWeight,
             NetVolume = netVolume,
@@ -102,17 +103,15 @@ public class StickerController : ControllerBase
             BBE = bbe,
             Organic = organic
         };
-
         Stickers.Add(newSticker);
         
         return Ok(Stickers);
     }
 
-    
     [HttpPut("Update/{id}")]
-    public ActionResult<Sticker> Update(int id, string? productName, string legalName,
+    public ActionResult<Sticker> Update(int id, string? productName, string? legalName,
         string? ingredientsList, string? allergens, string? nutritions,
-        string? producer, string? countryOfOrigin, int netWeight, int netVolume,
+        string? producer, string? distributor, string? countryOfOrigin, int netWeight, int netVolume,
         string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
     {
         Sticker existingSticker = Stickers.FirstOrDefault(s => s.Id == id);
@@ -128,6 +127,7 @@ public class StickerController : ControllerBase
         existingSticker.Allergens = string.IsNullOrEmpty(allergens) ? existingSticker.Allergens : allergens;
         existingSticker.Nutritions = string.IsNullOrEmpty(nutritions) ? existingSticker.Nutritions : nutritions;
         existingSticker.Producer = string.IsNullOrEmpty(producer) ? existingSticker.Producer : producer;
+        existingSticker.Distributor = string.IsNullOrEmpty(distributor) ? existingSticker.Distributor : distributor;
         existingSticker.CountryOfOrigin = string.IsNullOrEmpty(countryOfOrigin) ? existingSticker.CountryOfOrigin : countryOfOrigin;
         existingSticker.NetWeight = netWeight == 0 ? existingSticker.NetWeight : netWeight;
         existingSticker.NetVolume = netVolume == 0 ? existingSticker.NetVolume :netVolume;
@@ -138,6 +138,20 @@ public class StickerController : ControllerBase
         existingSticker.Organic = organic == new Boolean() ? existingSticker.Organic : organic;
 
         return Ok(existingSticker);
+    }
+    
+    [HttpDelete("DeleteById/{id}")]
+    public ActionResult<Sticker> DeleteById(int id)
+    {
+        Sticker existingSticker = Stickers.FirstOrDefault(s=>s.Id == id);
+        
+        if (existingSticker == null)
+        {
+            return NotFound();
+        }
+
+        Stickers.Remove(existingSticker);
+        return Ok(Stickers);
     }
     
 }
