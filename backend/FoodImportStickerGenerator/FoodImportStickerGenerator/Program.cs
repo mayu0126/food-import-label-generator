@@ -22,6 +22,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseDeveloperExceptionPage(); // Handy feature during development. In production: set up a custom exception page
 }
 
 // More config steps

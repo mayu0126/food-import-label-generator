@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FoodImportStickerGenerator;
 
-public class Sticker
+public class Label
 {
     public int Id { get; set; }
     public DateOnly Date { get; set; }
