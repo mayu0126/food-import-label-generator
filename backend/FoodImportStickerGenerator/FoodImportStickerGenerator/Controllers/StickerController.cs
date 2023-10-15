@@ -56,7 +56,7 @@ public class StickerController : ControllerBase
     [HttpGet("GetByName")]
     public IEnumerable<Sticker> GetByName(string name)
     {
-        return Stickers.Where(s=>s.LegalName.Contains(name));
+        return Stickers.Where(s=>s.LegalName.ToLower().Contains(name));
     }
     
     [HttpGet("GetById/{id}")]
@@ -74,8 +74,8 @@ public class StickerController : ControllerBase
     
     [HttpPost("Add")]
     public ActionResult<IEnumerable<Sticker>> Add(string? productName, [Required]string legalName,
-        string? ingredientsList, string? allergens, [Required]string nutritions,
-        string? producer, [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
+        string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
+        [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
         [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
     {
         if (!ModelState.IsValid)
@@ -109,10 +109,9 @@ public class StickerController : ControllerBase
     }
 
     [HttpPut("Update/{id}")]
-    public ActionResult<Sticker> Update(int id, string? productName, string? legalName,
-        string? ingredientsList, string? allergens, string? nutritions,
-        string? producer, string? distributor, string? countryOfOrigin, int netWeight, int netVolume,
-        string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
+    public ActionResult<Sticker> Update(int id, string? productName, string? legalName, string? ingredientsList,
+        string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
+        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
     {
         Sticker existingSticker = Stickers.FirstOrDefault(s => s.Id == id);
 
