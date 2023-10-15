@@ -1,0 +1,162 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGeneratorTests\\FoodImportLabelGeneratorTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGeneratorTests\\FoodImportLabelGeneratorTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGeneratorTests\\FoodImportLabelGeneratorTests.csproj",
+        "projectName": "FoodImportLabelGeneratorTests",
+        "projectPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGeneratorTests\\FoodImportLabelGeneratorTests.csproj",
+        "packagesPath": "C:\\Users\\Mayu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGeneratorTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Mayu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj": {
+                "projectPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.5.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.69, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.6.1, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.4.2, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj",
+        "projectName": "FoodImportLabelGenerator",
+        "projectPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj",
+        "packagesPath": "C:\\Users\\Mayu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Mayu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.9, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

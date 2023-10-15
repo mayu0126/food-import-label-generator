@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc; //needed because this class derives from ControllerBase
 
-namespace FoodImportStickerGenerator.Controllers;
+namespace FoodImportLabelGenerator.Controllers;
+
+//SRP - Any controller class should focus solely on handling the HTTP requests and responses and should be as 'thin' as possible
 
 [ApiController]
 [Route("[controller]")]

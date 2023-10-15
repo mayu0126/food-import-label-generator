@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FoodImportStickerGenerator;
+namespace FoodImportLabelGenerator;
 
 public class Label
 {

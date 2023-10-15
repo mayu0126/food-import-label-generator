@@ -474,11 +474,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportStickerGenerator\\FoodImportStickerGenerator.csproj",
-      "projectName": "FoodImportStickerGenerator",
-      "projectPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportStickerGenerator\\FoodImportStickerGenerator.csproj",
+      "projectUniqueName": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj",
+      "projectName": "FoodImportLabelGenerator",
+      "projectPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\FoodImportLabelGenerator.csproj",
       "packagesPath": "C:\\Users\\Mayu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportStickerGenerator\\obj\\",
+      "outputPath": "C:\\Users\\Mayu\\projects\\food-import-sticker-generator\\backend\\FoodImportStickerGenerator\\FoodImportLabelGenerator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Mayu\\AppData\\Roaming\\NuGet\\NuGet.Config",
