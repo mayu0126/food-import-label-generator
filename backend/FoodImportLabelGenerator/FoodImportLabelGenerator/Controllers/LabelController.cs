@@ -58,12 +58,12 @@ public class LabelController : ControllerBase
     [HttpGet("GetByName")]
     public ActionResult<IEnumerable<Label>> GetByName(string name)
     {
-        var stickersByName = Labels.Where(s => s.LegalName.ToLower().Contains(name.ToLower()));
-        if (!stickersByName.Any())
+        var labelsByName = Labels.Where(s => s.LegalName != null && s.LegalName.ToLower().Contains(name.ToLower()));
+        if (!labelsByName.Any())
         {
             return NotFound($"There is no label with name {name}.");
         }
-        return Ok(stickersByName);
+        return Ok(labelsByName);
     }
     
     [HttpGet("GetById/{id}")]
@@ -85,6 +85,27 @@ public class LabelController : ControllerBase
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
         [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
     {
+        // Additional validation for mandatory parameters
+        if (string.IsNullOrWhiteSpace(legalName))
+        {
+            ModelState.AddModelError("legalName", "Legal name cannot be empty.");
+        }
+        
+        if (string.IsNullOrWhiteSpace(nutritions))
+        {
+            ModelState.AddModelError("nutritions", "Nutritions cannot be empty.");
+        }
+        
+        if (string.IsNullOrWhiteSpace(distributor))
+        {
+            ModelState.AddModelError("distributor", "Distributor cannot be empty.");
+        }
+        
+        if (string.IsNullOrWhiteSpace(storage))
+        {
+            ModelState.AddModelError("storage", "Storage cannot be empty.");
+        }
+        
         if (!ModelState.IsValid)
         {
             return BadRequest("Missing or invalid input data");

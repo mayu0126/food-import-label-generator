@@ -92,13 +92,26 @@ public class LabelControllerUnitTests
     }
 
     [Test]
-    public void Add_ReturnsBadRequestResultForInvalidInput()
+    public void Add_ReturnsBadRequestResultForInvalidInput_LegalName()
     {
         // Arrange: Non valid details for Add
         string legalName = null;
 
         // Act
         ActionResult<IEnumerable<Label>> result = _labelController.Add(null, legalName, null, null, "NewNutritions", null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true);
+
+        // Assert
+        Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
+    }
+    
+    [Test]
+    public void Add_ReturnsBadRequestResultForInvalidInput_Nutritions()
+    {
+        // Arrange: Non valid details for Add
+        string nutritions = null;
+
+        // Act
+        ActionResult<IEnumerable<Label>> result = _labelController.Add(null, "legalName", null, null, nutritions, null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true);
 
         // Assert
         Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
