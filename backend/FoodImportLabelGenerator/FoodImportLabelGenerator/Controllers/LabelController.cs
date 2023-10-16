@@ -49,14 +49,14 @@ public class LabelController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("GetAll")]
-    public ActionResult<IEnumerable<Label>> GetAll()
+    [HttpGet("GetAllAsync")]
+    public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
         return Ok(Labels);
     }
 
-    [HttpGet("GetByName")]
-    public ActionResult<IEnumerable<Label>> GetByName(string name)
+    [HttpGet("GetByNameAsync")]
+    public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync(string name)
     {
         var labelsByName = Labels.Where(s => s.LegalName != null && s.LegalName.ToLower().Contains(name.ToLower()));
         if (!labelsByName.Any())
@@ -66,8 +66,8 @@ public class LabelController : ControllerBase
         return Ok(labelsByName);
     }
     
-    [HttpGet("GetById/{id}")]
-    public ActionResult<Label> GetById(int id)
+    [HttpGet("GetByIdAsync/{id}")]
+    public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
         Label existingLabel = Labels.FirstOrDefault(s=>s.Id == id);
         
@@ -79,8 +79,8 @@ public class LabelController : ControllerBase
         return Ok(existingLabel);
     }
     
-    [HttpPost("Add")]
-    public ActionResult<IEnumerable<Label>> Add(string? productName, [Required]string legalName,
+    [HttpPost("AddAsync")]
+    public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? productName, [Required]string legalName,
         string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
         [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
@@ -136,8 +136,8 @@ public class LabelController : ControllerBase
         return Ok(Labels);
     }
 
-    [HttpPut("Update/{id}")]
-    public ActionResult<Label> Update(int id, string? productName, string? legalName, string? ingredientsList,
+    [HttpPut("UpdateAsync/{id}")]
+    public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
         int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
     {
@@ -167,8 +167,8 @@ public class LabelController : ControllerBase
         return Ok(existingLabel);
     }
     
-    [HttpDelete("DeleteById/{id}")]
-    public ActionResult<Label> DeleteById(int id)
+    [HttpDelete("DeleteByIdAsync/{id}")]
+    public async Task<ActionResult<Label>> DeleteByIdAsync(int id)
     {
         Label existingLabel = Labels.FirstOrDefault(s=>s.Id == id);
         
