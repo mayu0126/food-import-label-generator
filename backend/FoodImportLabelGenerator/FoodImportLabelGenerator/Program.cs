@@ -8,6 +8,12 @@ builder.Services.AddControllers(); // Registers Controller classes in the builde
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+/*
+// A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)
+builder.Services.AddControllers(
+    options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+*/
+
 var app = builder.Build(); // Create an instance of a WebApplication
 
 // Configure the HTTP request pipeline.
@@ -16,6 +22,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseDeveloperExceptionPage(); // Handy feature during development. In production: set up a custom exception page
 }
 
 // More config steps
