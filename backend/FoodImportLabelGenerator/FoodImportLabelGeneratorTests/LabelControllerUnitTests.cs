@@ -17,10 +17,10 @@ public class LabelControllerUnitTests
     }
 
     [Test]
-    public void  GetAll_ReturnsOkResult()
+    public void GetAll_ReturnsOkResult()
     {
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.GetAll();
+        ActionResult<IEnumerable<Label>> result = _labelController.GetAllAsync().Result;
 
         // Assert
         Assert.IsInstanceOf<OkObjectResult>(result.Result);
@@ -33,7 +33,7 @@ public class LabelControllerUnitTests
         string name = "Chocolate";
 
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.GetByName(name);
+        ActionResult<IEnumerable<Label>> result = _labelController.GetByNameAsync(name).Result;
 
         // Assert
         Assert.IsInstanceOf<OkObjectResult>(result.Result);
@@ -46,7 +46,7 @@ public class LabelControllerUnitTests
         string name = "NonexistentLabelName";
 
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.GetByName(name);
+        ActionResult<IEnumerable<Label>> result = _labelController.GetByNameAsync(name).Result;
 
         // Assert
         Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
@@ -59,7 +59,7 @@ public class LabelControllerUnitTests
         int id = 1;
 
         // Act
-        ActionResult<Label> result = _labelController.GetById(id);
+        ActionResult<Label> result = _labelController.GetByIdAsync(id).Result;
 
         // Assert
         Assert.IsInstanceOf<OkObjectResult>(result.Result);
@@ -72,7 +72,7 @@ public class LabelControllerUnitTests
         int id = 999999999; // Non existing ID
 
         // Act
-        ActionResult<Label> result = _labelController.GetById(id);
+        ActionResult<Label> result = _labelController.GetByIdAsync(id).Result;
 
         // Assert
         Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
@@ -85,7 +85,7 @@ public class LabelControllerUnitTests
         string legalName = "NewLabel";
 
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.Add(null, legalName, null, null, "NewNutritions", null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true);
+        ActionResult<IEnumerable<Label>> result = _labelController.AddAsync(null, legalName, null, null, "NewNutritions", null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true).Result;
 
         // Assert
         Assert.IsInstanceOf<OkObjectResult>(result.Result);
@@ -98,7 +98,7 @@ public class LabelControllerUnitTests
         string legalName = null;
 
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.Add(null, legalName, null, null, "NewNutritions", null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true);
+        ActionResult<IEnumerable<Label>> result = _labelController.AddAsync(null, legalName, null, null, "NewNutritions", null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true).Result;
 
         // Assert
         Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
@@ -111,7 +111,7 @@ public class LabelControllerUnitTests
         string nutritions = null;
 
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.Add(null, "legalName", null, null, nutritions, null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true);
+        ActionResult<IEnumerable<Label>> result = _labelController.AddAsync(null, "legalName", null, null, nutritions, null, "NewDistributor", "NewCountry", 500, 0, "NewStorage", null, null, null, true).Result;
 
         // Assert
         Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
@@ -126,7 +126,7 @@ public class LabelControllerUnitTests
         string newLegalName = "UpdatedLabelName";
 
         // Act
-        ActionResult<Label> result = _labelController.Update(id, newProductName, newLegalName, null, null, null, null, null, null, 0, 0, null, DateTime.Now, DateTime.Now, DateTime.Now, false);
+        ActionResult<Label> result = _labelController.UpdateAsync(id, newProductName, newLegalName, null, null, null, null, null, null, 0, 0, null, DateTime.Now, DateTime.Now, DateTime.Now, false).Result;
 
         // Assert
         Assert.IsInstanceOf<OkObjectResult>(result.Result);
@@ -141,7 +141,7 @@ public class LabelControllerUnitTests
         string newLegalName = "UpdatedLabelName";
 
         // Act
-        ActionResult<Label> result = _labelController.Update(id, newProductName, newLegalName, null, null, null, null, null, null, 0, 0, null, DateTime.Now, DateTime.Now, DateTime.Now, false);
+        ActionResult<Label> result = _labelController.UpdateAsync(id, newProductName, newLegalName, null, null, null, null, null, null, 0, 0, null, DateTime.Now, DateTime.Now, DateTime.Now, false).Result;
 
         // Assert
         Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
