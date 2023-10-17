@@ -15,7 +15,7 @@ public class LabelController : ControllerBase
         new Label()
         {
             Id = 1,
-            Date = DateOnly.FromDateTime(DateTime.Now),
+            Date = DateTime.Now,
             LegalName = "Chocolate",
             Nutritions = "calories",
             Producer = "Mayu Kft.",
@@ -29,7 +29,7 @@ public class LabelController : ControllerBase
         new Label()
         {
             Id = 2,
-            Date = DateOnly.FromDateTime(DateTime.Now),
+            Date = DateTime.Now,
             LegalName = "Candy",
             Nutritions = "calories",
             Producer = "Mayu Kft.",
@@ -114,7 +114,7 @@ public class LabelController : ControllerBase
         Label newLabel = new Label()
         {
             Id = Labels.Count()+1,
-            Date = DateOnly.FromDateTime(DateTime.Now),
+            Date = DateTime.Now,
             ProductName = productName,
             LegalName = legalName,
             IngredientsList = ingredientsList,

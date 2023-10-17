@@ -1,5 +1,11 @@
 # ASP.NET Web API
 
+# appsettings.json file
+appsettings*.json
+
+# Migrations folder
+/Migrations/
+
 ## Binaries
 [Bb]in/
 [Oo]bj/
@@ -99,3 +105,4 @@ _ReSharper*/
 # User-specific Rider and ReSharper settings
 .idea/rider/
 .idea/Rider/
+/FoodImportLabelGenerator/Migrations/

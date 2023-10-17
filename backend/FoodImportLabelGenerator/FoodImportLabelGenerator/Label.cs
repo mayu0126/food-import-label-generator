@@ -4,8 +4,8 @@ namespace FoodImportLabelGenerator;
 
 public class Label
 {
-    public int Id { get; set; }
-    public DateOnly Date { get; set; }
+    public int Id { get; init; }
+    public DateTime Date { get; init; }
     public string? ProductName { get; set; }
     public string LegalName { get; set; }
     
