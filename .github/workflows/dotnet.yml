@@ -26,4 +26,4 @@ jobs:
     - name: Build
       run: dotnet build ./backend/FoodImportLabelGenerator/FoodImportLabelGenerator/FoodImportLabelGenerator.csproj --no-restore
     - name: Test
-      run: dotnet test ./backend/FoodImportLabelGenerator/FoodImportLabelGeneratorTests/FoodImportLabelGeneratorTests.csproj --no-build --verbosity normal
+      run: dotnet test ./backend/FoodImportLabelGenerator/FoodImportLabelGeneratorTests/FoodImportLabelGeneratorTests.csproj --verbosity normal
