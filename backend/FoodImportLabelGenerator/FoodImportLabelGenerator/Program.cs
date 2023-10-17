@@ -35,11 +35,11 @@ app.UseAuthorization();
 
 app.MapControllers(); // Adds endpoints for controller actions without specifying any routes
 
-var configString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 
 void InitializeDb()
 {
-    using var db = new FoodImportLabelGeneratorContext(new ConfigurationManager(), configString);
+    using var db = new FoodImportLabelGeneratorContext(new ConfigurationManager(), connectionString);
     InitializeLabels();
     PrintLabels();
 

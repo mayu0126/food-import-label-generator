@@ -6,17 +6,17 @@ public class FoodImportLabelGeneratorContext : DbContext
 {
     public DbSet<Label> Labels { get; set; }
     private readonly IConfiguration _configuration;
-    private readonly string _configString;
+    private readonly string _connectionString;
 
-    public FoodImportLabelGeneratorContext(IConfiguration configuration, string configString)
+    public FoodImportLabelGeneratorContext(IConfiguration configuration, string connectionString)
     {
         _configuration = configuration;
-        _configString = configString;
+        _connectionString = connectionString;
     }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionString = _configString;
+        var connectionString = _connectionString;
         //var connectionString = _configuration.GetConnectionString("ConnectionStrings:DefaultConnection");
         optionsBuilder.UseSqlServer(connectionString);
     }
