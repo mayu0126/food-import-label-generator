@@ -20,7 +20,7 @@ public class LabelRepository : ILabelRepository
     public IEnumerable<Label> GetByName(string legalName)
     {
         using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        return dbContext.Labels.Where(s => s.LegalName.ToLower().Contains(legalName.ToLower()));
+        return dbContext.Labels.Where(s => s.LegalName.ToLower().Contains(legalName.ToLower())).ToList();
     }
 
     public Label? GetById(int id)
@@ -37,10 +37,10 @@ public class LabelRepository : ILabelRepository
 
     }
 
-    public void Update(Label label)
+    public void Update(Label updatedLabel)
     {
         using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        dbContext.Update(label);
+        dbContext.Update(updatedLabel);
         dbContext.SaveChanges();
     }
 

@@ -41,21 +41,19 @@ public class LabelController : ControllerBase
             return NotFound("Error getting labels.");
         }
     }
-/*
+
     [HttpGet("GetByNameAsync")]
     public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync([Required]string name)
     {
-        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        var labels = await dbContext.Labels.ToListAsync();
-        var labelsByName = labels.Where(s => s.LegalName.ToLower().Contains(name.ToLower()));
-        
-        if (!labelsByName.Any())
+        var labels = _labelRepository.GetByName(name);
+
+        if (!labels.Any())
         {
             return NotFound($"Cannot find label with name {name}.");
         }
         try
         {
-            return Ok(labelsByName);
+            return Ok(labels);
         }
         catch (Exception e)
         {
@@ -63,22 +61,19 @@ public class LabelController : ControllerBase
             return NotFound("Error getting labels.");
         }
     }
-   
+
     [HttpGet("GetByIdAsync/{id}")]
     public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
-        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        var labels = await dbContext.Labels.ToListAsync();
-        
-        Label? existingLabel = labels.FirstOrDefault(s=>s.Id == id);
-        
-        if (existingLabel == null)
+        var label = _labelRepository.GetById(id);
+
+        if (label == null)
         {
             return NotFound($"Cannot find label with id {id}.");
         }
         try
         {
-            return Ok(existingLabel);
+            return Ok(label);
         }
         catch (Exception e)
         {
@@ -93,9 +88,6 @@ public class LabelController : ControllerBase
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
         [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
     {
-        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        var labels = await dbContext.Labels.ToListAsync();
-        
         // Additional validation for mandatory parameters
         if (string.IsNullOrWhiteSpace(legalName))
         {
@@ -142,31 +134,33 @@ public class LabelController : ControllerBase
             BBE = bbe,
             Organic = organic
         };
-        labels.Add(newLabel);
-        
-        return Ok(labels);
+        _labelRepository.Add(newLabel);
+
+        return Ok("New label added successfully.");
     }
-/*
+
     [HttpPut("UpdateAsync/{id}")]
     public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
         int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
     {
-        Label existingLabel = Labels.FirstOrDefault(s => s.Id == id);
+        Label existingLabel = _labelRepository.GetAll().FirstOrDefault(s => s.Id == id);
 
         if (existingLabel == null)
         {
             return NotFound($"It is not possible to update label. There is no label with id {id}.");
         }
-
+        
         existingLabel.ProductName = string.IsNullOrEmpty(productName) ? existingLabel.ProductName : productName;
         existingLabel.LegalName = string.IsNullOrEmpty(legalName) ? existingLabel.LegalName : legalName;
-        existingLabel.IngredientsList = string.IsNullOrEmpty(ingredientsList) ? existingLabel.IngredientsList : ingredientsList;
+        existingLabel.IngredientsList =
+        string.IsNullOrEmpty(ingredientsList) ? existingLabel.IngredientsList : ingredientsList;
         existingLabel.Allergens = string.IsNullOrEmpty(allergens) ? existingLabel.Allergens : allergens;
         existingLabel.Nutritions = string.IsNullOrEmpty(nutritions) ? existingLabel.Nutritions : nutritions;
         existingLabel.Producer = string.IsNullOrEmpty(producer) ? existingLabel.Producer : producer;
         existingLabel.Distributor = string.IsNullOrEmpty(distributor) ? existingLabel.Distributor : distributor;
-        existingLabel.CountryOfOrigin = string.IsNullOrEmpty(countryOfOrigin) ? existingLabel.CountryOfOrigin : countryOfOrigin;
+        existingLabel.CountryOfOrigin =
+        string.IsNullOrEmpty(countryOfOrigin) ? existingLabel.CountryOfOrigin : countryOfOrigin;
         existingLabel.NetWeight = netWeight == 0 ? existingLabel.NetWeight : netWeight;
         existingLabel.NetVolume = netVolume == 0 ? existingLabel.NetVolume :netVolume;
         existingLabel.Storage = string.IsNullOrEmpty(storage) ? existingLabel.Storage : storage;
@@ -175,21 +169,22 @@ public class LabelController : ControllerBase
         existingLabel.BBE = bbe == new DateTime() ? existingLabel.BBE : bbe;
         existingLabel.Organic = organic == new Boolean() ? existingLabel.Organic : organic;
 
+        _labelRepository.Update(existingLabel);
+
         return Ok(existingLabel);
     }
     
     [HttpDelete("DeleteByIdAsync/{id}")]
     public async Task<ActionResult<Label>> DeleteByIdAsync(int id)
     {
-        Label existingLabel = Labels.FirstOrDefault(s=>s.Id == id);
+        Label existingLabel = _labelRepository.GetAll().FirstOrDefault(s=>s.Id == id);
         
         if (existingLabel == null)
         {
             return NotFound($"It is not possible to delete label. There is no label with id {id}.");
         }
 
-        Labels.Remove(existingLabel);
-        return Ok(Labels);
+        _labelRepository.Delete(existingLabel);
+        return Ok($"Label with id {id} has been deleted successfully.");
     }
-    */
 }

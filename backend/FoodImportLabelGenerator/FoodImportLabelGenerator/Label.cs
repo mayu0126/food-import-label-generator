@@ -12,9 +12,9 @@ public class Label
     public string? IngredientsList { get; set; }
     public string? Allergens { get; set; }
     public string Nutritions { get; set; }
-    public string Producer { get; set; }
+    public string? Producer { get; set; }
     public string Distributor { get; set; }
-    public string CountryOfOrigin { get; set; }
+    public string? CountryOfOrigin { get; set; }
     public int? NetWeight { get; set; }
     public int? NetVolume { get; set; }
     public string Storage { get; set; }
