@@ -1,9 +1,11 @@
 using System.Collections;
 using FoodImportLabelGenerator;
 using FoodImportLabelGenerator.Controllers;
+using FoodImportLabelGenerator.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using IConfiguration = Castle.Core.Configuration.IConfiguration;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace FoodImportLabelGeneratorTests;
 
@@ -11,29 +13,33 @@ public class LabelControllerUnitTests
 {
     private LabelController _labelController;
     private IConfiguration _configuration;
+    private Mock<ILogger<LabelController>> _loggerMock;
+    private Mock<ILabelRepository> _labelRepositoryMock;
 
     [SetUp]
     public void Setup()
     {
-        // Initializing the LabelController with a Mock ILogger and IConfiguration:
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory()) // Add the appropriate path
-            .AddJsonFile("appsettings.json") // Add configuration file
-            .Build();
-        
-        _labelController = new LabelController(new Microsoft.Extensions.Logging.Abstractions.NullLogger<LabelController>(), configuration);
+        _loggerMock = new Mock<ILogger<LabelController>>();
+        _configuration = new ConfigurationBuilder().Build();
+        _labelRepositoryMock = new Mock<ILabelRepository>();
+        _labelController = new LabelController(_loggerMock.Object, _configuration, _labelRepositoryMock.Object);
     }
-/*
+
     [Test]
-    public void GetAll_ReturnsOkResult()
+    public async Task GetAllAsync_ReturnsOkResult()
     {
+        // Arrange
+        IEnumerable<Label> allLabels = new[] { new Label(), new Label(), new Label() };
+        _labelRepositoryMock.Setup(x => x.GetAll()).Returns(allLabels);
+            
         // Act
-        ActionResult<IEnumerable<Label>> result = _labelController.GetAllAsync().Result;
+        var result = _labelController.GetAllAsync().Result;
 
         // Assert
         Assert.IsInstanceOf<OkObjectResult>(result.Result);
+        Assert.That(((OkObjectResult)result.Result).Value, Is.EqualTo(allLabels));
     }
-    /*
+/*
     [Test]
     public void GetByName_ReturnsOkResult()
     {
