@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc; //needed because this class derives from ControllerBase
+using FoodImportLabelGenerator.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore; //needed because this class derives from ControllerBase
 
 namespace FoodImportLabelGenerator.Controllers;
 
@@ -9,52 +11,35 @@ namespace FoodImportLabelGenerator.Controllers;
 [Route("[controller]")]
 public class LabelController : ControllerBase
 {
-
-    private static readonly List<Label> Labels = new()
-    {
-        new Label()
-        {
-            Id = 1,
-            Date = DateTime.Now,
-            LegalName = "Chocolate",
-            Nutritions = "calories",
-            Producer = "Mayu Kft.",
-            CountryOfOrigin = "Hungary",
-            NetWeight = 500,
-            Storage = "20 °C",
-            BBD = new DateTime(2023, 12,12),
-            Organic = false
-            
-        },
-        new Label()
-        {
-            Id = 2,
-            Date = DateTime.Now,
-            LegalName = "Candy",
-            Nutritions = "calories",
-            Producer = "Mayu Kft.",
-            CountryOfOrigin = "Hungary",
-            NetWeight = 300,
-            Storage = "25 °C",
-            BBD = new DateTime(2023, 10,30),
-            Organic = true
-            
-        }
-    };
-    
     private readonly ILogger<LabelController> _logger;
+    private readonly IConfiguration _configuration;
 
-    public LabelController(ILogger<LabelController> logger)
+    public LabelController(ILogger<LabelController> logger, IConfiguration configuration)
     {
         _logger = logger;
+        _configuration = configuration;
     }
 
     [HttpGet("GetAllAsync")]
     public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
-        return Ok(Labels);
+        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
+        var labels = await dbContext.Labels.ToListAsync();
+        if (labels == null)
+        {
+            return NotFound("There are no labels in the database.");
+        }
+        try
+        {
+            return Ok(labels);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting labels.");
+            return NotFound("Error getting labels.");
+        }
     }
-
+/*
     [HttpGet("GetByNameAsync")]
     public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync(string name)
     {
@@ -180,5 +165,5 @@ public class LabelController : ControllerBase
         Labels.Remove(existingLabel);
         return Ok(Labels);
     }
-    
+    */
 }
