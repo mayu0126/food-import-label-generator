@@ -1,3 +1,7 @@
+using FoodImportLabelGenerator;
+using FoodImportLabelGenerator.Data;
+using FoodImportLabelGenerator.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +11,8 @@ builder.Services.AddControllers(); // Registers Controller classes in the builde
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
 
 /*
 // A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)
@@ -31,5 +37,50 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers(); // Adds endpoints for controller actions without specifying any routes
+
+//string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+/*
+void InitializeDb()
+{
+    using var db = new FoodImportLabelGeneratorContext(new ConfigurationManager(), connectionString);
+    InitializeLabels();
+    PrintLabels();
+
+    void InitializeLabels()
+    {
+        db.Add(new Label
+        {
+            //Id = 1,
+            Date = DateTime.Now,
+            LegalName = "Chocolate",
+            Nutritions = "calories",
+            Producer = "Mayu Kft.",
+            Distributor = "Mayu Kft.",
+            CountryOfOrigin = "Hungary",
+            NetWeight = 500,
+            Storage = "20 °C",
+            BBD = new DateTime(2023, 12,12),
+            Organic = false
+        });
+        db.Add(new Label()
+        {
+            //Id = 2,
+            Date = DateTime.Now,
+            LegalName = "Candy",
+            Nutritions = "calories",
+            Producer = "Mayu Kft.",
+            Distributor = "Mayu Kft.",
+            CountryOfOrigin = "Hungary",
+            NetWeight = 300,
+            Storage = "25 °C",
+            BBD = new DateTime(2023, 10, 30),
+            Organic = true
+        });
+        db.SaveChanges(); // required to save changes
+    }
+}
+
+InitializeDb();
+*/
 
 app.Run(); // Starts the web server
