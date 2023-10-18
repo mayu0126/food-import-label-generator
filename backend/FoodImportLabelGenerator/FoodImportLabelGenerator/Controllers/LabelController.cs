@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using FoodImportLabelGenerator.Data;
+using FoodImportLabelGenerator.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; //needed because this class derives from ControllerBase
 
@@ -13,18 +14,19 @@ public class LabelController : ControllerBase
 {
     private readonly ILogger<LabelController> _logger;
     private readonly IConfiguration _configuration;
+    private readonly ILabelRepository _labelRepository;
 
-    public LabelController(ILogger<LabelController> logger, IConfiguration configuration)
+    public LabelController(ILogger<LabelController> logger, IConfiguration configuration, ILabelRepository labelRepository)
     {
         _logger = logger;
         _configuration = configuration;
+        _labelRepository = labelRepository;
     }
 
     [HttpGet("GetAllAsync")]
     public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
-        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        var labels = await dbContext.Labels.ToListAsync();
+        var labels = _labelRepository.GetAll();
         if (labels == null)
         {
             return NotFound("There are no labels in the database.");
@@ -35,41 +37,65 @@ public class LabelController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error getting labels.");
+            _logger.LogError(e, "Error getting labels");
             return NotFound("Error getting labels.");
         }
     }
 /*
     [HttpGet("GetByNameAsync")]
-    public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync(string name)
+    public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync([Required]string name)
     {
-        var labelsByName = Labels.Where(s => s.LegalName != null && s.LegalName.ToLower().Contains(name.ToLower()));
+        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
+        var labels = await dbContext.Labels.ToListAsync();
+        var labelsByName = labels.Where(s => s.LegalName.ToLower().Contains(name.ToLower()));
+        
         if (!labelsByName.Any())
         {
-            return NotFound($"There is no label with name {name}.");
+            return NotFound($"Cannot find label with name {name}.");
         }
-        return Ok(labelsByName);
+        try
+        {
+            return Ok(labelsByName);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting labels");
+            return NotFound("Error getting labels.");
+        }
     }
-    
+   
     [HttpGet("GetByIdAsync/{id}")]
     public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
-        Label existingLabel = Labels.FirstOrDefault(s=>s.Id == id);
+        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
+        var labels = await dbContext.Labels.ToListAsync();
+        
+        Label? existingLabel = labels.FirstOrDefault(s=>s.Id == id);
         
         if (existingLabel == null)
         {
-            return NotFound($"There is no label with id {id}.");
+            return NotFound($"Cannot find label with id {id}.");
         }
-
-        return Ok(existingLabel);
+        try
+        {
+            return Ok(existingLabel);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting labels");
+            return NotFound("Error getting labels.");
+        }
     }
-    
+
     [HttpPost("AddAsync")]
     public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? productName, [Required]string legalName,
         string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
         [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
     {
+        await using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
+        var labels = await dbContext.Labels.ToListAsync();
+        
         // Additional validation for mandatory parameters
         if (string.IsNullOrWhiteSpace(legalName))
         {
@@ -98,7 +124,7 @@ public class LabelController : ControllerBase
         
         Label newLabel = new Label()
         {
-            Id = Labels.Count()+1,
+            //Id = labels.Count()+1,
             Date = DateTime.Now,
             ProductName = productName,
             LegalName = legalName,
@@ -116,11 +142,11 @@ public class LabelController : ControllerBase
             BBE = bbe,
             Organic = organic
         };
-        Labels.Add(newLabel);
+        labels.Add(newLabel);
         
-        return Ok(Labels);
+        return Ok(labels);
     }
-
+/*
     [HttpPut("UpdateAsync/{id}")]
     public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,

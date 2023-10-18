@@ -1,5 +1,6 @@
 using FoodImportLabelGenerator;
 using FoodImportLabelGenerator.Data;
+using FoodImportLabelGenerator.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddControllers(); // Registers Controller classes in the builde
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
 
 /*
 // A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)
@@ -74,14 +77,6 @@ void InitializeDb()
             Organic = true
         });
         db.SaveChanges(); // required to save changes
-    }
-
-    void PrintLabels() // reads all the data from the Labels DbSet
-    {
-        foreach (var label in db.Labels)
-        {
-            Console.WriteLine(label.LegalName);
-        }
     }
 }
 

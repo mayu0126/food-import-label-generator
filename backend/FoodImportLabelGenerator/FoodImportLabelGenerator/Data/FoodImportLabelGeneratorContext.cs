@@ -4,7 +4,7 @@ namespace FoodImportLabelGenerator.Data;
 
 public class FoodImportLabelGeneratorContext : DbContext
 {
-    public DbSet<Label> Labels { get; set; }
+    public DbSet<Label>? Labels { get; set; }
     private readonly IConfiguration _configuration;
 
     public FoodImportLabelGeneratorContext(IConfiguration configuration)
@@ -16,5 +16,10 @@ public class FoodImportLabelGeneratorContext : DbContext
     {
         var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
         optionsBuilder.UseSqlServer(connectionString);
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        
     }
 }
