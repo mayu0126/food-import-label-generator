@@ -135,8 +135,8 @@ public class LabelController : ControllerBase
             Organic = organic
         };
         _labelRepository.Add(newLabel);
-
         return Ok("New label added successfully.");
+        //return Ok(new { Message = "New label added successfully.", Label = newLabel });
     }
 
     [HttpPut("UpdateAsync/{id}")]
@@ -144,7 +144,7 @@ public class LabelController : ControllerBase
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
         int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
     {
-        Label existingLabel = _labelRepository.GetAll().FirstOrDefault(s => s.Id == id);
+        Label existingLabel = _labelRepository.GetById(id);
 
         if (existingLabel == null)
         {
@@ -177,7 +177,7 @@ public class LabelController : ControllerBase
     [HttpDelete("DeleteByIdAsync/{id}")]
     public async Task<ActionResult<Label>> DeleteByIdAsync(int id)
     {
-        Label existingLabel = _labelRepository.GetAll().FirstOrDefault(s=>s.Id == id);
+        Label existingLabel = _labelRepository.GetById(id);
         
         if (existingLabel == null)
         {
