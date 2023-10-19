@@ -53,6 +53,8 @@ builder.Services
 
 // Application services
 builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
+builder.Services.AddDbContext<FoodImportLabelGeneratorContext>();
+builder.Services.AddDbContext<UsersContext>();
 
 var app = builder.Build(); // Create an instance of a WebApplication
 
