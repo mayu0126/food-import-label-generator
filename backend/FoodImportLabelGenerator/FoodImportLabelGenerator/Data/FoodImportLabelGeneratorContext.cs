@@ -15,7 +15,7 @@ public class FoodImportLabelGeneratorContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer(connectionString!);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
