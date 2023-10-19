@@ -1,8 +1,21 @@
+using System.Text;
 using FoodImportLabelGenerator;
 using FoodImportLabelGenerator.Data;
 using FoodImportLabelGenerator.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+var appSettings = configuration.GetSection("AppSettings");
+var validIssuer = appSettings["ValidIssuer"];
+var validAudience = appSettings["ValidAudience"];
+var issuerSigningKey = builder.Configuration["UserSecrets:IssuerSigningKey"];
 
 // Add services to the container.
 
@@ -12,13 +25,34 @@ builder.Services.AddControllers(); // Registers Controller classes in the builde
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
-
 /*
 // A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)
 builder.Services.AddControllers(
     options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 */
+
+// JWT token authentication scheme:
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ClockSkew = TimeSpan.Zero,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = validIssuer,
+            ValidAudience = validAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(issuerSigningKey!)
+            ),
+        };
+    });
+
+// Application services
+builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
 
 var app = builder.Build(); // Create an instance of a WebApplication
 
@@ -34,6 +68,7 @@ if (app.Environment.IsDevelopment())
 // More config steps
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers(); // Adds endpoints for controller actions without specifying any routes
@@ -42,41 +77,16 @@ app.MapControllers(); // Adds endpoints for controller actions without specifyin
 /*
 void InitializeDb()
 {
-    using var db = new FoodImportLabelGeneratorContext(new ConfigurationManager(), connectionString);
-    InitializeLabels();
+    using var db = new FoodImportLabelGeneratorContext(new ConfigurationManager());
+    db.Database.EnsureCreated();
     PrintLabels();
-
-    void InitializeLabels()
+    
+    void PrintLabels()
     {
-        db.Add(new Label
+        foreach (var label in db.Labels)
         {
-            //Id = 1,
-            Date = DateTime.Now,
-            LegalName = "Chocolate",
-            Nutritions = "calories",
-            Producer = "Mayu Kft.",
-            Distributor = "Mayu Kft.",
-            CountryOfOrigin = "Hungary",
-            NetWeight = 500,
-            Storage = "20 °C",
-            BBD = new DateTime(2023, 12,12),
-            Organic = false
-        });
-        db.Add(new Label()
-        {
-            //Id = 2,
-            Date = DateTime.Now,
-            LegalName = "Candy",
-            Nutritions = "calories",
-            Producer = "Mayu Kft.",
-            Distributor = "Mayu Kft.",
-            CountryOfOrigin = "Hungary",
-            NetWeight = 300,
-            Storage = "25 °C",
-            BBD = new DateTime(2023, 10, 30),
-            Organic = true
-        });
-        db.SaveChanges(); // required to save changes
+            Console.WriteLine($"{label.Id}, {label.LegalName}");
+        }
     }
 }
 

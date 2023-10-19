@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using FoodImportLabelGenerator.Data;
 using FoodImportLabelGenerator.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; //needed because this class derives from ControllerBase
 
@@ -23,7 +24,7 @@ public class LabelController : ControllerBase
         _labelRepository = labelRepository;
     }
 
-    [HttpGet("GetAllAsync")]
+    [HttpGet("GetAllAsync"), Authorize]
     public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
         var labels = _labelRepository.GetAll();
