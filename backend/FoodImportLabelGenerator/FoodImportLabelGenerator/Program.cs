@@ -2,7 +2,9 @@ using System.Text;
 using FoodImportLabelGenerator;
 using FoodImportLabelGenerator.Data;
 using FoodImportLabelGenerator.Repository;
+using FoodImportLabelGenerator.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,6 +57,21 @@ builder.Services
 builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
 builder.Services.AddDbContext<FoodImportLabelGeneratorContext>();
 builder.Services.AddDbContext<UsersContext>();
+
+builder.Services
+    .AddIdentityCore<IdentityUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddEntityFrameworkStores<UsersContext>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build(); // Create an instance of a WebApplication
 
