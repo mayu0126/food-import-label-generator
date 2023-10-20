@@ -9,10 +9,12 @@ namespace FoodImportLabelGenerator.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly string _defaultRole;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IServiceProvider serviceProvider)
     {
         _authService = authService;
+        _defaultRole = serviceProvider.GetRequiredService<string>();
     }
 
     [HttpPost("Register")]
@@ -22,8 +24,8 @@ public class AuthController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-
-        var result = await _authService.RegisterAsync(request.Email, request.Username, request.Password);
+        
+        var result = await _authService.RegisterAsync(request.Email, request.Username, request.Password, _defaultRole);
 
         if (!result.Success)
         {
@@ -41,4 +43,24 @@ public class AuthController : ControllerBase
             ModelState.AddModelError(error.Key, error.Value);
         }
     }
+    
+    [HttpPost("Login")]
+    public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _authService.LoginAsync(request.Email, request.Password);
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+
+        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+    }
+    
 }
