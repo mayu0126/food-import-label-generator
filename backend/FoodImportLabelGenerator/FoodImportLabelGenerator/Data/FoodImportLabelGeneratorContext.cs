@@ -1,3 +1,4 @@
+using FoodImportLabelGenerator.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodImportLabelGenerator.Data;
@@ -20,6 +21,9 @@ public class FoodImportLabelGeneratorContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        
+        builder.Entity<Label>()
+            .HasOne(label => label.User)
+            .WithMany()
+            .HasForeignKey(label => label.UserId);
     }
 }
