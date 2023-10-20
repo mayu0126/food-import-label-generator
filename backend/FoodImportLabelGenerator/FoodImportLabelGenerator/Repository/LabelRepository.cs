@@ -1,4 +1,5 @@
 using FoodImportLabelGenerator.Data;
+using FoodImportLabelGenerator.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodImportLabelGenerator.Repository;

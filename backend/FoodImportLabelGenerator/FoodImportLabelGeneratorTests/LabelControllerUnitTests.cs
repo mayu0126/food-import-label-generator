@@ -1,6 +1,7 @@
 using System.Collections;
 using FoodImportLabelGenerator;
 using FoodImportLabelGenerator.Controllers;
+using FoodImportLabelGenerator.Models;
 using FoodImportLabelGenerator.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

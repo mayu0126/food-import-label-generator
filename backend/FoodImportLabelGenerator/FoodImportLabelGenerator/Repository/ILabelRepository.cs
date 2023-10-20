@@ -1,3 +1,5 @@
+using FoodImportLabelGenerator.Models;
+
 namespace FoodImportLabelGenerator.Repository;
 
 public interface ILabelRepository

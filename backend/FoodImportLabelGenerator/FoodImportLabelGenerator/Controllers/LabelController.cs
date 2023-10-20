@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using FoodImportLabelGenerator.Data;
+using FoodImportLabelGenerator.Models;
 using FoodImportLabelGenerator.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
