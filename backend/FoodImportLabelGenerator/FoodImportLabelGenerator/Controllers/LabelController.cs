@@ -24,7 +24,7 @@ public class LabelController : ControllerBase
         _labelRepository = labelRepository;
     }
 
-    [HttpGet("GetAllAsync"), Authorize]
+    [HttpGet("GetAllAsync"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
         var labels = _labelRepository.GetAll();
@@ -43,7 +43,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByNameAsync")]
+    [HttpGet("GetByNameAsync"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync([Required]string name)
     {
         var labels = _labelRepository.GetByName(name);
