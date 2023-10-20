@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using FoodImportLabelGenerator.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -22,7 +23,7 @@ public class TokenService : ITokenService
         _validAudience = validAudience;
     }
 
-    public string CreateToken(IdentityUser user, string role)
+    public string CreateToken(User user, string role)
     {
         var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
         var token = CreateJwtToken(
@@ -44,7 +45,7 @@ public class TokenService : ITokenService
             signingCredentials: credentials
         );
 
-    private List<Claim> CreateClaims(IdentityUser user, string? role)
+    private List<Claim> CreateClaims(User user, string? role)
     {
         try
         {

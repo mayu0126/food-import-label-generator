@@ -1,6 +1,7 @@
 using System.Text;
 using FoodImportLabelGenerator;
 using FoodImportLabelGenerator.Data;
+using FoodImportLabelGenerator.Models;
 using FoodImportLabelGenerator.Repository;
 using FoodImportLabelGenerator.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -161,7 +162,7 @@ void AddAuthentication()
 void AddIdentity()
 {
     builder.Services
-        .AddIdentityCore<IdentityUser>(options =>
+        .AddIdentityCore<User>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = true;
@@ -206,11 +207,11 @@ void AddAdmin()
 async Task CreateAdminIfNotExists()
 {
     using var scope = app.Services.CreateScope();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
     var adminInDb = await userManager.FindByEmailAsync("admin@admin.com");
     if (adminInDb == null)
     {
-        var admin = new IdentityUser { UserName = "admin", Email = "admin@admin.com" };
+        var admin = new User { UserName = "admin", Email = "admin@admin.com" };
         var adminCreated = await userManager.CreateAsync(admin, "admin123");
 
         if (adminCreated.Succeeded)
