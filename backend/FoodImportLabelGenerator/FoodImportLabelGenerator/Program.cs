@@ -20,6 +20,8 @@ var validIssuer = appSettings["ValidIssuer"];
 var validAudience = appSettings["ValidAudience"];
 var issuerSigningKey = builder.Configuration["UserSecrets:IssuerSigningKey"];
 
+var defaultRole = appSettings["DefaultRole"];
+
 AddServices();
 ConfigureSwagger();
 AddDbContext();
@@ -84,6 +86,8 @@ void AddServices()
     // Add AuthService and TokenService as scoped services:
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService>(provider => new TokenService(issuerSigningKey!, validIssuer!, validAudience!));
+    
+    builder.Services.AddSingleton(defaultRole!); // Register the defaultRole in the IoC  (Inversion of Control) container to be available in the AuthController
     
     /*
     // A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)
