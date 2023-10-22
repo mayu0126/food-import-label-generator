@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodImportLabelGenerator.Data;
 
-public class FoodImportLabelGeneratorContext : DbContext
+public class TranslationsContext : DbContext
 {
-    public DbSet<Label>? Labels { get; set; }
+    public DbSet<Translation>? Translations { get; set; }
     private readonly IConfiguration _configuration;
 
-    public FoodImportLabelGeneratorContext(IConfiguration configuration)
+    public TranslationsContext(IConfiguration configuration)
     {
         _configuration = configuration;
     }
@@ -21,9 +21,6 @@ public class FoodImportLabelGeneratorContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Label>()
-            .HasOne(label => label.User)
-            .WithMany()
-            .HasForeignKey(label => label.UserId);
+        
     }
 }

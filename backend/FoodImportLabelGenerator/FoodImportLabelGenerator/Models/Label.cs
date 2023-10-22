@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FoodImportLabelGenerator;
+namespace FoodImportLabelGenerator.Models;
 
 public class Label
 {
     public int Id { get; init; }
+    public string? UserId { get; init; }
+    public User? User { get; init; }
     public DateTime Date { get; init; }
     public string? ProductName { get; set; }
     public string LegalName { get; set; }

@@ -1,10 +1,11 @@
+using FoodImportLabelGenerator.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodImportLabelGenerator.Data;
 
-public class UsersContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+public class UsersContext : IdentityDbContext<User, IdentityRole, string>
 {
     private readonly IConfiguration _configuration;
     
@@ -22,5 +23,9 @@ public class UsersContext : IdentityDbContext<IdentityUser, IdentityRole, string
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        // Configure User
+        modelBuilder.Entity<User>()
+            .Property(e => e.Id)
+            .ValueGeneratedOnAdd();
     }
 }
