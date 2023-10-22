@@ -44,7 +44,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByNameAsync"), Authorize(Roles = "Admin")]
+    [HttpGet("GetByNameAsync"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync([Required]string name)
     {
         var labels = _labelRepository.GetByName(name);
@@ -64,7 +64,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByIdAsync/{id}")]
+    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
         var label = _labelRepository.GetById(id);
@@ -84,7 +84,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpPost("AddAsync")]
+    [HttpPost("AddAsync"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? productName, [Required]string legalName,
         string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
@@ -141,7 +141,7 @@ public class LabelController : ControllerBase
         //return Ok(new { Message = "New label added successfully.", Label = newLabel });
     }
 
-    [HttpPut("UpdateAsync/{id}")]
+    [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
         int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
@@ -176,7 +176,7 @@ public class LabelController : ControllerBase
         return Ok(existingLabel);
     }
     
-    [HttpDelete("DeleteByIdAsync/{id}")]
+    [HttpDelete("DeleteByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Label>> DeleteByIdAsync(int id)
     {
         Label existingLabel = _labelRepository.GetById(id);

@@ -45,7 +45,7 @@ public class TranslationController : ControllerBase
     }
     
     
-    [HttpGet("GetByIdAsync/{id}")]
+    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Translation>> GetByIdAsync(int id)
     {
         var translation = _translationRepository.GetById(id);
@@ -105,7 +105,7 @@ public class TranslationController : ControllerBase
         }
     }
 
-    [HttpPost("AddAsync")]
+    [HttpPost("AddAsync"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<IEnumerable<Translation>>> AddAsync([Required]string englishWord, [Required]string hungarianWord)
     {
         // Additional validation for mandatory parameters
@@ -134,7 +134,7 @@ public class TranslationController : ControllerBase
         //return Ok(new { Message = "New translation added successfully.", Translation = newTranslation });
     }
 
-    [HttpPut("UpdateAsync/{id}")]
+    [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Translation>> UpdateAsync(int id, string englishWord, string hungarianWord)
     {
         Translation existingTranslation = _translationRepository.GetById(id);
@@ -152,7 +152,7 @@ public class TranslationController : ControllerBase
         return Ok(existingTranslation);
     }
     
-    [HttpDelete("DeleteByIdAsync/{id}")]
+    [HttpDelete("DeleteByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Translation>> DeleteByIdAsync(int id)
     {
         Translation existingTranslation = _translationRepository.GetById(id);
