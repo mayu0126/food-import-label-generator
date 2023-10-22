@@ -84,6 +84,7 @@ void AddServices()
     
     // Register the repository interfaces and implementations:
     builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
+    builder.Services.AddSingleton<ITranslationRepository, TranslationRepository>();
     
     // Add AuthService and TokenService as scoped services:
     builder.Services.AddScoped<IAuthService, AuthService>();
@@ -134,6 +135,7 @@ void AddDbContext()
 {
     builder.Services.AddDbContext<FoodImportLabelGeneratorContext>();
     builder.Services.AddDbContext<UsersContext>();
+    builder.Services.AddDbContext<TranslationsContext>();
 }
 
 void AddAuthentication()
