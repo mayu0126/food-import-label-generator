@@ -85,6 +85,7 @@ void AddServices()
     // Register the repository interfaces and implementations:
     builder.Services.AddSingleton<ILabelRepository, LabelRepository>();
     builder.Services.AddSingleton<ITranslationRepository, TranslationRepository>();
+    builder.Services.AddSingleton<IUserRepository, UserRepository>();
     
     // Add AuthService and TokenService as scoped services:
     builder.Services.AddScoped<IAuthService, AuthService>();
