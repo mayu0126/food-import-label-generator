@@ -45,13 +45,6 @@ public class UserRepository : IUserRepository
         return dbContext.Users.Where(u=>u.CompanyName!.ToLower().Contains(companyName.ToLower())).ToList();
     }
 
-    public void Add(User user)
-    {
-        using var dbContext = new UsersContext(_options, _configuration);
-        dbContext.Add(user);
-        dbContext.SaveChanges();
-    }
-
     public void Update(User updatedUser)
     {
         using var dbContext = new UsersContext(_options, _configuration);

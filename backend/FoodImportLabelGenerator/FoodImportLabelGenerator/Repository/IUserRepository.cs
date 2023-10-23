@@ -9,7 +9,6 @@ public interface IUserRepository
     User? GetByEmail(string email);
     User? GetById(string id);
     IEnumerable<User> GetByCompanyName(string companyName);
-    void Add(User user);
     void Update(User updatedUser);
     void Delete(User user);
 }
