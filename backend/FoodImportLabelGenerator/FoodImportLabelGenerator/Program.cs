@@ -105,7 +105,7 @@ void ConfigureSwagger()
     builder.Services.AddSwaggerGen(
         option =>
         {
-            option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+            option.SwaggerDoc("v1", new OpenApiInfo { Title = "Food Import Label Generator API", Version = "v1" });
             option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
