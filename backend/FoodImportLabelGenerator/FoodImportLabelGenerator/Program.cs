@@ -40,6 +40,8 @@ if (app.Environment.IsDevelopment())
     //app.UseDeveloperExceptionPage(); // Handy feature during development. In production: set up a custom exception page
 }
 
+app.UseCors("AllowAllOrigins");
+
 // More config steps
 app.UseHttpsRedirection();
 
@@ -98,6 +100,16 @@ void AddServices()
     builder.Services.AddControllers(
         options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
     */
+    
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllOrigins", builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+    });
 }
 
 void ConfigureSwagger()
