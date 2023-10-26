@@ -59,7 +59,7 @@ const LogIn = () => {
   */
 
   if (context.user) {
-    return <p>You are already logged in.</p>;
+    return <p className="mx-auto mt-20 max-w-xs py-10 sm:py-16 lg:py-20 text-rose-700">You are already logged in.</p>;
   }
 
   return (

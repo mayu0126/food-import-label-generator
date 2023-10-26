@@ -17,7 +17,7 @@ const CustomerForm = ({ onCancel, onSave, disabled, isRegister, errorMessage }) 
     };
 
     return (
-        <div className="mx-auto max-w-xs py-10 sm:py-16 lg:py-20"> {/* Adjust padding */}
+        <div className="mx-auto mt-20 max-w-xs py-10 sm:py-16 lg:py-20"> {/* Adjust padding */}
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
           {isRegister && (
             <div className="mb-4"> {/* Add margin bottom */}
