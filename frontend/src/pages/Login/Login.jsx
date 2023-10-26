@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import CustomerForm from "../../components/CustomerForm/CustomerForm.jsx";
+import CustomerForm from "../../components/CustomerForm/CustomerForm";
 import { UserContext } from "../../index";
 
 const loginUser = (user) => {
