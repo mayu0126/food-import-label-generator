@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const navigation = [
   { name: 'About us', href: 'aboutus' },
@@ -18,7 +19,7 @@ function Header() {
               src="https://i.pinimg.com/originals/bd/f7/54/bdf7546457ed6eabd9bafb318e4e07e0.png"
               alt=""
             />
-            <span className="text-xl font-bold leading-6 text-rose-600">RABERU</span>
+            <span className="text-xl font-bold leading-6 text-rose-600 hover:text-rose-500">RABERU</span>
           </a>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
@@ -29,12 +30,12 @@ function Header() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="register" className="text-sm font-semibold leading-6 text-gray-900 mr-5">
+          <Link to="/register" className="text-sm font-semibold leading-6 text-gray-900 mr-5">
             Register <span aria-hidden="true">&rarr;</span>
-          </a>
-          <a href="login" className="text-sm font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

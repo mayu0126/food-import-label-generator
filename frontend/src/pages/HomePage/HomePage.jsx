@@ -17,12 +17,12 @@ function HomePage() {
           Generate import labels for your food products
         </h1>
         <p className="mt-6 text-lg leading-8 text-gray-600">
-          Register and log in in order to make collections of your own labels and save them for future usage.
+            Create an account or log in to curate your own collections of labels and save them for future use
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <a
             href="getstarted"
-            className="rounded-md bg-rose-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-rose-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
           >
             Get started
           </a>
