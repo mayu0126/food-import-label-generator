@@ -10,6 +10,7 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import Register from './pages/Register';
 import LogIn from './pages/LogIn';
+import UserProfile from './pages/UserProfile';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/myprofile" element={<UserProfile />} />
       </Routes>
     </div>
   );

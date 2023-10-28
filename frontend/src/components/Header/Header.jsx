@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../index.js';
 
 const navigation = [
   { name: 'About us', href: 'aboutus' },
@@ -9,6 +11,9 @@ const navigation = [
 ];
 
 function Header() {
+
+  const context  = useContext(UserContext);
+
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -29,6 +34,7 @@ function Header() {
             </a>
           ))}
         </div>
+        {!context.user && (
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="/register" className="text-sm font-semibold leading-6 text-gray-900 mr-5">
             Register <span aria-hidden="true">&rarr;</span>
@@ -37,6 +43,19 @@ function Header() {
             Log in <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
+        )}
+        {context.user && (
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to="/myprofile" className="mr-12 text-sm font-bold leading-6  text-rose-600 hover:text-rose-500">
+              My profile 
+            </Link>
+            <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
+                <button type="button" onClick={context.logout}>
+                  Log Out <span aria-hidden="true">&rarr;</span>
+                </button>
+            </Link>
+          </div>
+        )}
       </nav>
     </header>
   );
