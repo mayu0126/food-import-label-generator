@@ -4,7 +4,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 import PropTypes from 'prop-types';
 
-const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled }) => {
+const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled, currentUser }) => {
 
     const context  = useContext(UserContext);
 
@@ -37,7 +37,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                     name="firstName"
                     id="firstName"
                     type="text"
-                    defaultValue={context.user.firstName}
+                    defaultValue={currentUser.firstName}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
@@ -48,7 +48,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                     name="lastName"
                     id="lastName"
                     type="text"
-                    defaultValue={context.user.lastName}
+                    defaultValue={currentUser.lastName}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
@@ -59,7 +59,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                     name="companyName"
                     id="companyName"
                     type="text"
-                    defaultValue={context.user.companyName}
+                    defaultValue={currentUser.companyName}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
@@ -70,7 +70,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                     name="phoneNumber"
                     id="phoneNumber"
                     type="text"
-                    defaultValue={context.user.phoneNumber}
+                    defaultValue={currentUser.phoneNumber}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="userName">
@@ -81,7 +81,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                     name="userName"
                     id="userName"
                     type="text"
-                    defaultValue={context.user.userName}
+                    defaultValue={currentUser.userName}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -92,7 +92,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                     name="email"
                     id="email"
                     type="email"
-                    defaultValue={context.user.email}
+                    defaultValue={currentUser.email}
                 />
     
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
