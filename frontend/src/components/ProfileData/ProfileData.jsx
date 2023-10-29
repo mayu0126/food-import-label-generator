@@ -28,17 +28,85 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
           {isEdit && (
             <>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="userName">
-                Username:
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                name="userName"
-                id="userName"
-                type="text"
-              />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+                    First name:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="firstName"
+                    id="firstName"
+                    type="text"
+                    defaultValue={context.user.firstName}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
+                    Last name:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="lastName"
+                    id="lastName"
+                    type="text"
+                    defaultValue={context.user.lastName}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
+                    Company name:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="companyName"
+                    id="companyName"
+                    type="text"
+                    defaultValue={context.user.companyName}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
+                    Phone number:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    type="text"
+                    defaultValue={context.user.phoneNumber}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="userName">
+                    Username:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="userName"
+                    id="userName"
+                    type="text"
+                    defaultValue={context.user.userName}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    Email:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="email"
+                    id="email"
+                    type="email"
+                    defaultValue={context.user.email}
+                />
+    
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                    New password:
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="password"
+                    name="password"
+                    id="password"
+                />
             </div>
-                <div className="flex items-center justify-between">
+
+            <div className="flex items-center justify-between">
                 <button
                 className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
@@ -61,30 +129,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
 
           {!isEdit && (
             <>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                Email:
-                </label>
-                <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                name="email"
-                id="email"
-                type="email"
-                />
-            </div>
-    
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                Password:
-                </label>
-                <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="password"
-                name="password"
-                id="password"
-                />
-            </div>
-    
+
             <div className="flex items-center justify-between">
                 <button
                 className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -92,7 +137,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled 
                 disabled={disabled}
                 onClick={() => onEdit()}
                 >
-                Edit
+                    Edit
                 </button>
             </div>
           </>

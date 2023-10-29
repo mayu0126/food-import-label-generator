@@ -36,7 +36,7 @@ function Header() {
         </div>
         {!context.user && (
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/register" className="text-sm font-semibold leading-6 text-gray-900 mr-5">
+          <Link to="/register" className="mr-12 text-sm font-semibold leading-6 text-gray-900">
             Register <span aria-hidden="true">&rarr;</span>
           </Link>
           <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">

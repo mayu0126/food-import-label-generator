@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import ProfileData from "../../components/ProfileData/ProfileData";
 
-const saveUserData = (user, userId) => {
+const saveUserData = (user, token) => {
     console.log(user);
+    console.log(token);
     const url = process.env.REACT_APP_MY_URL;
 
-    return fetch(`${url}/User/UpdateAsync/${userId}`, {
+    return fetch(`${url}/User/UpdateAsync/${user.userName}`, {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + user.token
+        "Authorization": "Bearer " + token
         },
         body: JSON.stringify(user),
     }).then((res) => {
@@ -41,11 +42,14 @@ function UserProfile() {
 
     const handleSaveProfileData = (user) => {
         setLoading(true);
-        saveUserData(user, context.user.id)
+        console.log(context.user);
+        console.log(context.user.userName);
+        console.log(context.user.token);
+        saveUserData(user, context.user.token)
           .then((data) => {
             setLoading(false);
             context.setUser(data); //set the user in the context
-            navigate("/myprofile");
+            //navigate("/myprofile");
           })
           .catch((error) => {
             setLoading(false);
