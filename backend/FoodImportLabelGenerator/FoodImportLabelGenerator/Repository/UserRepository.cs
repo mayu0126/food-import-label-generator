@@ -21,10 +21,10 @@ public class UserRepository : IUserRepository
         return dbContext.Users.ToList();
     }
 
-    public IEnumerable<User> GetByUserName(string userName)
+    public User GetByUserName(string userName)
     {
         using var dbContext = new UsersContext(_options, _configuration);
-        return dbContext.Users.Where(u => u.UserName!.ToLower().Contains(userName.ToLower())).ToList();
+        return dbContext.Users.Where(u => u.UserName == userName.ToLower()).ToList()[0];
     }
 
     public User? GetByEmail(string email)

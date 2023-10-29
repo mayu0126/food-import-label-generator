@@ -44,23 +44,23 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("GetByUserNameAsync"), Authorize(Roles = "Admin")]
-    public async Task<ActionResult<IEnumerable<User>>> GetByUserNameAsync([Required]string userName)
+    [HttpGet("GetByUserNameAsync"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<User>> GetByUserNameAsync([Required]string userName)
     {
-        var users = _userRepository.GetByUserName(userName);
+        var user = _userRepository.GetByUserName(userName);
 
-        if (!users.Any())
+        if (user == null)
         {
             return NotFound($"Cannot find user with username {userName}.");
         }
         try
         {
-            return Ok(users);
+            return Ok(user);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error getting users");
-            return NotFound("Error getting users");
+            _logger.LogError(e, "Error getting user");
+            return NotFound("Error getting user");
         }
     }
 
@@ -126,21 +126,24 @@ public class UserController : ControllerBase
     }
 
     
-    [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<User>> UpdateAsync(string id, string companyName, string firstName,
-        string lastName, string phoneNumber)
+    [HttpPut("UpdateAsync/{userName}"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<User>> UpdateAsync(string? firstName, string? lastName, string? companyName,
+        string? phoneNumber, string userName, string? email, string? newPassword)
     {
-        User existingUser = _userRepository.GetById(id)!;
+        User existingUser = _userRepository.GetByUserName(userName)!;
 
         if (existingUser == null)
         {
-            return NotFound($"It is not possible to update user. There is no user with id {id}.");
+            return NotFound($"It is not possible to update user. There is no user with username {userName}.");
         }
         
-        existingUser.CompanyName = string.IsNullOrEmpty(companyName) ? existingUser.CompanyName : companyName;
         existingUser.FirstName = string.IsNullOrEmpty(firstName) ? existingUser.FirstName : firstName;
         existingUser.LastName = string.IsNullOrEmpty(lastName) ? existingUser.LastName : lastName;
+        existingUser.CompanyName = string.IsNullOrEmpty(companyName) ? existingUser.CompanyName : companyName;
         existingUser.PhoneNumber = string.IsNullOrEmpty(phoneNumber) ? existingUser.PhoneNumber : phoneNumber;
+        existingUser.UserName = string.IsNullOrEmpty(userName) ? existingUser.UserName : userName;
+        existingUser.Email = string.IsNullOrEmpty(email) ? existingUser.Email : email;
+        //existingUser.Password = string.IsNullOrEmpty(password) ? existingUser.Password : password;
 
         _userRepository.Update(existingUser);
 
