@@ -1,15 +1,18 @@
-import React from 'react';
-import { useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import ProfileData from "../../components/ProfileData/ProfileData";
 
-const saveUserData = (user, token) => {
-    console.log(user);
-    console.log(token);
-    const url = process.env.REACT_APP_MY_URL;
+const url = process.env.REACT_APP_MY_URL;
 
-    return fetch(`${url}/User/UpdateAsync/${user.userName}`, {
+const saveUserData = (user, userId, token) => {
+    console.log(user);
+    console.log(userId);
+    console.log(token);
+
+    console.log(JSON.stringify(user));
+    
+    return fetch(`${url}/User/UpdateAsync/${userId}`, {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
@@ -37,18 +40,32 @@ function UserProfile() {
     const [errorMessage, setErrorMessage] = useState("");
     const [isEdit, setIsEdit] = useState(false);
     const [loading, setLoading] = useState(false);
-    const context = useContext(UserContext); //connect to UserContext
+    const [currentUser, setCurrentUser] = useState(""); //save actual user
+    const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log("belépett a useEffectbe")
+        fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
+            method: "GET",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + context.user.token
+            },
+        }).then((res) => res.json()).then((data) => setCurrentUser(data))
+    }, []);    
 
     const handleSaveProfileData = (user) => {
         setLoading(true);
-        console.log(context.user);
+        console.log(context.user); //who signed in
         console.log(context.user.userName);
         console.log(context.user.token);
-        saveUserData(user, context.user.token)
+        console.log(currentUser) //result of GET
+        saveUserData(user, currentUser.id, context.user.token)
           .then((data) => {
+            console.log(data);
             setLoading(false);
-            context.setUser(data); //set the user in the context
+            setCurrentUser(data); //set the user in the state
             //navigate("/myprofile");
           })
           .catch((error) => {
@@ -66,6 +83,7 @@ function UserProfile() {
         onSave={handleSaveProfileData}
         errorMessage={errorMessage}
         disabled={loading}
+        currentUser={currentUser}
     />
     );
 }
