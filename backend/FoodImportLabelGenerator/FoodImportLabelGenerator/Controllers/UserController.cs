@@ -44,7 +44,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("GetByUserNameAsync"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetByUserNameAsync/{userName}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<User>> GetByUserNameAsync([Required]string userName)
     {
         var user = _userRepository.GetByUserName(userName);
@@ -64,7 +64,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("GetByEmailAsync/{email}"), Authorize(Roles = "Admin")]
+    [HttpGet("GetByEmailAsync/{email}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<User>> GetByEmailAsync(string email)
     {
         var user = _userRepository.GetByEmail(email);
@@ -84,7 +84,7 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "Admin")]
+    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<User>> GetByIdAsync(string id)
     {
         var user = _userRepository.GetById(id);
@@ -126,15 +126,15 @@ public class UserController : ControllerBase
     }
 
     
-    [HttpPut("UpdateAsync/{userName}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<User>> UpdateAsync(string? firstName, string? lastName, string? companyName,
-        string? phoneNumber, string userName, string? email, string? newPassword)
+    [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<User>> UpdateAsync([FromRoute]string id, string? firstName, string? lastName, string? companyName,
+        string? phoneNumber, string? userName, string? email, string? newPassword)
     {
-        User existingUser = _userRepository.GetByUserName(userName)!;
+        User existingUser = _userRepository.GetById(id)!;
 
         if (existingUser == null)
         {
-            return NotFound($"It is not possible to update user. There is no user with username {userName}.");
+            return NotFound($"It is not possible to update user. There is no user with user id {id}.");
         }
         
         existingUser.FirstName = string.IsNullOrEmpty(firstName) ? existingUser.FirstName : firstName;
