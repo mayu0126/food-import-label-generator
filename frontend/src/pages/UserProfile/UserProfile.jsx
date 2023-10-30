@@ -41,6 +41,8 @@ function UserProfile() {
     const [errorMessage, setErrorMessage] = useState("");
     const [isEdit, setIsEdit] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
+
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const navigate = useNavigate();
@@ -79,12 +81,13 @@ function UserProfile() {
     return (
     <ProfileData
         isEdit={isEdit}
-        onEdit={() => setIsEdit(true)}
-        onCancel={() => setIsEdit(false)}
+        onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
+        onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
         onSave={(user, userName) => handleSaveProfileData(user, userName)}
         errorMessage={errorMessage}
         disabled={loading}
         currentUser={currentUser}
+        isDisabled={isDisabled}
     />
     );
 }

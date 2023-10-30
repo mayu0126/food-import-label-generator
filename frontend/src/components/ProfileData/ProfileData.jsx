@@ -4,7 +4,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 import PropTypes from 'prop-types';
 
-const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled, currentUser }) => {
+const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled, currentUser, isDisabled }) => {
 
     const context  = useContext(UserContext);
 
@@ -34,7 +34,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
     return (
         <div className="mx-auto mt-20 max-w-xs py-10 sm:py-16 lg:py-20">
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e, currentUser.userName)}>
-          {isEdit && (
+
             <>
             <div className="mb-4">
 
@@ -47,6 +47,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     id="firstName"
                     type="text"
                     defaultValue={currentUser.firstName}
+                    disabled={isDisabled}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
@@ -58,6 +59,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     id="lastName"
                     type="text"
                     defaultValue={currentUser.lastName}
+                    disabled={isDisabled}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
@@ -69,6 +71,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     id="companyName"
                     type="text"
                     defaultValue={currentUser.companyName}
+                    disabled={isDisabled}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
@@ -80,6 +83,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     id="phoneNumber"
                     type="text"
                     defaultValue={currentUser.phoneNumber}
+                    disabled={isDisabled}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="userName">
@@ -91,6 +95,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     id="userName"
                     type="text"
                     defaultValue={currentUser.userName}
+                    disabled={true}
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -102,10 +107,13 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     id="email"
                     type="email"
                     defaultValue={currentUser.email}
+                    disabled={isDisabled}
                 />
   
             </div>
+            </>
 
+            {isEdit && (
             <div className="flex items-center justify-between">
                 <button
                 className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -123,7 +131,6 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                 Cancel
                 </button>
             </div>
-            </>
           )}
   
 
