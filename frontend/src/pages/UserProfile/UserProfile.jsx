@@ -5,21 +5,22 @@ import ProfileData from "../../components/ProfileData/ProfileData";
 
 const url = process.env.REACT_APP_MY_URL;
 
-const saveUserData = (user, userId, token) => {
+const saveUserData = (user, userName, token) => {
     console.log(user);
-    console.log(userId);
+    console.log(userName);
     console.log(token);
 
     console.log(JSON.stringify(user));
     
-    return fetch(`${url}/User/UpdateAsync/${userId}`, {
+    return fetch(`${url}/User/UpdateAsync`, {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
+        //"Authorization": "Bearer " + token
         },
         body: JSON.stringify(user),
     }).then((res) => {
+        console.log(res)
         if (!res.ok) {
             return res.json().then((data) => {
                 let errorMessage = "Update failed";
@@ -55,13 +56,13 @@ function UserProfile() {
         }).then((res) => res.json()).then((data) => setCurrentUser(data))
     }, []);    
 
-    const handleSaveProfileData = (user) => {
+    const handleSaveProfileData = (user, userName) => {
         setLoading(true);
         console.log(context.user); //who signed in
         console.log(context.user.userName);
         console.log(context.user.token);
         console.log(currentUser) //result of GET
-        saveUserData(user, currentUser.id, context.user.token)
+        saveUserData(user, userName, context.user.token)
           .then((data) => {
             console.log(data);
             setLoading(false);
@@ -80,7 +81,7 @@ function UserProfile() {
         isEdit={isEdit}
         onEdit={() => setIsEdit(true)}
         onCancel={() => setIsEdit(false)}
-        onSave={handleSaveProfileData}
+        onSave={(user, userName) => handleSaveProfileData(user, userName)}
         errorMessage={errorMessage}
         disabled={loading}
         currentUser={currentUser}

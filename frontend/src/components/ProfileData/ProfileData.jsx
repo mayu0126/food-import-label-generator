@@ -8,9 +8,11 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
 
     const context  = useContext(UserContext);
 
-    const onSubmit = (e) => {
+    const onSubmit = (e, userName) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+
+    /*
         const entries = [...formData.entries()];
     
         const userData = entries.reduce((acc, entry) => {
@@ -18,13 +20,20 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
           acc[k] = v;
           return acc;
         }, {});
-    
-        return onSave(userData);
+    */
+
+        const updatedUser = {"id": currentUser.id};
+
+        for (let [key, value] of formData.entries()) {
+            updatedUser[key] = value;
+        }    
+
+        return onSave(updatedUser, userName);
     };
   
     return (
         <div className="mx-auto mt-20 max-w-xs py-10 sm:py-16 lg:py-20">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e, currentUser.userName)}>
           {isEdit && (
             <>
             <div className="mb-4">
@@ -94,16 +103,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
                     type="email"
                     defaultValue={currentUser.email}
                 />
-    
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                    New password:
-                </label>
-                <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    type="password"
-                    name="password"
-                    id="password"
-                />
+  
             </div>
 
             <div className="flex items-center justify-between">
