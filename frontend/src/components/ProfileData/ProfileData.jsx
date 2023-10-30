@@ -22,7 +22,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
         }, {});
     */
 
-        const updatedUser = {"id": currentUser.id};
+        const updatedUser = {"id": currentUser.id, "userName": currentUser.userName};
 
         for (let [key, value] of formData.entries()) {
             updatedUser[key] = value;
