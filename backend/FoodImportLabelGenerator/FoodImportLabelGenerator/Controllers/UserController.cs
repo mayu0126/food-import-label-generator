@@ -3,6 +3,7 @@ using FoodImportLabelGenerator.Data;
 using FoodImportLabelGenerator.Models;
 using FoodImportLabelGenerator.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; //needed because this class derives from ControllerBase
 
@@ -17,6 +18,7 @@ public class UserController : ControllerBase
     private readonly ILogger<UserController> _logger;
     private readonly IConfiguration _configuration;
     private readonly IUserRepository _userRepository;
+    private readonly UserManager<User> _userManager;
 
     public UserController(ILogger<UserController> logger, IConfiguration configuration, IUserRepository userRepository)
     {
@@ -126,28 +128,34 @@ public class UserController : ControllerBase
     }
 
     
-    [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<User>> UpdateAsync([FromRoute]string id, string? firstName, string? lastName, string? companyName,
-        string? phoneNumber, string? userName, string? email, string? newPassword)
+    [HttpPut("UpdateAsync"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<User>> UpdateAsync([FromBody] User userData)
     {
-        User existingUser = _userRepository.GetById(id)!;
-
-        if (existingUser == null)
+        try
         {
-            return NotFound($"It is not possible to update user. There is no user with user id {id}.");
+            User existingUser = _userRepository.GetByUserName(userData.UserName);
+
+            if (existingUser == null)
+            {
+                return NotFound($"It is not possible to update user. There is no user with username {userData.UserName}.");
+            }
+
+            existingUser.FirstName = string.IsNullOrEmpty(userData.FirstName) ? existingUser.FirstName : userData.FirstName;
+            existingUser.LastName = string.IsNullOrEmpty(userData.LastName) ? existingUser.LastName : userData.LastName;
+            existingUser.CompanyName = string.IsNullOrEmpty(userData.CompanyName) ? existingUser.CompanyName : userData.CompanyName;
+            existingUser.PhoneNumber = string.IsNullOrEmpty(userData.PhoneNumber) ? existingUser.PhoneNumber : userData.PhoneNumber;
+            existingUser.UserName = string.IsNullOrEmpty(userData.UserName) ? existingUser.UserName : userData.UserName;
+            existingUser.Email = string.IsNullOrEmpty(userData.Email) ? existingUser.Email : userData.Email;
+
+            _userRepository.Update(existingUser);
+
+            return Ok(existingUser);
         }
-        
-        existingUser.FirstName = string.IsNullOrEmpty(firstName) ? existingUser.FirstName : firstName;
-        existingUser.LastName = string.IsNullOrEmpty(lastName) ? existingUser.LastName : lastName;
-        existingUser.CompanyName = string.IsNullOrEmpty(companyName) ? existingUser.CompanyName : companyName;
-        existingUser.PhoneNumber = string.IsNullOrEmpty(phoneNumber) ? existingUser.PhoneNumber : phoneNumber;
-        existingUser.UserName = string.IsNullOrEmpty(userName) ? existingUser.UserName : userName;
-        existingUser.Email = string.IsNullOrEmpty(email) ? existingUser.Email : email;
-        //existingUser.Password = string.IsNullOrEmpty(password) ? existingUser.Password : password;
-
-        _userRepository.Update(existingUser);
-
-        return Ok(existingUser);
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating user");
+            throw;
+        }
     }
     
     [HttpDelete("DeleteByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
