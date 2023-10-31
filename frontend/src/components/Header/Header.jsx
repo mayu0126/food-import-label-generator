@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { React, useContext, useState } from 'react';
 import { UserContext } from '../../index.js';
 
 const navigation = [
@@ -13,6 +12,7 @@ const navigation = [
 function Header() {
 
   const context  = useContext(UserContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -45,17 +45,47 @@ function Header() {
         </div>
         )}
         {context.user && (
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="/myprofile" className="mr-12 text-sm font-bold leading-6  text-rose-600 hover:text-rose-500">
-              My profile 
-            </Link>
-            <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
-                <button type="button" onClick={context.logout}>
-                  Log Out <span aria-hidden="true">&rarr;</span>
-                </button>
-            </Link>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="relative group">
+            <button
+              className="mr-12 text-sm font-bold leading-6 text-rose-600 hover:text-rose-500 group"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              My profile {isMenuOpen ? <span aria-hidden="true">&uarr;</span> : <span aria-hidden="true">&darr;</span>}
+            </button>
+            {isMenuOpen && (
+              <ul className="absolute w-[max-content] left-0 mt-2 space-y-2 bg-white border border-gray-200 rounded-lg p-2" onMouseLeave={() => setIsMenuOpen(false)}>
+                <li className="px-4 py-2 font-semibold text-gray-900 pointer-events-none">
+                  {context.user.userName}
+                </li>
+                <li>
+                  <hr className="w-full border-t border-gray-200 my-1" />
+                </li>
+                <li>
+                  <Link to="/myprofile" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    Account information
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/mylabels" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    My labels
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/addnewlabel" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    Add new label
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
-        )}
+          <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
+            <button type="button" onClick={context.logout}>
+              Log Out <span aria-hidden="true">&rarr;</span>
+            </button>
+          </Link>
+        </div>
+      )}
       </nav>
     </header>
   );

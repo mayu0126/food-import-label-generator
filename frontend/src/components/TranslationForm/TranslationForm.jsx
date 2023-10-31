@@ -1,0 +1,1 @@
+// This component is responsible for the hungarian label data, which will be saved to the database

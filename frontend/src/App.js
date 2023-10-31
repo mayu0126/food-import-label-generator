@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage';
 import Register from './pages/Register';
 import LogIn from './pages/LogIn';
 import UserProfile from './pages/UserProfile';
+import UserLabels from './pages/UserLabels';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/myprofile" element={<UserProfile />} />
+        <Route path="/mylabels" element={<UserLabels />} />
       </Routes>
     </div>
   );
