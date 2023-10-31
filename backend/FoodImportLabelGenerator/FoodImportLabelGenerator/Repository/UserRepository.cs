@@ -21,22 +21,22 @@ public class UserRepository : IUserRepository
         return dbContext.Users.ToList();
     }
 
-    public User GetByUserName(string userName)
+    public User? GetByUserName(string userName)
     {
         using var dbContext = new UsersContext(_options, _configuration);
-        return dbContext.Users.Where(u => u.UserName == userName.ToLower()).ToList()[0];
+        return dbContext.Users.FirstOrDefault(u => u.UserName == userName);
     }
 
     public User? GetByEmail(string email)
     {
         using var dbContext = new UsersContext(_options, _configuration);
-        return dbContext.Users.FirstOrDefault(u=>u.Email == email);
+        return dbContext.Users.FirstOrDefault(u => u.Email == email);
     }
     
     public User? GetById(string id)
     {
         using var dbContext = new UsersContext(_options, _configuration);
-        return dbContext.Users.FirstOrDefault(u=>u.Id == id);
+        return dbContext.Users.FirstOrDefault(u => u.Id == id);
     }
     
     public IEnumerable<User> GetByCompanyName(string companyName)
