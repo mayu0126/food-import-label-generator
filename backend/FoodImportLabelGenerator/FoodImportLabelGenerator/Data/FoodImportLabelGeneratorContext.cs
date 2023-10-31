@@ -21,6 +21,8 @@ public class FoodImportLabelGeneratorContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+        
         builder.Entity<Label>()
             .HasOne(label => label.User)
             .WithMany()

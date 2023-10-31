@@ -24,4 +24,5 @@ public class Label
     public DateTime? BBD { get; set; }
     public DateTime? BBE { get; set; }
     public bool Organic { get; set; }
+    public string EAN { get; set; }
 }

@@ -88,7 +88,7 @@ public class LabelController : ControllerBase
     public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? productName, [Required]string legalName,
         string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
-        [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic)
+        [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic, [Required]string ean)
     {
         // Additional validation for mandatory parameters
         if (string.IsNullOrWhiteSpace(legalName))
@@ -109,6 +109,11 @@ public class LabelController : ControllerBase
         if (string.IsNullOrWhiteSpace(storage))
         {
             ModelState.AddModelError("storage", "Storage cannot be empty.");
+        }
+        
+        if (string.IsNullOrWhiteSpace(ean))
+        {
+            ModelState.AddModelError("ean", "EAN cannot be empty.");
         }
         
         if (!ModelState.IsValid)
@@ -134,7 +139,8 @@ public class LabelController : ControllerBase
             UBD = ubd,
             BBD = bbd,
             BBE = bbe,
-            Organic = organic
+            Organic = organic,
+            EAN = ean
         };
         _labelRepository.Add(newLabel);
         return Ok("New label added successfully.");
@@ -144,7 +150,7 @@ public class LabelController : ControllerBase
     [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
-        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic)
+        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic, string ean)
     {
         Label existingLabel = _labelRepository.GetById(id);
 
@@ -161,8 +167,7 @@ public class LabelController : ControllerBase
         existingLabel.Nutritions = string.IsNullOrEmpty(nutritions) ? existingLabel.Nutritions : nutritions;
         existingLabel.Producer = string.IsNullOrEmpty(producer) ? existingLabel.Producer : producer;
         existingLabel.Distributor = string.IsNullOrEmpty(distributor) ? existingLabel.Distributor : distributor;
-        existingLabel.CountryOfOrigin =
-        string.IsNullOrEmpty(countryOfOrigin) ? existingLabel.CountryOfOrigin : countryOfOrigin;
+        existingLabel.CountryOfOrigin = string.IsNullOrEmpty(countryOfOrigin) ? existingLabel.CountryOfOrigin : countryOfOrigin;
         existingLabel.NetWeight = netWeight == 0 ? existingLabel.NetWeight : netWeight;
         existingLabel.NetVolume = netVolume == 0 ? existingLabel.NetVolume :netVolume;
         existingLabel.Storage = string.IsNullOrEmpty(storage) ? existingLabel.Storage : storage;
@@ -170,6 +175,7 @@ public class LabelController : ControllerBase
         existingLabel.BBD = bbd == new DateTime() ? existingLabel.BBD : bbd;
         existingLabel.BBE = bbe == new DateTime() ? existingLabel.BBE : bbe;
         existingLabel.Organic = organic == new Boolean() ? existingLabel.Organic : organic;
+        existingLabel.EAN = string.IsNullOrEmpty(ean) ? existingLabel.EAN : ean;
 
         _labelRepository.Update(existingLabel);
 
