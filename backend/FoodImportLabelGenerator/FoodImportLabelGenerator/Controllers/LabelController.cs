@@ -25,7 +25,7 @@ public class LabelController : ControllerBase
         _labelRepository = labelRepository;
     }
 
-    [HttpGet("GetAllAsync"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetAllAsync"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
         var labels = _labelRepository.GetAll();
@@ -44,7 +44,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByNameAsync"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetByNameAsync"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync([Required]string name)
     {
         var labels = _labelRepository.GetByName(name);
@@ -64,7 +64,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
         var label = _labelRepository.GetById(id);
@@ -83,9 +83,29 @@ public class LabelController : ControllerBase
             return NotFound("Error getting labels.");
         }
     }
+    
+    [HttpGet("GetByUserIdAsync/{userId}"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<Label>> GetByIdAsync(string userId)
+    {
+        var label = _labelRepository.GetByUserId(userId);
+
+        if (label == null)
+        {
+            return NotFound($"Cannot find label with user id {userId}.");
+        }
+        try
+        {
+            return Ok(label);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting labels");
+            return NotFound("Error getting labels.");
+        }
+    }
 
     [HttpPost("AddAsync"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? productName, [Required]string legalName,
+    public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? userId, string? productName, [Required]string legalName,
         string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
         [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
         [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic, [Required]string ean)
@@ -124,6 +144,7 @@ public class LabelController : ControllerBase
         Label newLabel = new Label()
         {
             //Id = labels.Count()+1,
+            UserId = userId,
             Date = DateTime.Now,
             ProductName = productName,
             LegalName = legalName,
@@ -150,7 +171,7 @@ public class LabelController : ControllerBase
     [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
         string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
-        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic, string ean)
+        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic, string? ean)
     {
         Label existingLabel = _labelRepository.GetById(id);
 
@@ -158,7 +179,6 @@ public class LabelController : ControllerBase
         {
             return NotFound($"It is not possible to update label. There is no label with id {id}.");
         }
-        
         existingLabel.ProductName = string.IsNullOrEmpty(productName) ? existingLabel.ProductName : productName;
         existingLabel.LegalName = string.IsNullOrEmpty(legalName) ? existingLabel.LegalName : legalName;
         existingLabel.IngredientsList =
