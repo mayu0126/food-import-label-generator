@@ -85,17 +85,17 @@ public class LabelController : ControllerBase
     }
     
     [HttpGet("GetByUserIdAsync/{userId}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<Label>> GetByIdAsync(string userId)
+    public async Task<ActionResult<Label>> GetByUserIdAsync([FromRoute] string userId)
     {
-        var label = _labelRepository.GetByUserId(userId);
+        var labels = _labelRepository.GetByUserId(userId);
 
-        if (label == null)
+        if (labels == null)
         {
             return NotFound($"Cannot find label with user id {userId}.");
         }
         try
         {
-            return Ok(label);
+            return Ok(labels);
         }
         catch (Exception e)
         {
