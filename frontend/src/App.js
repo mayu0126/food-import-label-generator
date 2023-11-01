@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import LogIn from './pages/LogIn';
 import UserProfile from './pages/UserProfile';
 import UserLabels from './pages/UserLabels';
+import LabelTranslation from './pages/LabelTranslation';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/myprofile" element={<UserProfile />} />
         <Route path="/mylabels" element={<UserLabels />} />
+        <Route path="/addnewlabel" element={<LabelTranslation />} />
       </Routes>
     </div>
   );

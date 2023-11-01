@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import ProfileData from "../../components/ProfileData/ProfileData";
 
-const url = process.env.REACT_APP_MY_URL;
+//This page will GET the user's labels and use the LabelTable component to display them
+//If the user clicks on the label's name, itt will shows a Label component on a new page
+//"Add new label" function
 
+const url = process.env.REACT_APP_MY_URL;
+/*
 const saveUserData = (user, userName, token) => {
     console.log(user);
     console.log(userName);
@@ -36,8 +40,10 @@ const saveUserData = (user, userName, token) => {
         return res.json(); //if the response is "ok"
     });
 };
+*/
+function UserLabels() {
 
-function UserProfile() {
+    /*
     const [errorMessage, setErrorMessage] = useState("");
     const [isEdit, setIsEdit] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -48,7 +54,7 @@ function UserProfile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("GET profile data")
+        console.log("belépett a useEffectbe")
         fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
             method: "GET",
             headers: {
@@ -77,8 +83,9 @@ function UserProfile() {
             setErrorMessage(error.message);
           });
       };
-
-    return (
+*/
+    return (null
+        /*
     <ProfileData
         isEdit={isEdit}
         onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
@@ -89,7 +96,8 @@ function UserProfile() {
         currentUser={currentUser}
         isDisabled={isDisabled}
     />
+    */
     );
 }
 
-export default UserProfile;
+export default UserLabels;
