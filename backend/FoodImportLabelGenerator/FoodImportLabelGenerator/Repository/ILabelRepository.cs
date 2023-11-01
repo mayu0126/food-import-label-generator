@@ -7,7 +7,7 @@ public interface ILabelRepository
     IEnumerable<Label> GetAll();
     IEnumerable<Label> GetByName(string legalName); //if the value was not found, the method will return null
     Label? GetById(int id);
-    Label? GetByUserId(string userId);
+    IEnumerable<Label>? GetByUserId(string userId);
     void Add(Label label);
     void Update(Label updatedLabel);
     void Delete(Label label);

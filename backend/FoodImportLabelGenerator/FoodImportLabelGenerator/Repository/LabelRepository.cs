@@ -30,10 +30,10 @@ public class LabelRepository : ILabelRepository
         return dbContext.Labels!.FirstOrDefault(l=>l.Id == id);
     }
     
-    public Label? GetByUserId(string userId)
+    public IEnumerable<Label>? GetByUserId(string userId)
     {
-        using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        return dbContext.Labels!.FirstOrDefault(l=>l.UserId == userId);
+        var dbContext = new FoodImportLabelGeneratorContext(_configuration);
+        return dbContext.Labels!.Where(l=>l.UserId == userId);
     }
 
     public void Add(Label label)
