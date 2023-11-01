@@ -22,10 +22,17 @@ public class FoodImportLabelGeneratorContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        /*
+        builder.Entity<Label>()
+            .HasOne(label => label.User)
+            .WithMany()
+            .HasForeignKey(label => label.User_Id);
         
         builder.Entity<Label>()
             .HasOne(label => label.User)
             .WithMany()
-            .HasForeignKey(label => label.UserId);
+            .HasForeignKey(label => label.User_Id)
+            .HasPrincipalKey(user => user.Id);
+        */
     }
 }

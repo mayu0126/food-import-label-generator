@@ -117,7 +117,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock!.Setup(x => x.Add(newLabel));
     
             // Act
-            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, "Milk", null, null, "Nutritions", null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
+            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null,null, "Milk", null, null, "Nutritions", null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
     
             // Assert
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);
@@ -140,7 +140,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock!.Setup(x => x.Add(newLabel));
             
             // Act
-            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, null!, null, null, "Nutritions", null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
+            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, null, null!, null, null, "Nutritions", null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
     
             // Assert
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), result.Result);
@@ -162,7 +162,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock!.Setup(x => x.Add(newLabel));
             
             // Act
-            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, "Milk", null, null, null!, null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
+            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, null, "Milk", null, null, null!, null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
 
             // Assert
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), result.Result);
@@ -184,6 +184,7 @@ public class LabelControllerUnitTests
             };
             Label updatedLabel = new Label()
             {
+                UserId = null,
                 Id = 1,
                 ProductName = null,
                 LegalName = "UpdatedLegalName",

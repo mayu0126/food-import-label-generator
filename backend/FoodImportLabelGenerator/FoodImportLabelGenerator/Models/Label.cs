@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace FoodImportLabelGenerator.Models;
 
 public class Label
 {
     public int Id { get; init; }
-    public string? UserId { get; init; }
-    public User? User { get; init; }
+    public string? UserId { get; set; }
+    public User? User { get; set; }
     public DateTime Date { get; init; }
     public string? ProductName { get; set; }
     public string LegalName { get; set; }
