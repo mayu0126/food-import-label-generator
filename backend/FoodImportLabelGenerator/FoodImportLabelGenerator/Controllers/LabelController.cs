@@ -105,35 +105,32 @@ public class LabelController : ControllerBase
     }
 
     [HttpPost("AddAsync"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? userId, string? productName, [Required]string legalName,
-        string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
-        [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
-        [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic, [Required]string ean)
+    public async Task<ActionResult<IEnumerable<Label>>> AddAsync([FromBody] Label labelData)
     {
         // Additional validation for mandatory parameters
-        if (string.IsNullOrWhiteSpace(legalName))
+        if (string.IsNullOrWhiteSpace(labelData.LegalName))
         {
-            ModelState.AddModelError("legalName", "Legal name cannot be empty.");
+            ModelState.AddModelError("LegalName", "Legal name cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(nutritions))
+        if (string.IsNullOrWhiteSpace(labelData.Nutritions))
         {
-            ModelState.AddModelError("nutritions", "Nutritions cannot be empty.");
+            ModelState.AddModelError("Nutritions", "Nutritions cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(distributor))
+        if (string.IsNullOrWhiteSpace(labelData.Distributor))
         {
-            ModelState.AddModelError("distributor", "Distributor cannot be empty.");
+            ModelState.AddModelError("Distributor", "Distributor cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(storage))
+        if (string.IsNullOrWhiteSpace(labelData.Storage))
         {
-            ModelState.AddModelError("storage", "Storage cannot be empty.");
+            ModelState.AddModelError("Storage", "Storage cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(ean))
+        if (string.IsNullOrWhiteSpace(labelData.EAN))
         {
-            ModelState.AddModelError("ean", "EAN cannot be empty.");
+            ModelState.AddModelError("EAN", "EAN cannot be empty.");
         }
         
         if (!ModelState.IsValid)
@@ -144,24 +141,32 @@ public class LabelController : ControllerBase
         Label newLabel = new Label()
         {
             //Id = labels.Count()+1,
-            UserId = userId,
+            UserId = labelData.UserId,
             Date = DateTime.Now,
-            ProductName = productName,
-            LegalName = legalName,
-            IngredientsList = ingredientsList,
-            Allergens = allergens,
-            Nutritions = nutritions,
-            Producer = producer,
-            Distributor = distributor,
-            CountryOfOrigin = countryOfOrigin,
-            NetWeight = netWeight,
-            NetVolume = netVolume,
-            Storage = storage,
-            UBD = ubd,
-            BBD = bbd,
-            BBE = bbe,
-            Organic = organic,
-            EAN = ean
+            ProductName = labelData.ProductName,
+            LegalName = labelData.LegalName,
+            IngredientsList = labelData.IngredientsList,
+            Allergens = labelData.Allergens,
+            Nutritions = labelData.Nutritions,
+            Producer = labelData.Producer,
+            Distributor = labelData.Distributor,
+            CountryOfOrigin = labelData.CountryOfOrigin,
+            NetWeight = labelData.NetWeight,
+            NetVolume = labelData.NetVolume,
+            Storage = labelData.Storage,
+            UBD = labelData.UBD,
+            BBD = labelData.BBD,
+            BBE = labelData.BBE,
+            Organic = labelData.Organic,
+            EAN = labelData.EAN,
+            BestBeforeAdditionalInformation = labelData.BestBeforeAdditionalInformation,
+            BestBeforeText = labelData.BestBeforeText,
+            CookingInstructions = labelData.CookingInstructions,
+            HealthMark = labelData.HealthMark,
+            IngredientsListAdditionalInformation = labelData.IngredientsListAdditionalInformation,
+            LegalNameAdditionalInformation = labelData.LegalNameAdditionalInformation,
+            MainIngredientCOO = labelData.MainIngredientCOO,
+            MayContain = labelData.MayContain
         };
         _labelRepository.Add(newLabel);
         return Ok("New label added successfully.");
@@ -169,33 +174,38 @@ public class LabelController : ControllerBase
     }
 
     [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
-        string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
-        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic, string? ean)
+    public async Task<ActionResult<Label>> UpdateAsync([FromRoute] int id, [FromBody] Label labelData)
     {
-        Label existingLabel = _labelRepository.GetById(id);
+        Label existingLabel = _labelRepository.GetById(id)!;
 
         if (existingLabel == null)
         {
             return NotFound($"It is not possible to update label. There is no label with id {id}.");
         }
-        existingLabel.ProductName = string.IsNullOrEmpty(productName) ? existingLabel.ProductName : productName;
-        existingLabel.LegalName = string.IsNullOrEmpty(legalName) ? existingLabel.LegalName : legalName;
-        existingLabel.IngredientsList =
-        string.IsNullOrEmpty(ingredientsList) ? existingLabel.IngredientsList : ingredientsList;
-        existingLabel.Allergens = string.IsNullOrEmpty(allergens) ? existingLabel.Allergens : allergens;
-        existingLabel.Nutritions = string.IsNullOrEmpty(nutritions) ? existingLabel.Nutritions : nutritions;
-        existingLabel.Producer = string.IsNullOrEmpty(producer) ? existingLabel.Producer : producer;
-        existingLabel.Distributor = string.IsNullOrEmpty(distributor) ? existingLabel.Distributor : distributor;
-        existingLabel.CountryOfOrigin = string.IsNullOrEmpty(countryOfOrigin) ? existingLabel.CountryOfOrigin : countryOfOrigin;
-        existingLabel.NetWeight = netWeight == 0 ? existingLabel.NetWeight : netWeight;
-        existingLabel.NetVolume = netVolume == 0 ? existingLabel.NetVolume :netVolume;
-        existingLabel.Storage = string.IsNullOrEmpty(storage) ? existingLabel.Storage : storage;
-        existingLabel.UBD = ubd == new DateTime() ? existingLabel.UBD : ubd;
-        existingLabel.BBD = bbd == new DateTime() ? existingLabel.BBD : bbd;
-        existingLabel.BBE = bbe == new DateTime() ? existingLabel.BBE : bbe;
-        existingLabel.Organic = organic == new Boolean() ? existingLabel.Organic : organic;
-        existingLabel.EAN = string.IsNullOrEmpty(ean) ? existingLabel.EAN : ean;
+        existingLabel.ProductName = string.IsNullOrEmpty(labelData.ProductName) ? existingLabel.ProductName : labelData.ProductName;
+        existingLabel.LegalName = string.IsNullOrEmpty(labelData.LegalName) ? existingLabel.LegalName : labelData.LegalName;
+        existingLabel.IngredientsList = string.IsNullOrEmpty(labelData.IngredientsList) ? existingLabel.IngredientsList : labelData.IngredientsList;
+        existingLabel.Allergens = string.IsNullOrEmpty(labelData.Allergens) ? existingLabel.Allergens : labelData.Allergens;
+        existingLabel.Nutritions = string.IsNullOrEmpty(labelData.Nutritions) ? existingLabel.Nutritions : labelData.Nutritions;
+        existingLabel.Producer = string.IsNullOrEmpty(labelData.Producer) ? existingLabel.Producer : labelData.Producer;
+        existingLabel.Distributor = string.IsNullOrEmpty(labelData.Distributor) ? existingLabel.Distributor : labelData.Distributor;
+        existingLabel.CountryOfOrigin = string.IsNullOrEmpty(labelData.CountryOfOrigin) ? existingLabel.CountryOfOrigin : labelData.CountryOfOrigin;
+        existingLabel.NetWeight = labelData.NetWeight == 0 ? existingLabel.NetWeight : labelData.NetWeight;
+        existingLabel.NetVolume = labelData.NetVolume == 0 ? existingLabel.NetVolume : labelData.NetVolume;
+        existingLabel.Storage = string.IsNullOrEmpty(labelData.Storage) ? existingLabel.Storage : labelData.Storage;
+        existingLabel.UBD = labelData.UBD == new DateTime() ? existingLabel.UBD : labelData.UBD;
+        existingLabel.BBD = labelData.BBD == new DateTime() ? existingLabel.BBD : labelData.BBD;
+        existingLabel.BBE = labelData.BBE == new DateTime() ? existingLabel.BBE : labelData.BBE;
+        existingLabel.Organic = labelData.Organic == new Boolean() ? existingLabel.Organic : labelData.Organic;
+        existingLabel.EAN = string.IsNullOrEmpty(labelData.EAN) ? existingLabel.EAN : labelData.EAN;
+        existingLabel.BestBeforeAdditionalInformation = string.IsNullOrEmpty(labelData.BestBeforeAdditionalInformation) ? existingLabel.BestBeforeAdditionalInformation : labelData.BestBeforeAdditionalInformation;
+        existingLabel.BestBeforeText = string.IsNullOrEmpty(labelData.BestBeforeText) ? existingLabel.BestBeforeText : labelData.BestBeforeText;
+        existingLabel.CookingInstructions = string.IsNullOrEmpty(labelData.CookingInstructions) ? existingLabel.CookingInstructions : labelData.CookingInstructions;
+        existingLabel.HealthMark = string.IsNullOrEmpty(labelData.HealthMark) ? existingLabel.HealthMark : labelData.HealthMark;
+        existingLabel.IngredientsListAdditionalInformation = string.IsNullOrEmpty(labelData.IngredientsListAdditionalInformation) ? existingLabel.IngredientsListAdditionalInformation : labelData.IngredientsListAdditionalInformation;
+        existingLabel.LegalNameAdditionalInformation = string.IsNullOrEmpty(labelData.LegalNameAdditionalInformation) ? existingLabel.LegalNameAdditionalInformation : labelData.LegalNameAdditionalInformation;
+        existingLabel.MainIngredientCOO = string.IsNullOrEmpty(labelData.MainIngredientCOO) ? existingLabel.MainIngredientCOO : labelData.MainIngredientCOO;
+        existingLabel.MayContain = string.IsNullOrEmpty(labelData.MayContain) ? existingLabel.MayContain : labelData.MayContain;
 
         _labelRepository.Update(existingLabel);
 
