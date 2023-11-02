@@ -2,55 +2,45 @@ import { React, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import ProfileData from "../../components/ProfileData/ProfileData";
+import LabelForm from "../../components/LabelForm/LabelForm";
+import TranslationForm from "../../components/TranslationForm/TranslationForm";
 
-//This page will GET the user's labels and use the LabelTable component to display them
-//If the user clicks on the label's name, itt will shows a Label component on a new page
-//"Add new label" function
+//This page loads when the user clicks on the "Add new label" button
 
 const url = process.env.REACT_APP_MY_URL;
-/*
-const saveUserData = (user, userName, token) => {
-    console.log(user);
-    console.log(userName);
-    console.log(token);
 
-    console.log(JSON.stringify(user));
+const translateLabelData = (field, context) => {
+    console.log(field);
     
-    return fetch(`${url}/User/UpdateAsync`, {
-        method: "PUT",
+    return fetch(`${url}/Translation/GetByEnglishWordAsync/${field}`, {
+        method: "GET",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
+        "Authorization": "Bearer " + context.user.token
         },
-        body: JSON.stringify(user),
     }).then((res) => {
         console.log(res)
         if (!res.ok) {
             return res.json().then((data) => {
-                let errorMessage = "Update failed";
-                if (data) {
-                    if (data["Bad credentials"]) {
-                        errorMessage = data["Bad credentials"][0];
-                    }
-                }
-
+                console.log(data)
+                let errorMessage = "Get hungarian word failed";
                 throw new Error(errorMessage);
             });
         }
         return res.json(); //if the response is "ok"
     });
 };
-*/
-function UserLabels() {
 
-    /*
-    const [errorMessage, setErrorMessage] = useState("");
-    const [isEdit, setIsEdit] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(true);
+function LabelTranslation() {
 
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    /*
+    const [isEdit, setIsEdit] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -63,35 +53,50 @@ function UserLabels() {
             },
         }).then((res) => res.json()).then((data) => setCurrentUser(data))
     }, []);    
-
-    const handleSaveProfileData = (user, userName) => {
-        setLoading(true);
-        console.log(context.user); //who signed in
-        console.log(context.user.userName);
-        console.log(context.user.token);
-        console.log(currentUser) //result of GET
-        saveUserData(user, userName, context.user.token)
-          .then((data) => {
-            console.log(data);
-            setLoading(false);
-            setCurrentUser(data); //set the user in the state
-            //navigate("/myprofile");
-          })
-          .catch((error) => {
-            setLoading(false);
-            console.error("Edit error:", error.message);
-            setErrorMessage(error.message);
-          });
-      };
 */
-    return (null
+
+    const handleTranslation = (englishLabel) => {
+
+        //az englishLabel egy objektum, amelynek a "value" értékeit kellene lefordítani
+        //amire nem talál fordítást, azt úgy hagyja
+        //Object.values -> arrayt ad vissza, egyesével kéne mappelni és meghívni a GET fetchet
+
+        setLoading(true);
+        Object.values(englishLabel).map((field, index) => {
+            translateLabelData(field, context)
+            .then((data) => {
+                console.log(data);
+                setLoading(false);
+                //setCurrentUser(data);
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.error("Edit error:", error.message);
+                setErrorMessage(error.message);
+            });
+        })
+        
+      };
+
+    return (
+        <div className="flex justify-center items-center">
+        <div className="w-1/2 mr-4">
+            <LabelForm 
+                onSave={(englishLabel) => handleTranslation(englishLabel)}
+                errorMessage={errorMessage}
+            />
+        </div>
+        <div className="w-1/2 ml-4">
+          <TranslationForm />
+        </div>
+
+      </div>
+
         /*
     <ProfileData
         isEdit={isEdit}
         onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
         onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
-        onSave={(user, userName) => handleSaveProfileData(user, userName)}
-        errorMessage={errorMessage}
         disabled={loading}
         currentUser={currentUser}
         isDisabled={isDisabled}
@@ -100,4 +105,4 @@ function UserLabels() {
     );
 }
 
-export default UserLabels;
+export default LabelTranslation;
