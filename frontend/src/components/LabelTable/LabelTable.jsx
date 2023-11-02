@@ -6,7 +6,7 @@ const LabelTable = ({ labelData }) => {
   return (
     <div className="mx-auto mt-20 max-w-screen-xl py-10 sm:py-16 lg:py-20">
       <table className="bg-white shadow-md rounded w-full">
-        <thead>
+        <thead className="border-b-2 border-slate-300">
           <tr>
             <th className="text-left px-6 py-3">Date</th>
             <th className="text-left px-6 py-3">ProductName</th>
@@ -19,16 +19,16 @@ const LabelTable = ({ labelData }) => {
         </thead>
         <tbody>
           {labelData && labelData.map((item, index) => (
-            <tr key={index}>
+            <tr key={index} className="hover:bg-slate-200 border-b border-slate-200">
               <td className="px-6 py-4">{item.date.substring(0, 10)}</td>
-              <td className="px-6 py-4">{item.productName}</td>
+              <td className="px-6 py-4 font-bold text-rose-600">{item.productName}</td>
               <td className="px-6 py-4">{item.legalName}</td>
               <td className="px-6 py-4">{item.producer}</td>
               <td className="px-6 py-4">{item.distributor}</td>
               <td className="px-6 py-4">{item.ean}</td>
               <td className="px-6 py-4">
                 <Link
-                  className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   to={`/details/${item.id}`}
                 >
                   Details
