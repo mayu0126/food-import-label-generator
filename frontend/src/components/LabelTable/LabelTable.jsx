@@ -26,15 +26,14 @@ const LabelTable = ({ labelData, onDelete }) => {
               <td className="px-6 py-4">{item.producer}</td>
               <td className="px-6 py-4">{item.distributor}</td>
               <td className="px-6 py-4">{item.ean}</td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 flex items-center">
                 <Link
-                  className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                  to={`/details/${item.id}`}
-                >
+                  className="bg-slate-500 hover:bg-slate-400 text-white font-semibold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  to={`/details/${item.id}`}>
                   Details
                 </Link>
                 <button
-                  className="font-bold text-xl w-8 h-8 py-1 px-2 rounded ml-5 text-rose-500  hover:text-rose-600"
+                  className="flex items-center justify-center font-bold text-xl w-8 h-8 pb-1 rounded ml-5 text-rose-500  hover:text-rose-600"
                   type="button" onClick={() => onDelete(item.id)}>
                   x
                 </button>
