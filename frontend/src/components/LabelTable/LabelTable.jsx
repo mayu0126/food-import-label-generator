@@ -38,6 +38,13 @@ const LabelTable = ({ labelData }) => {
           ))}
         </tbody>
       </table>
+      <div className="flex mt-6 justify-center">
+        <Link
+          className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+          to="/addnewlabel">
+          Add new label
+        </Link>
+      </div>
     </div>
   );
 }
