@@ -117,7 +117,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock!.Setup(x => x.Add(newLabel));
     
             // Act
-            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null,null, "Milk", null, null, "Nutritions", null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
+            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(newLabel);
     
             // Assert
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);
@@ -140,7 +140,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock!.Setup(x => x.Add(newLabel));
             
             // Act
-            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, null, null!, null, null, "Nutritions", null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
+            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(newLabel);
     
             // Assert
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), result.Result);
@@ -162,7 +162,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock!.Setup(x => x.Add(newLabel));
             
             // Act
-            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(null, null, "Milk", null, null, null!, null, "Milkman Kft.", null, 0, 0, "Storage information", null, null, null, true, "5901234123457");
+            ActionResult<IEnumerable<Label>> result = await _labelController!.AddAsync(newLabel);
 
             // Assert
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), result.Result);
@@ -207,7 +207,7 @@ public class LabelControllerUnitTests
             _labelRepositoryMock.Setup(x => x.Update(updatedLabel));
 
             // Act
-            ActionResult<Label> result = await _labelController!.UpdateAsync(1, null, "UpdatedLegalName", null, null, "Nutritions", null, null, null, 0, 0, null, DateTime.Now, DateTime.Now, DateTime.Now, true, "5901234123457");
+            ActionResult<Label> result = await _labelController!.UpdateAsync(1, updatedLabel);
 
             // Assert
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);
@@ -223,7 +223,7 @@ public class LabelControllerUnitTests
               _labelRepositoryMock!.Setup(x => x.GetById(id)).Returns((Label)null!);
       
               // Act
-              ActionResult<Label> result = _labelController!.UpdateAsync(id, null, updatedLegalName, null, null, null, null, null, null, 0, 0, null, DateTime.Now, DateTime.Now, DateTime.Now, false, "5901234123457").Result;
+              ActionResult<Label> result = _labelController!.UpdateAsync(id, null!).Result;
       
               // Assert
               Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
