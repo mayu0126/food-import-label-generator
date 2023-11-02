@@ -213,7 +213,7 @@ public class LabelController : ControllerBase
     }
     
     [HttpDelete("DeleteByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<Label>> DeleteByIdAsync(int id)
+    public async Task<ActionResult<Label>> DeleteByIdAsync([FromRoute] int id)
     {
         Label existingLabel = _labelRepository.GetById(id);
         

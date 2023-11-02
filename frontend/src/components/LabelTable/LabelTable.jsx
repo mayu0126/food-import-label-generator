@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Importáld be a Link komponenst
 import PropTypes from 'prop-types';
 
-const LabelTable = ({ labelData }) => {
+const LabelTable = ({ labelData, onDelete }) => {
   return (
     <div className="mx-auto mt-20 max-w-screen-xl py-10 sm:py-16 lg:py-20">
       <table className="bg-white shadow-md rounded w-full">
@@ -33,6 +33,11 @@ const LabelTable = ({ labelData }) => {
                 >
                   Details
                 </Link>
+                <button
+                  className="font-bold text-xl w-8 h-8 py-1 px-2 rounded ml-5 text-rose-500  hover:text-rose-600"
+                  type="button" onClick={() => onDelete(item.id)}>
+                  x
+                </button>
               </td>
             </tr>
           ))}

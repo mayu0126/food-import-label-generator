@@ -10,6 +10,18 @@ import LabelTable from "../../components/LabelTable/LabelTable";
 
 const url = process.env.REACT_APP_MY_URL;
 
+const deleteLabel = (id, user) => {
+    console.log(id)
+    console.log(user)
+    console.log("LABEL DELETE")
+    return fetch(`${url}/Label/DeleteByIdAsync/${id}`, {
+        method: "DELETE",
+        headers: {
+        'Authorization': 'Bearer ' + user.token
+      },
+    });
+};
+
 function UserLabels() {
 
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
@@ -31,19 +43,29 @@ function UserLabels() {
     useEffect(() => {
         console.log("GET labels data")
         console.log(currentUser.id)
-        fetch(`${url}/Label/GetByUserIdAsync/4c4dae67-93d6-4550-8ad5-bc79e2a4c082`, {
+        fetch(`${url}/Label/GetByUserIdAsync/${currentUser.id}`, {
             method: "GET",
             headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + context.user.token
             },
         }).then((res) => res.json()).then((data) => setLabelData(data))
-    }, [currentUser]);    
+    }, [currentUser]);
+    
+    const handleDelete = (id) => {
+        console.log(`handleDelete ${id}`)
+        deleteLabel(id, context.user)
+        .then(() => {
+          //after a successful delete, updating the local state
+          setLabelData(labelData.filter(c => c.id !== id));
+        });
+    }
 
       console.log(labelData);
     return (
         <LabelTable
             labelData={labelData}
+            onDelete={handleDelete}
         />
     );
 }
