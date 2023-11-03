@@ -62,7 +62,12 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
         }, {});
 */
 
-        const updatedLabel = {"id": labelData.id, "userId": currentUser.userId}; //the 'id' may needed
+        const updatedLabel = {
+            "id": labelData.id,
+            "userId": currentUser.id,
+            //"date": labelData.date,
+            //"user": currentUser
+        };
 
         for (let [key, value] of formData.entries()) {
             updatedLabel[key] = value;
@@ -71,7 +76,6 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
         if(updatedLabel.organic === "on"){
             updatedLabel.organic = true;
         }
-        
         console.log(updatedLabel);
 
         return onSave(updatedLabel);

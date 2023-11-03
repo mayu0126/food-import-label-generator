@@ -29,28 +29,40 @@ function UserLabels() {
 
     const [labelData, setLabelData] = useState([]);
 
+    const [isCurrentUserLoaded, setIsCurrentUserLoaded] = useState(false);
+
     useEffect(() => {
-        console.log("GET profile data")
+        console.log("GET profile data");
         fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
             method: "GET",
             headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + context.user.token
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + context.user.token
             },
-        }).then((res) => res.json()).then((data) => setCurrentUser(data))
-    }, []);  
-
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setCurrentUser(data);
+            setIsCurrentUserLoaded(true); //indicates if currentUser is set
+        });
+    }, []);
+    
     useEffect(() => {
-        console.log("GET labels data")
-        console.log(currentUser.id)
-        fetch(`${url}/Label/GetByUserIdAsync/${currentUser.id}`, {
-            method: "GET",
-            headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + context.user.token
-            },
-        }).then((res) => res.json()).then((data) => setLabelData(data))
-    }, [currentUser]);
+        //runs only if the currentUser has value
+        if (isCurrentUserLoaded) {
+            console.log("GET labels data");
+            console.log(currentUser.id);
+            fetch(`${url}/Label/GetByUserIdAsync/${currentUser.id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + context.user.token
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => setLabelData(data));
+        }
+    }, [isCurrentUserLoaded, currentUser]);
     
     const handleDelete = (id) => {
         console.log(`handleDelete ${id}`)
