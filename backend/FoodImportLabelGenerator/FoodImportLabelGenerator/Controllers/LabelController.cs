@@ -182,30 +182,30 @@ public class LabelController : ControllerBase
         {
             return NotFound($"It is not possible to update label. There is no label with id {id}.");
         }
-        existingLabel.ProductName = string.IsNullOrEmpty(labelData.ProductName) ? existingLabel.ProductName : labelData.ProductName;
-        existingLabel.LegalName = string.IsNullOrEmpty(labelData.LegalName) ? existingLabel.LegalName : labelData.LegalName;
-        existingLabel.IngredientsList = string.IsNullOrEmpty(labelData.IngredientsList) ? existingLabel.IngredientsList : labelData.IngredientsList;
-        existingLabel.Allergens = string.IsNullOrEmpty(labelData.Allergens) ? existingLabel.Allergens : labelData.Allergens;
-        existingLabel.Nutritions = string.IsNullOrEmpty(labelData.Nutritions) ? existingLabel.Nutritions : labelData.Nutritions;
-        existingLabel.Producer = string.IsNullOrEmpty(labelData.Producer) ? existingLabel.Producer : labelData.Producer;
-        existingLabel.Distributor = string.IsNullOrEmpty(labelData.Distributor) ? existingLabel.Distributor : labelData.Distributor;
-        existingLabel.CountryOfOrigin = string.IsNullOrEmpty(labelData.CountryOfOrigin) ? existingLabel.CountryOfOrigin : labelData.CountryOfOrigin;
-        existingLabel.NetWeight = labelData.NetWeight == 0 ? existingLabel.NetWeight : labelData.NetWeight;
-        existingLabel.NetVolume = labelData.NetVolume == 0 ? existingLabel.NetVolume : labelData.NetVolume;
-        existingLabel.Storage = string.IsNullOrEmpty(labelData.Storage) ? existingLabel.Storage : labelData.Storage;
+        existingLabel.ProductName = labelData.ProductName;
+        existingLabel.LegalName = labelData.LegalName;
+        existingLabel.IngredientsList = labelData.IngredientsList;
+        existingLabel.Allergens = labelData.Allergens;
+        existingLabel.Nutritions = labelData.Nutritions;
+        existingLabel.Producer = labelData.Producer;
+        existingLabel.Distributor = labelData.Distributor;
+        existingLabel.CountryOfOrigin = labelData.CountryOfOrigin;
+        existingLabel.NetWeight = labelData.NetWeight;
+        existingLabel.NetVolume = labelData.NetVolume;
+        existingLabel.Storage = labelData.Storage;
         existingLabel.UBD = labelData.UBD == new DateTime() ? existingLabel.UBD : labelData.UBD;
         existingLabel.BBD = labelData.BBD == new DateTime() ? existingLabel.BBD : labelData.BBD;
         existingLabel.BBE = labelData.BBE == new DateTime() ? existingLabel.BBE : labelData.BBE;
         existingLabel.Organic = labelData.Organic;
-        existingLabel.EAN = string.IsNullOrEmpty(labelData.EAN) ? existingLabel.EAN : labelData.EAN;
-        existingLabel.BestBeforeAdditionalInformation = string.IsNullOrEmpty(labelData.BestBeforeAdditionalInformation) ? existingLabel.BestBeforeAdditionalInformation : labelData.BestBeforeAdditionalInformation;
-        existingLabel.BestBeforeText = string.IsNullOrEmpty(labelData.BestBeforeText) ? existingLabel.BestBeforeText : labelData.BestBeforeText;
-        existingLabel.CookingInstructions = string.IsNullOrEmpty(labelData.CookingInstructions) ? existingLabel.CookingInstructions : labelData.CookingInstructions;
+        existingLabel.EAN = labelData.EAN;
+        existingLabel.BestBeforeAdditionalInformation = labelData.BestBeforeAdditionalInformation;
+        existingLabel.BestBeforeText = labelData.BestBeforeText;
+        existingLabel.CookingInstructions = labelData.CookingInstructions;
         existingLabel.HealthMark = labelData.HealthMark;
-        existingLabel.IngredientsListAdditionalInformation = string.IsNullOrEmpty(labelData.IngredientsListAdditionalInformation) ? existingLabel.IngredientsListAdditionalInformation : labelData.IngredientsListAdditionalInformation;
-        existingLabel.LegalNameAdditionalInformation = string.IsNullOrEmpty(labelData.LegalNameAdditionalInformation) ? existingLabel.LegalNameAdditionalInformation : labelData.LegalNameAdditionalInformation;
-        existingLabel.MainIngredientCOO = string.IsNullOrEmpty(labelData.MainIngredientCOO) ? existingLabel.MainIngredientCOO : labelData.MainIngredientCOO;
-        existingLabel.MayContain = string.IsNullOrEmpty(labelData.MayContain) ? existingLabel.MayContain : labelData.MayContain;
+        existingLabel.IngredientsListAdditionalInformation = labelData.IngredientsListAdditionalInformation;
+        existingLabel.LegalNameAdditionalInformation = labelData.LegalNameAdditionalInformation;
+        existingLabel.MainIngredientCOO = labelData.MainIngredientCOO;
+        existingLabel.MayContain = labelData.MayContain;
 
         _labelRepository.Update(existingLabel);
 
