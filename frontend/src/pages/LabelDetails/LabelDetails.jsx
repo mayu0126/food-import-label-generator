@@ -7,23 +7,17 @@ import TranslationForm from "../../components/TranslationForm/TranslationForm";
 
 
 const url = process.env.REACT_APP_MY_URL;
-/*
-const saveUserData = (user, userName, token) => {
-    console.log(user);
-    console.log(userName);
-    console.log(token);
 
-    console.log(JSON.stringify(user));
+const saveLabelData = (updatedLabel, user) => {
     
-    return fetch(`${url}/User/UpdateAsync`, {
+    return fetch(`${url}/Label/UpdateAsync/${updatedLabel.id}`, {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
+        "Authorization": "Bearer " + user.token
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(updatedLabel),
     }).then((res) => {
-        console.log(res)
         if (!res.ok) {
             return res.json().then((data) => {
                 let errorMessage = "Update failed";
@@ -39,18 +33,18 @@ const saveUserData = (user, userName, token) => {
         return res.json(); //if the response is "ok"
     });
 };
-*/
+
 function LabelDetails() {
 
     const { id } = useParams();
     const [errorMessage, setErrorMessage] = useState("");
     const [labelData, setLabelData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const [isEdit, setIsEdit] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
 
-    //const [currentUser, setCurrentUser] = useState(""); //save actual user
+    const context = useContext(UserContext); //connect to UserContext - email, userName, token
+    const [currentUser, setCurrentUser] = useState(""); //save actual user
     //const navigate = useNavigate();
 
     useEffect(() => {
@@ -62,29 +56,37 @@ function LabelDetails() {
             "Authorization": "Bearer " + context.user.token
             },
         }).then((res) => res.json()).then((data) => setLabelData(data))
-    }, [id]);    
+    }, [id]);
+    
+    useEffect(() => {
+        console.log("GET profile data")
+        fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
+            method: "GET",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + context.user.token
+            },
+        }).then((res) => res.json()).then((data) => setCurrentUser(data))
+    }, []); 
 
 
     const handleSaveLabelData = (updatedLabel) => {
-        /*
+
         setLoading(true);
-        console.log(context.user); //who signed in
-        console.log(context.user.userName);
-        console.log(context.user.token);
-        console.log(currentUser) //result of GET
-        saveUserData(user, userName, context.user.token)
+
+        saveLabelData(updatedLabel, context.user)
           .then((data) => {
             console.log(data);
             setLoading(false);
-            setCurrentUser(data); //set the user in the state
-            //navigate("/myprofile");
+            setLabelData(data); //set the label in the state
+            //navigate("/mylabels");
           })
           .catch((error) => {
             setLoading(false);
             console.error("Edit error:", error.message);
             setErrorMessage(error.message);
           });
-        */
+
       };
 
     return (
@@ -100,8 +102,8 @@ function LabelDetails() {
                     onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
                     onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
                     onSave={(updatedLabel) => handleSaveLabelData(updatedLabel)}
+                    currentUser={currentUser}
                     //onAmend={(updatedLabel) => onAmend(updatedLabel)}
-                    //currentUser={currentUser}
                 />
             </div>
             ) : (

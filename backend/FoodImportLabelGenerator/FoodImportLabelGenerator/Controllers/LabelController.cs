@@ -196,12 +196,12 @@ public class LabelController : ControllerBase
         existingLabel.UBD = labelData.UBD == new DateTime() ? existingLabel.UBD : labelData.UBD;
         existingLabel.BBD = labelData.BBD == new DateTime() ? existingLabel.BBD : labelData.BBD;
         existingLabel.BBE = labelData.BBE == new DateTime() ? existingLabel.BBE : labelData.BBE;
-        existingLabel.Organic = labelData.Organic == new Boolean() ? existingLabel.Organic : labelData.Organic;
+        existingLabel.Organic = labelData.Organic;
         existingLabel.EAN = string.IsNullOrEmpty(labelData.EAN) ? existingLabel.EAN : labelData.EAN;
         existingLabel.BestBeforeAdditionalInformation = string.IsNullOrEmpty(labelData.BestBeforeAdditionalInformation) ? existingLabel.BestBeforeAdditionalInformation : labelData.BestBeforeAdditionalInformation;
         existingLabel.BestBeforeText = string.IsNullOrEmpty(labelData.BestBeforeText) ? existingLabel.BestBeforeText : labelData.BestBeforeText;
         existingLabel.CookingInstructions = string.IsNullOrEmpty(labelData.CookingInstructions) ? existingLabel.CookingInstructions : labelData.CookingInstructions;
-        existingLabel.HealthMark = string.IsNullOrEmpty(labelData.HealthMark) ? existingLabel.HealthMark : labelData.HealthMark;
+        existingLabel.HealthMark = labelData.HealthMark;
         existingLabel.IngredientsListAdditionalInformation = string.IsNullOrEmpty(labelData.IngredientsListAdditionalInformation) ? existingLabel.IngredientsListAdditionalInformation : labelData.IngredientsListAdditionalInformation;
         existingLabel.LegalNameAdditionalInformation = string.IsNullOrEmpty(labelData.LegalNameAdditionalInformation) ? existingLabel.LegalNameAdditionalInformation : labelData.LegalNameAdditionalInformation;
         existingLabel.MainIngredientCOO = string.IsNullOrEmpty(labelData.MainIngredientCOO) ? existingLabel.MainIngredientCOO : labelData.MainIngredientCOO;

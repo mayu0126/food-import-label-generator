@@ -6,10 +6,49 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 import PropTypes from 'prop-types';
 
-const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel }) => {
+const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser }) => {
 
     const context  = useContext(UserContext);
+/*
+    const [formData, setFormData] = useState({
+        dateType: '',
+        date: '',
+      });
+    
+      const handleInputChange = (e) => {
+        console.log(e.target);
+        const { name, value } = e.target;
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+        console.log(formData);
+      };
 
+    <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateType">
+        Choose date type:
+    </label>
+    <select
+        name="dateType"
+        id="dateType"
+        value={formData.dateType}
+        onChange={handleInputChange}
+    >
+        <option value="useByDate">Use by date</option>
+        <option value="bestBeforeDate">Best before date</option>
+        <option value="bestBeforeEnd">Best before end</option>
+    </select>
+    <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="date">
+        Date:
+    </label>
+    <input
+        name={formData.dateType} // A kiválasztott érték lesz a "name" kulcs
+        id={formData.dateType}   // A kiválasztott érték lesz az "id" kulcs
+        type="date"
+        value={formData.date}
+        onChange={handleInputChange}
+    />
+*/
     const onSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -23,11 +62,17 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
         }, {});
 */
 
-        const updatedLabel = {}; //the 'id' may needed
+        const updatedLabel = {"id": labelData.id, "userId": currentUser.userId}; //the 'id' may needed
 
         for (let [key, value] of formData.entries()) {
             updatedLabel[key] = value;
-        }    
+        }
+
+        if(updatedLabel.organic === "on"){
+            updatedLabel.organic = true;
+        }
+        
+        console.log(updatedLabel);
 
         return onSave(updatedLabel);
     };
@@ -93,7 +138,7 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalNameAdditionalInformation">
                     Additional information - legal name:
                 </label>
-                <input
+                <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="legalNameAdditionalInformation"
                     id="legalNameAdditionalInformation"
@@ -127,7 +172,7 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsListAdditionalInformation">
                     Additional information - ingredients list:
                 </label>
-                <input
+                <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="IngredientsListAdditionalInformation"
                     id="IngredientsListAdditionalInformation"
@@ -234,15 +279,16 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeAdditionalInformation">
                     Additional information - best before:
                 </label>
-                <input
+                <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="bestBeforeAdditionalInformation"
                     id="bestBeforeAdditionalInformation"
-                    type="text"
                     defaultValue={labelData.bestBeforeAdditionalInformation}
                     disabled={isDisabled}
                 />
 
+            <div className='border-x border-rose-400 px-3 rounded'>
+                <div className='text-rose-600 text-xs'>Please provide one of the below fields:</div>
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netWeight">
                     Net weight:
                 </label>
@@ -254,7 +300,6 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                     defaultValue={labelData.netWeight}
                     disabled={isDisabled}
                 />
-
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netVolume">
                     Net volume:
                 </label>
@@ -266,6 +311,7 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                     defaultValue={labelData.netVolume}
                     disabled={isDisabled}
                 />
+            </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ean">
                     EAN code:
@@ -279,19 +325,29 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                     disabled={isDisabled}
                 />
 
-
-                <label className="text-gray-700 text-sm font-bold" htmlFor="organic">
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="organic">
                     Organic:
                 </label>
                 <input
-                    className="mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:bg-transparent checked:border-2 checked:border-gray-500 focus:outline-none"
+                    className="mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:bg-transparent checked:border-2 checked:bg-rose-600 focus:outline-none relative"
                     type="checkbox"
                     name="organic"
                     id="organic"
-                    defaultValue={labelData.organic}
+                    defaultChecked={labelData.organic}
                     disabled={isDisabled}
                 />
-                
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="healthMark">
+                    Health mark:
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="healthMark"
+                    id="healthMark"
+                    type="text"
+                    defaultValue={labelData.healthMark}
+                    disabled={isDisabled}
+                />
   
             </div>
             </>
