@@ -23,8 +23,8 @@ public class Label
     public string Distributor { get; set; }
     public string? CountryOfOrigin { get; set; }
     public string? MainIngredientCOO { get; set; }
-    public int? NetWeight { get; set; }
-    public int? NetVolume { get; set; }
+    public string? NetWeight { get; set; }
+    public string? NetVolume { get; set; }
     public string Storage { get; set; }
     public string? BestBeforeText {get; set;}
     public DateTime? UBD { get; set; }
