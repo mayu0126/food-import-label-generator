@@ -27,5 +27,12 @@ public class UsersContext : IdentityDbContext<User, IdentityRole, string>
         modelBuilder.Entity<User>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
+        
+        // Configure connections
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Labels)
+            .WithOne(l => l.User)
+            .HasForeignKey(l => l.UserId);
+
     }
 }

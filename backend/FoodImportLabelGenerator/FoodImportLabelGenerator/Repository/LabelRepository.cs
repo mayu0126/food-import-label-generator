@@ -15,19 +15,25 @@ public class LabelRepository : ILabelRepository
     public IEnumerable<Label> GetAll()
     {
         using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        return dbContext.Labels.ToList();
+        return dbContext.Labels!.ToList();
     }
 
     public IEnumerable<Label> GetByName(string legalName)
     {
         using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        return dbContext.Labels.Where(s => s.LegalName.ToLower().Contains(legalName.ToLower())).ToList();
+        return dbContext.Labels!.Where(l => l.LegalName.ToLower().Contains(legalName.ToLower())).ToList();
     }
 
     public Label? GetById(int id)
     {
         using var dbContext = new FoodImportLabelGeneratorContext(_configuration);
-        return dbContext.Labels.FirstOrDefault(s=>s.Id == id);
+        return dbContext.Labels!.FirstOrDefault(l=>l.Id == id);
+    }
+    
+    public IEnumerable<Label>? GetByUserId(string userId)
+    {
+        var dbContext = new FoodImportLabelGeneratorContext(_configuration);
+        return dbContext.Labels!.Where(l=>l.UserId == userId);
     }
 
     public void Add(Label label)

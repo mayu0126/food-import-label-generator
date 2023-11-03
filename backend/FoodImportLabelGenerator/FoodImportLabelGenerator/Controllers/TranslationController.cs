@@ -65,8 +65,8 @@ public class TranslationController : ControllerBase
         }
     }
 
-    [HttpGet("GetByEnglishWordAsync"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<IEnumerable<Translation>>> GetByEnglishAsync([Required]string englishWord)
+    [HttpGet("GetByEnglishWordAsync/{englishWord}"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<Translation>> GetByEnglishAsync([FromRoute]string englishWord)
     {
         var translations = _translationRepository.GetByEnglishWord(englishWord);
 
@@ -76,7 +76,7 @@ public class TranslationController : ControllerBase
         }
         try
         {
-            return Ok(translations);
+            return Ok(translations.ToList()[0]);
         }
         catch (Exception e)
         {

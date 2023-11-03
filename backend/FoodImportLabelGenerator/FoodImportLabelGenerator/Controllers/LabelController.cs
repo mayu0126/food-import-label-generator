@@ -25,7 +25,7 @@ public class LabelController : ControllerBase
         _labelRepository = labelRepository;
     }
 
-    [HttpGet("GetAllAsync"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetAllAsync"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetAllAsync()
     {
         var labels = _labelRepository.GetAll();
@@ -44,7 +44,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByNameAsync"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetByNameAsync"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Label>>> GetByNameAsync([Required]string name)
     {
         var labels = _labelRepository.GetByName(name);
@@ -64,7 +64,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
+    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
         var label = _labelRepository.GetById(id);
@@ -83,37 +83,54 @@ public class LabelController : ControllerBase
             return NotFound("Error getting labels.");
         }
     }
+    
+    [HttpGet("GetByUserIdAsync/{userId}"), Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult<Label>> GetByUserIdAsync([FromRoute] string userId)
+    {
+        var labels = _labelRepository.GetByUserId(userId);
+
+        if (labels == null)
+        {
+            return NotFound($"Cannot find label with user id {userId}.");
+        }
+        try
+        {
+            return Ok(labels);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting labels");
+            return NotFound("Error getting labels.");
+        }
+    }
 
     [HttpPost("AddAsync"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<IEnumerable<Label>>> AddAsync(string? productName, [Required]string legalName,
-        string? ingredientsList, string? allergens, [Required]string nutritions, string? producer,
-        [Required]string distributor, string? countryOfOrigin, int netWeight, int netVolume,
-        [Required]string storage, DateTime? ubd, DateTime? bbd, DateTime? bbe, [Required]bool organic, [Required]string ean)
+    public async Task<ActionResult<IEnumerable<Label>>> AddAsync([FromBody] Label labelData)
     {
         // Additional validation for mandatory parameters
-        if (string.IsNullOrWhiteSpace(legalName))
+        if (string.IsNullOrWhiteSpace(labelData.LegalName))
         {
-            ModelState.AddModelError("legalName", "Legal name cannot be empty.");
+            ModelState.AddModelError("LegalName", "Legal name cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(nutritions))
+        if (string.IsNullOrWhiteSpace(labelData.Nutritions))
         {
-            ModelState.AddModelError("nutritions", "Nutritions cannot be empty.");
+            ModelState.AddModelError("Nutritions", "Nutritions cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(distributor))
+        if (string.IsNullOrWhiteSpace(labelData.Distributor))
         {
-            ModelState.AddModelError("distributor", "Distributor cannot be empty.");
+            ModelState.AddModelError("Distributor", "Distributor cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(storage))
+        if (string.IsNullOrWhiteSpace(labelData.Storage))
         {
-            ModelState.AddModelError("storage", "Storage cannot be empty.");
+            ModelState.AddModelError("Storage", "Storage cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(ean))
+        if (string.IsNullOrWhiteSpace(labelData.EAN))
         {
-            ModelState.AddModelError("ean", "EAN cannot be empty.");
+            ModelState.AddModelError("EAN", "EAN cannot be empty.");
         }
         
         if (!ModelState.IsValid)
@@ -124,23 +141,32 @@ public class LabelController : ControllerBase
         Label newLabel = new Label()
         {
             //Id = labels.Count()+1,
+            UserId = labelData.UserId,
             Date = DateTime.Now,
-            ProductName = productName,
-            LegalName = legalName,
-            IngredientsList = ingredientsList,
-            Allergens = allergens,
-            Nutritions = nutritions,
-            Producer = producer,
-            Distributor = distributor,
-            CountryOfOrigin = countryOfOrigin,
-            NetWeight = netWeight,
-            NetVolume = netVolume,
-            Storage = storage,
-            UBD = ubd,
-            BBD = bbd,
-            BBE = bbe,
-            Organic = organic,
-            EAN = ean
+            ProductName = labelData.ProductName,
+            LegalName = labelData.LegalName,
+            IngredientsList = labelData.IngredientsList,
+            Allergens = labelData.Allergens,
+            Nutritions = labelData.Nutritions,
+            Producer = labelData.Producer,
+            Distributor = labelData.Distributor,
+            CountryOfOrigin = labelData.CountryOfOrigin,
+            NetWeight = labelData.NetWeight,
+            NetVolume = labelData.NetVolume,
+            Storage = labelData.Storage,
+            UBD = labelData.UBD,
+            BBD = labelData.BBD,
+            BBE = labelData.BBE,
+            Organic = labelData.Organic,
+            EAN = labelData.EAN,
+            BestBeforeAdditionalInformation = labelData.BestBeforeAdditionalInformation,
+            BestBeforeText = labelData.BestBeforeText,
+            CookingInstructions = labelData.CookingInstructions,
+            HealthMark = labelData.HealthMark,
+            IngredientsListAdditionalInformation = labelData.IngredientsListAdditionalInformation,
+            LegalNameAdditionalInformation = labelData.LegalNameAdditionalInformation,
+            MainIngredientCOO = labelData.MainIngredientCOO,
+            MayContain = labelData.MayContain
         };
         _labelRepository.Add(newLabel);
         return Ok("New label added successfully.");
@@ -148,34 +174,38 @@ public class LabelController : ControllerBase
     }
 
     [HttpPut("UpdateAsync/{id}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<Label>> UpdateAsync(int id, string? productName, string? legalName, string? ingredientsList,
-        string? allergens, string? nutritions, string? producer, string? distributor, string? countryOfOrigin,
-        int netWeight, int netVolume, string? storage, DateTime ubd, DateTime bbd, DateTime bbe, bool organic, string ean)
+    public async Task<ActionResult<Label>> UpdateAsync([FromRoute] int id, [FromBody] Label labelData)
     {
-        Label existingLabel = _labelRepository.GetById(id);
+        Label existingLabel = _labelRepository.GetById(id)!;
 
         if (existingLabel == null)
         {
             return NotFound($"It is not possible to update label. There is no label with id {id}.");
         }
-        
-        existingLabel.ProductName = string.IsNullOrEmpty(productName) ? existingLabel.ProductName : productName;
-        existingLabel.LegalName = string.IsNullOrEmpty(legalName) ? existingLabel.LegalName : legalName;
-        existingLabel.IngredientsList =
-        string.IsNullOrEmpty(ingredientsList) ? existingLabel.IngredientsList : ingredientsList;
-        existingLabel.Allergens = string.IsNullOrEmpty(allergens) ? existingLabel.Allergens : allergens;
-        existingLabel.Nutritions = string.IsNullOrEmpty(nutritions) ? existingLabel.Nutritions : nutritions;
-        existingLabel.Producer = string.IsNullOrEmpty(producer) ? existingLabel.Producer : producer;
-        existingLabel.Distributor = string.IsNullOrEmpty(distributor) ? existingLabel.Distributor : distributor;
-        existingLabel.CountryOfOrigin = string.IsNullOrEmpty(countryOfOrigin) ? existingLabel.CountryOfOrigin : countryOfOrigin;
-        existingLabel.NetWeight = netWeight == 0 ? existingLabel.NetWeight : netWeight;
-        existingLabel.NetVolume = netVolume == 0 ? existingLabel.NetVolume :netVolume;
-        existingLabel.Storage = string.IsNullOrEmpty(storage) ? existingLabel.Storage : storage;
-        existingLabel.UBD = ubd == new DateTime() ? existingLabel.UBD : ubd;
-        existingLabel.BBD = bbd == new DateTime() ? existingLabel.BBD : bbd;
-        existingLabel.BBE = bbe == new DateTime() ? existingLabel.BBE : bbe;
-        existingLabel.Organic = organic == new Boolean() ? existingLabel.Organic : organic;
-        existingLabel.EAN = string.IsNullOrEmpty(ean) ? existingLabel.EAN : ean;
+        existingLabel.ProductName = labelData.ProductName;
+        existingLabel.LegalName = labelData.LegalName;
+        existingLabel.IngredientsList = labelData.IngredientsList;
+        existingLabel.Allergens = labelData.Allergens;
+        existingLabel.Nutritions = labelData.Nutritions;
+        existingLabel.Producer = labelData.Producer;
+        existingLabel.Distributor = labelData.Distributor;
+        existingLabel.CountryOfOrigin = labelData.CountryOfOrigin;
+        existingLabel.NetWeight = labelData.NetWeight;
+        existingLabel.NetVolume = labelData.NetVolume;
+        existingLabel.Storage = labelData.Storage;
+        existingLabel.UBD = labelData.UBD == new DateTime() ? existingLabel.UBD : labelData.UBD;
+        existingLabel.BBD = labelData.BBD == new DateTime() ? existingLabel.BBD : labelData.BBD;
+        existingLabel.BBE = labelData.BBE == new DateTime() ? existingLabel.BBE : labelData.BBE;
+        existingLabel.Organic = labelData.Organic;
+        existingLabel.EAN = labelData.EAN;
+        existingLabel.BestBeforeAdditionalInformation = labelData.BestBeforeAdditionalInformation;
+        existingLabel.BestBeforeText = labelData.BestBeforeText;
+        existingLabel.CookingInstructions = labelData.CookingInstructions;
+        existingLabel.HealthMark = labelData.HealthMark;
+        existingLabel.IngredientsListAdditionalInformation = labelData.IngredientsListAdditionalInformation;
+        existingLabel.LegalNameAdditionalInformation = labelData.LegalNameAdditionalInformation;
+        existingLabel.MainIngredientCOO = labelData.MainIngredientCOO;
+        existingLabel.MayContain = labelData.MayContain;
 
         _labelRepository.Update(existingLabel);
 
@@ -183,7 +213,7 @@ public class LabelController : ControllerBase
     }
     
     [HttpDelete("DeleteByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<Label>> DeleteByIdAsync(int id)
+    public async Task<ActionResult<Label>> DeleteByIdAsync([FromRoute] int id)
     {
         Label existingLabel = _labelRepository.GetById(id);
         

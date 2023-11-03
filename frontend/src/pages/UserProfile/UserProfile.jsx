@@ -48,7 +48,7 @@ function UserProfile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("belépett a useEffectbe")
+        console.log("GET profile data")
         fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
             method: "GET",
             headers: {
