@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 
-const LabelForm = ({ onSave, errorMessage }) => {
+const LabelForm = ({ onSave, translationErrorMessage }) => {
 
     const context  = useContext(UserContext);
     const firstTranslateButtonRef = useRef();
@@ -91,8 +91,8 @@ const LabelForm = ({ onSave, errorMessage }) => {
         </div>
           </form>
         <div className="text-center">
-          {errorMessage && (
-            <p className="text-red-500 text-xs italic">{errorMessage}</p>
+          {translationErrorMessage && (
+            <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
           )}
         </div>
 
@@ -103,8 +103,8 @@ const LabelForm = ({ onSave, errorMessage }) => {
               >TRANSLATE <span aria-hidden="true">&rarr;</span>
           </button>
           <div className="mt-20 w-40">
-            {errorMessage && (
-              <p className="text-red-500 text-xs italic">{errorMessage}</p>
+            {translationErrorMessage && (
+              <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
             )}
           </div>
         </div>

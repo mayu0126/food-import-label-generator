@@ -22,8 +22,8 @@ const translateLabelData = (field, context) => {
         if (!res.ok) {
             return res.json().then((data) => {
                 console.log(data)
-                let errorMessage = "Failed to get hungarian word";
-                throw new Error(errorMessage);
+                let newTranslationErrorMessage = "Failed to get hungarian word";
+                throw new Error(newTranslationErrorMessage);
             });
         }
         return res.json(); //if the response is "ok"
@@ -74,6 +74,7 @@ function LabelTranslation() {
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const [errorMessage, setErrorMessage] = useState("");
+    const [translationErrorMessage, setTranslationErrorMessage] = useState("");
     const [successfulMessage, setSuccessfulMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
@@ -88,20 +89,22 @@ function LabelTranslation() {
     const clearErrorMessage = () => {
         setErrorMessage("");
     };
+    const clearTranslationErrorMessage = () => {
+        setTranslationErrorMessage("");
+    };
     const clearSuccessfulMessage = () => {
         setSuccessfulMessage("");
     };
 
-
     useEffect(() => {
-        // Hozz létre egy event listener-t a dokumentumon
         document.addEventListener('click', clearErrorMessage);
         document.addEventListener('click', clearSuccessfulMessage);
-
-        // Távolítsd el az event listenert, amikor a komponens unmount-olódik
+        document.addEventListener('click', clearTranslationErrorMessage);
+        //remove event listeners
         return () => {
             document.removeEventListener('click', clearErrorMessage);
             document.removeEventListener('click', clearSuccessfulMessage);
+            document.removeEventListener('click', clearTranslationErrorMessage);
         };
     }, []);
 
@@ -157,7 +160,7 @@ const handleSaveLabelData = (newLabel) => {
             .catch((error) => {
                 setLoading(false);
                 console.error("Edit error:", error.message);
-                setErrorMessage(error.message);
+                setTranslationErrorMessage(`Failed to get hungarian word for "${Object.keys(englishLabel)[index]}"`);
             });
         })
 
@@ -171,7 +174,7 @@ const handleSaveLabelData = (newLabel) => {
         <div className="w-1/2">
             <LabelForm 
                 onSave={(englishLabel) => handleTranslation(englishLabel)}
-                errorMessage={errorMessage}
+                translationErrorMessage={translationErrorMessage}
             />
         </div>
 

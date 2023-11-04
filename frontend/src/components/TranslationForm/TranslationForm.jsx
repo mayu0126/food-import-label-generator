@@ -349,7 +349,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         </form>
         <div className="text-center">
             {errorMessage && (
-                <p className="text-red-500 text-xs italic">{errorMessage}</p>
+                <p className="text-red-500 text-xs italic">Please fill in all required fields</p>
             )}
             {successfulMessage && (
                 <p className="text-green-500 text-xs italic">{successfulMessage}</p>
