@@ -6,7 +6,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 import PropTypes from 'prop-types';
 
-const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser }) => {
+const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
     const context  = useContext(UserContext);
 /*
@@ -63,9 +63,10 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
 */
 
         const updatedLabel = {
-            "id": labelData.id,
+            "id": labelData.id ? labelData.id : 0,
             "userId": currentUser.id,
-            //"date": labelData.date,
+            "date": currentDate,
+            "organic": false
             //"user": currentUser
         };
 
@@ -178,10 +179,10 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="IngredientsListAdditionalInformation"
-                    id="IngredientsListAdditionalInformation"
+                    name="ingredientsListAdditionalInformation"
+                    id="ingredientsListAdditionalInformation"
                     type="text"
-                    defaultValue={labelData.IngredientsListAdditionalInformation}
+                    defaultValue={labelData.ingredientsListAdditionalInformation}
                     disabled={isDisabled}
                 />
 
@@ -321,7 +322,7 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
                     EAN code:
                 </label>
                 <input
-                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="ean"
                     id="ean"
                     type="text"

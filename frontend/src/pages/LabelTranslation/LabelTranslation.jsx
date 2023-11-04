@@ -53,7 +53,7 @@ const saveLabelData = (newLabel, user) => {
                 throw new Error(errorMessage);
             });
         }
-        return res.json(); //if the response is "ok"
+        return res //.json(); //if the response is "ok"
     });
 };
 
@@ -104,7 +104,7 @@ const handleSaveLabelData = (newLabel) => {
       .then((data) => {
         console.log(data);
         setLoading(false);
-        setLabelData(data); //set the label in the state
+        //setLabelData(data); //set the label in the state
         //navigate("/mylabels");
       })
       .catch((error) => {
@@ -164,6 +164,7 @@ const handleSaveLabelData = (newLabel) => {
             onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
             onSave={(newLabel) => handleSaveLabelData(newLabel)}
             currentUser={currentUser}
+            currentDate={formatDateToCustomFormat(new Date()).toString()}
           />
         </div>
 
