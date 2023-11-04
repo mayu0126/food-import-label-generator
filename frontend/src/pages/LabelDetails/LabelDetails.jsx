@@ -86,7 +86,6 @@ function LabelDetails() {
             console.error("Edit error:", error.message);
             setErrorMessage(error.message);
           });
-
       };
 
     return (

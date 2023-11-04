@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 const LabelForm = ({ onSave, errorMessage }) => {
 
@@ -33,7 +33,8 @@ const LabelForm = ({ onSave, errorMessage }) => {
     };
   
     return (
-        <div className="mx-auto mt-20 max-w-xs py-10 sm:py-16 lg:py-20">
+        <div className="mx-auto mt-20 max-w-lg py-10 sm:py-16 lg:py-20">
+          <h2 className="text-center text-gray-700 text-lg font-semibold mb-1">IMPORT PRODUCT DETAILS</h2>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e)}>
 
             <>
@@ -43,9 +44,41 @@ const LabelForm = ({ onSave, errorMessage }) => {
                     Legal name:
                 </label>
                 <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="legalName"
                     id="legalName"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="nutritions">
+                    Nutritions:
+                </label>
+                <textarea
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
+                    name="nutritions"
+                    id="nutritions"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="distributor">
+                    Distributor:
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
+                    name="distributor"
+                    id="distributor"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
+                    Storage information:
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
+                    name="storage"
+                    id="storage"
                     type="text"
                     disabled={false}
                 />
