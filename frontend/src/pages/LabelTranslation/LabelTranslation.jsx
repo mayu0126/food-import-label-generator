@@ -74,6 +74,7 @@ function LabelTranslation() {
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const [errorMessage, setErrorMessage] = useState("");
+    const [successfulMessage, setSuccessfulMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
@@ -83,6 +84,26 @@ function LabelTranslation() {
 
     });
     //const navigate = useNavigate();
+
+    const clearErrorMessage = () => {
+        setErrorMessage("");
+    };
+    const clearSuccessfulMessage = () => {
+        setSuccessfulMessage("");
+    };
+
+
+    useEffect(() => {
+        // Hozz létre egy event listener-t a dokumentumon
+        document.addEventListener('click', clearErrorMessage);
+        document.addEventListener('click', clearSuccessfulMessage);
+
+        // Távolítsd el az event listenert, amikor a komponens unmount-olódik
+        return () => {
+            document.removeEventListener('click', clearErrorMessage);
+            document.removeEventListener('click', clearSuccessfulMessage);
+        };
+    }, []);
 
     useEffect(() => {
         console.log("GET profile data")
@@ -103,6 +124,7 @@ const handleSaveLabelData = (newLabel) => {
       .then((data) => {
         console.log(data);
         setLoading(false);
+        setSuccessfulMessage('Label has been saved successfully');
         //setLabelData(data); //set the label in the state
         //navigate("/mylabels");
       })
@@ -157,6 +179,7 @@ const handleSaveLabelData = (newLabel) => {
           <TranslationForm 
             labelData={labelData}
             errorMessage={errorMessage}
+            successfulMessage={successfulMessage}
             isEdit={isEdit}
             isDisabled={isDisabled}
             disabled={loading}

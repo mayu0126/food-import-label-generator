@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
 import PropTypes from 'prop-types';
 
-const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
+const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
     const context  = useContext(UserContext);
 
@@ -28,6 +28,7 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
         if(updatedLabel.organic === "on"){
             updatedLabel.organic = true;
         }
+
         console.log(updatedLabel);
 
         return onSave(updatedLabel);
@@ -348,7 +349,10 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
         </form>
         <div className="text-center">
             {errorMessage && (
-            <p className="text-red-500 text-xs italic">{errorMessage}</p>
+                <p className="text-red-500 text-xs italic">{errorMessage}</p>
+            )}
+            {successfulMessage && (
+                <p className="text-green-500 text-xs italic">{successfulMessage}</p>
             )}
         </div>
         </div>
