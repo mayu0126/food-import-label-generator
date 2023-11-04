@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 
-const LabelForm = ({ onSave, translationErrorMessage }) => {
+const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
 
     const context  = useContext(UserContext);
     const firstTranslateButtonRef = useRef();
@@ -36,8 +36,21 @@ const LabelForm = ({ onSave, translationErrorMessage }) => {
             <>
             <div className="mb-4">
 
+              
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="date">
+                    Date
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="date"
+                    id="date"
+                    type="text"
+                    defaultValue={currentDate.substring(0,10)}
+                    disabled={true}
+                />
+
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legalName">
-                    Legal name:
+                    Legal name*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -48,7 +61,7 @@ const LabelForm = ({ onSave, translationErrorMessage }) => {
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="nutritions">
-                    Nutritions:
+                    Nutritions*
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -57,8 +70,19 @@ const LabelForm = ({ onSave, translationErrorMessage }) => {
                     disabled={false}
                 />
 
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="producer">
+                    Producer
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="producer"
+                    id="producer"
+                    type="text"
+                    disabled={false}
+                />
+
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="distributor">
-                    Distributor:
+                    Distributor*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -69,12 +93,69 @@ const LabelForm = ({ onSave, translationErrorMessage }) => {
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
-                    Storage information:
+                    Storage information*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="storage"
                     id="storage"
+                    type="text"
+                    disabled={false}
+                />
+
+              <div className='border-x border-rose-400 px-3 rounded'>
+                <div className='text-rose-600 text-xs'>Please provide one of the below fields:</div>
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netWeight">
+                    Net weight
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="netWeight"
+                    id="netWeight"
+                    type="text"
+                    disabled={false}
+                />
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netVolume">
+                    Net volume
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="netVolume"
+                    id="netVolume"
+                    type="text"
+                    disabled={false}
+                />
+              </div>
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ean">
+                    EAN code*
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
+                    name="ean"
+                    id="ean"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="organic">
+                    Organic
+                </label>
+                <input
+                    className="mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:bg-transparent checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                    type="checkbox"
+                    name="organic"
+                    id="organic"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="healthMark">
+                    Health mark
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="healthMark"
+                    id="healthMark"
                     type="text"
                     disabled={false}
                 />

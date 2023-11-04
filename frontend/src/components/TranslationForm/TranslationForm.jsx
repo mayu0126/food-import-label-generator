@@ -45,7 +45,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
             <div className="mb-4">
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="date">
-                    Date:
+                    Date
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -57,7 +57,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="productName">
-                    Product name:
+                    Product name
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -69,7 +69,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalName">
-                    Legal name:
+                    Legal name*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -81,7 +81,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
-                    Allergens:
+                    Allergens
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -93,7 +93,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalNameAdditionalInformation">
-                    Additional information - legal name:
+                    Additional information - legal name
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -105,7 +105,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="cookingInstructions">
-                    Cooking instructions:
+                    Cooking instructions
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -116,7 +116,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsList">
-                    Ingredients list:
+                    Ingredients list
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -127,7 +127,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsListAdditionalInformation">
-                    Additional information - ingredients list:
+                    Additional information - ingredients list
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -139,7 +139,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mayContain">
-                    'May contain' sentence:
+                    'May contain' sentence
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -151,7 +151,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="nutritions">
-                    Nutritions:
+                    Nutritions*
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -162,7 +162,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="producer">
-                    Producer:
+                    Producer
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -174,7 +174,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="distributor">
-                    Distributor:
+                    Distributor*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -186,7 +186,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="countryOfOrigin">
-                    Country of origin:
+                    Country of origin
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -198,7 +198,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mainIngredientCOO">
-                    Country of origin of main ingredient:
+                    Country of origin of main ingredient
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -210,7 +210,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeText">
-                    Best before text:
+                    Best before text
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -222,7 +222,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
-                    Storage information:
+                    Storage information*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -234,7 +234,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeAdditionalInformation">
-                    Additional information - best before:
+                    Additional information - best before
                 </label>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -247,7 +247,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
             <div className='border-x border-rose-400 px-3 rounded'>
                 <div className='text-rose-600 text-xs'>Please provide one of the below fields:</div>
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netWeight">
-                    Net weight:
+                    Net weight
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -258,7 +258,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     disabled={isDisabled}
                 />
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netVolume">
-                    Net volume:
+                    Net volume
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -271,7 +271,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
             </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ean">
-                    EAN code:
+                    EAN code*
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
@@ -283,7 +283,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="organic">
-                    Organic:
+                    Organic
                 </label>
                 <input
                     className="mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:bg-transparent checked:border-2 checked:bg-rose-600 focus:outline-none relative"
@@ -295,7 +295,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 />
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="healthMark">
-                    Health mark:
+                    Health mark
                 </label>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
