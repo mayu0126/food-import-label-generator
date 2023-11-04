@@ -1,7 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
-import ProfileData from "../../components/ProfileData/ProfileData";
 import LabelForm from "../../components/LabelForm/LabelForm";
 import TranslationForm from "../../components/TranslationForm/TranslationForm";
 
@@ -153,6 +152,7 @@ const handleSaveLabelData = (newLabel) => {
                 errorMessage={errorMessage}
             />
         </div>
+
         <div className="w-1/2">
           <TranslationForm 
             labelData={labelData}

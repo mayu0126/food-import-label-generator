@@ -1,27 +1,18 @@
 // This component is responsible for the english label data
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
-//import PropTypes from 'prop-types';
 
 const LabelForm = ({ onSave, errorMessage }) => {
 
     const context  = useContext(UserContext);
+    const firstTranslateButtonRef = useRef();
 
     const onSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-/*
-        const entries = [...formData.entries()];
-    
-        const userData = entries.reduce((acc, entry) => {
-          const [k, v] = entry;
-          acc[k] = v;
-          return acc;
-        }, {});
-*/
 
         const englishLabel = {};
 
@@ -31,10 +22,15 @@ const LabelForm = ({ onSave, errorMessage }) => {
 
         return onSave(englishLabel);
     };
+
+    const handleTranslateClick = () => {
+      //trigger the first "TRANSLATE" button click
+      firstTranslateButtonRef.current.click();
+    };
   
     return (
         <div className="mx-auto mt-20 max-w-lg py-10 sm:py-16 lg:py-20">
-          <h2 className="text-center text-gray-700 text-lg font-semibold mb-1">IMPORT PRODUCT DETAILS</h2>
+          <h2 className="text-center text-gray-700 text-lg font-semibold mb-1">IMPORTED PRODUCT DETAILS</h2>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e)}>
 
             <>
@@ -87,31 +83,35 @@ const LabelForm = ({ onSave, errorMessage }) => {
             </>
             <div className="relative">
         <button
-            className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            ref={firstTranslateButtonRef}
+            className="mt-1 bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             type="submit"
-            >TRANSLATE
+            >TRANSLATE <span aria-hidden="true">&rarr;</span>
         </button>
-        {errorMessage && (
-          <p className="text-red-500 text-xs italic">{errorMessage}</p>
-        )}
         </div>
           </form>
+        <div className="text-center">
+          {errorMessage && (
+            <p className="text-red-500 text-xs italic">{errorMessage}</p>
+          )}
+        </div>
+
+        <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+          <button className="w-32 bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              type="button"
+              onClick={handleTranslateClick}
+              >TRANSLATE <span aria-hidden="true">&rarr;</span>
+          </button>
+          <div className="mt-20 w-40">
+            {errorMessage && (
+              <p className="text-red-500 text-xs italic">{errorMessage}</p>
+            )}
+          </div>
+        </div>
 
       </div>
 
     );
-    
-
   }
-
-  /*
-  ProfileData.propTypes = {
-    isEdit: PropTypes.bool,
-    onEdit: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
-};
-*/
   
   export default LabelForm;

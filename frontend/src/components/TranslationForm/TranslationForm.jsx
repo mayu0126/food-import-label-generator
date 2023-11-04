@@ -9,65 +9,16 @@ import PropTypes from 'prop-types';
 const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
     const context  = useContext(UserContext);
-/*
-    const [formData, setFormData] = useState({
-        dateType: '',
-        date: '',
-      });
-    
-      const handleInputChange = (e) => {
-        console.log(e.target);
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
-        console.log(formData);
-      };
 
-    <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateType">
-        Choose date type:
-    </label>
-    <select
-        name="dateType"
-        id="dateType"
-        value={formData.dateType}
-        onChange={handleInputChange}
-    >
-        <option value="useByDate">Use by date</option>
-        <option value="bestBeforeDate">Best before date</option>
-        <option value="bestBeforeEnd">Best before end</option>
-    </select>
-    <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="date">
-        Date:
-    </label>
-    <input
-        name={formData.dateType} // A kiválasztott érték lesz a "name" kulcs
-        id={formData.dateType}   // A kiválasztott érték lesz az "id" kulcs
-        type="date"
-        value={formData.date}
-        onChange={handleInputChange}
-    />
-*/
     const onSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-/*
-        const entries = [...formData.entries()];
-    
-        const userData = entries.reduce((acc, entry) => {
-          const [k, v] = entry;
-          acc[k] = v;
-          return acc;
-        }, {});
-*/
 
         const updatedLabel = {
             "id": labelData.id ? labelData.id : 0,
             "userId": currentUser.id,
             "date": currentDate,
             "organic": false
-            //"user": currentUser
         };
 
         for (let [key, value] of formData.entries()) {
@@ -395,23 +346,15 @@ const TranslationForm = ({ labelData, errorMessage, onSave, isDisabled, disabled
           )}
 
         </form>
+        <div className="text-center">
             {errorMessage && (
             <p className="text-red-500 text-xs italic">{errorMessage}</p>
             )}
+        </div>
         </div>
         )}
     </>
     );
   };
-
-  /*
-  ProfileData.propTypes = {
-    isEdit: PropTypes.bool,
-    onEdit: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
-};
-*/
   
   export default TranslationForm;
