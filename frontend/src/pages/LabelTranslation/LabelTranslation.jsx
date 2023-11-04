@@ -151,6 +151,21 @@ const handleSaveLabelData = (newLabel) => {
 
         setLoading(true);
         Object.values(englishLabel).map((field, index) => {
+
+            if(
+                Object.keys(englishLabel)[index] === "date" ||
+                Object.keys(englishLabel)[index] === "distributor" ||
+                Object.keys(englishLabel)[index] === "ean" ||
+                Object.keys(englishLabel)[index] === "producer" ||
+                Object.keys(englishLabel)[index] === "netWeight" ||
+                Object.keys(englishLabel)[index] === "netVolume" ||
+                Object.keys(englishLabel)[index] === "organic" ||
+                Object.keys(englishLabel)[index] === "healthMark"
+            ){
+                translatedLabelData[Object.keys(englishLabel)[index]] = field;
+                return null;
+            }
+
             translateLabelData(field, context)
             .then((data) => {
                 console.log(data);
@@ -175,6 +190,7 @@ const handleSaveLabelData = (newLabel) => {
             <LabelForm 
                 onSave={(englishLabel) => handleTranslation(englishLabel)}
                 translationErrorMessage={translationErrorMessage}
+                currentDate={formatDateToCustomFormat(new Date()).toString()}
             />
         </div>
 
