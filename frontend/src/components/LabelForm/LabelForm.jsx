@@ -260,7 +260,7 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
                     Organic
                 </label>
                 <input
-                    className="mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:bg-transparent checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                    className="mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
                     type="checkbox"
                     name="organic"
                     id="organic"

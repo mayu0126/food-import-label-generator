@@ -10,14 +10,18 @@ const url = process.env.REACT_APP_MY_URL;
 
 //the main functionality
 const translateLabelData = (field, context) => {
-    console.log(field);
-    
-    return fetch(`${url}/Translation/GetByEnglishWordAsync/${field}`, {
-        method: "GET",
+
+    return fetch(`${url}/Translation/TranslateEnglishText`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + context.user.token
         },
+        body: JSON.stringify({
+            "text": field,
+            "targetLanguage": "hu",
+            "sourceLanguage": "en"
+        }),
     }).then((res) => {
         if (res.status === 404) {
             console.log("Can not find translation in the database, checking with translator...")
