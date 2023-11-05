@@ -14,6 +14,7 @@ import UserProfile from './pages/UserProfile';
 import UserLabels from './pages/UserLabels';
 import LabelTranslation from './pages/LabelTranslation';
 import LabelDetails from './pages/LabelDetails';
+import GoogleTranslation from "./pages/GoogleTranslation";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/mylabels" element={<UserLabels />} />
         <Route path="/addnewlabel" element={<LabelTranslation />} />
         <Route path="/details/:id" element={<LabelDetails />} />
+        <Route path="/translation" element={<GoogleTranslation />} />
       </Routes>
     </div>
   );

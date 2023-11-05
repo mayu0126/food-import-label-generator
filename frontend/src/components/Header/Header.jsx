@@ -76,6 +76,11 @@ function Header() {
                     Add new label
                   </Link>
                 </li>
+                <li>
+                  <Link to="/translation" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    Translation feature
+                  </Link>
+                </li>
               </ul>
             )}
           </div>
