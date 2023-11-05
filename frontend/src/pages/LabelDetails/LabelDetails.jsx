@@ -48,6 +48,23 @@ function LabelDetails() {
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     //const navigate = useNavigate();
 
+    const clearErrorMessage = () => {
+        setErrorMessage("");
+    };
+    const clearSuccessfulMessage = () => {
+        setSuccessfulMessage("");
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', clearErrorMessage);
+        document.addEventListener('click', clearSuccessfulMessage);
+        //remove event listeners
+        return () => {
+            document.removeEventListener('click', clearErrorMessage);
+            document.removeEventListener('click', clearSuccessfulMessage);
+        };
+    }, []);
+
     useEffect(() => {
         console.log("GET label details")
         fetch(`${url}/Label/GetByIdAsync/${id}`, {

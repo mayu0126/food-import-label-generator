@@ -4,27 +4,44 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
-import PropTypes from 'prop-types';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
     const context  = useContext(UserContext);
+    const [formFields, setFormFields] = useState(labelData);
+    const [fillRequiredFields, setFillRequiredFields] = useState(null);
+
+    const validateFields = () => {
+        const requiredFields = ['ean', 'legalName', 'nutritions', 'distributor', 'storage'];
+        return requiredFields.every(field => formFields[field]);
+      };
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        if (!validateFields()) {
+            //if validation fails, don't submit the form
+            setFillRequiredFields('Please fill in all required fields');
+            return;
+        }
+        else {
+            setFillRequiredFields(null);
+        }
+
         const formData = new FormData(e.target);
 
         const updatedLabel = {
             "id": labelData.id ? labelData.id : 0,
             "userId": currentUser.id,
             "date": currentDate,
-            "organic": false
+            "organic": false,
+            ...formFields,
         };
-
+/*
         for (let [key, value] of formData.entries()) {
             updatedLabel[key] = value;
         }
-
+*/
         if(updatedLabel.organic === "on"){
             updatedLabel.organic = true;
         }
@@ -32,6 +49,11 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         console.log(updatedLabel);
 
         return onSave(updatedLabel);
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormFields({ ...formFields, [name]: value });
     };
 
     return (
@@ -65,6 +87,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="productName"
                     type="text"
                     defaultValue={labelData.productName}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -77,6 +100,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="legalName"
                     type="text"
                     defaultValue={labelData.legalName}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -89,6 +113,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="allergens"
                     type="text"
                     defaultValue={labelData.allergens}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -101,6 +126,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="legalNameAdditionalInformation"
                     type="text"
                     defaultValue={labelData.legalNameAdditionalInformation}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -112,6 +138,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="cookingInstructions"
                     id="cookingInstructions"
                     defaultValue={labelData.cookingInstructions}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -123,6 +150,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="ingredientsList"
                     id="ingredientsList"
                     defaultValue={labelData.ingredientsList}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -135,6 +163,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="ingredientsListAdditionalInformation"
                     type="text"
                     defaultValue={labelData.ingredientsListAdditionalInformation}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -147,6 +176,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="mayContain"
                     type="text"
                     defaultValue={labelData.mayContain}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -158,6 +188,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="nutritions"
                     id="nutritions"
                     defaultValue={labelData.nutritions}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -170,6 +201,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="producer"
                     type="text"
                     defaultValue={labelData.producer}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -182,6 +214,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="distributor"
                     type="text"
                     defaultValue={labelData.distributor}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -194,6 +227,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="countryOfOrigin"
                     type="text"
                     defaultValue={labelData.countryOfOrigin}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -206,6 +240,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="mainIngredientCOO"
                     type="text"
                     defaultValue={labelData.mainIngredientCOO}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -218,6 +253,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="bestBeforeText"
                     type="text"
                     defaultValue={labelData.bestBeforeText}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -230,6 +266,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="storage"
                     type="text"
                     defaultValue={labelData.storage}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -241,6 +278,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="bestBeforeAdditionalInformation"
                     id="bestBeforeAdditionalInformation"
                     defaultValue={labelData.bestBeforeAdditionalInformation}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -255,6 +293,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="netWeight"
                     type="text"
                     defaultValue={labelData.netWeight}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="netVolume">
@@ -266,6 +305,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="netVolume"
                     type="text"
                     defaultValue={labelData.netVolume}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
             </div>
@@ -279,6 +319,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="ean"
                     type="text"
                     defaultValue={labelData.ean}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -291,6 +332,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="organic"
                     id="organic"
                     defaultChecked={labelData.organic}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
 
@@ -303,6 +345,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     id="healthMark"
                     type="text"
                     defaultValue={labelData.healthMark}
+                    onChange={handleInputChange}
                     disabled={isDisabled}
                 />
   
@@ -314,7 +357,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 <button
                 className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
-                disabled={disabled}
+                disabled={disabled} //can only be sent if the validation is successful
                 >
                 Save
                 </button>
@@ -348,8 +391,8 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
 
         </form>
         <div className="text-center">
-            {errorMessage && (
-                <p className="text-red-500 text-xs italic">Please fill in all required fields</p>
+            {(errorMessage || fillRequiredFields) && (
+                <p className="text-red-500 text-xs italic">{errorMessage || fillRequiredFields}</p>
             )}
             {successfulMessage && (
                 <p className="text-green-500 text-xs italic">{successfulMessage}</p>
