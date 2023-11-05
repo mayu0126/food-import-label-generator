@@ -59,8 +59,8 @@ function GoogleTranslation() {
       >
         <option value="es">Spanish</option>
         <option value="fr">French</option>
-        <option value="es">German</option>
-        <option value="fr">Italian</option>
+        <option value="de">German</option>
+        <option value="it">Italian</option>
         <option value="hu">Hungarian</option>
         {/* Add more language options */}
       </select>
