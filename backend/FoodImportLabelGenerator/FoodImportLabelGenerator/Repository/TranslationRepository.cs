@@ -57,4 +57,10 @@ public class TranslationRepository : ITranslationRepository
         dbContext.Remove(translation);
         dbContext.SaveChanges();
     }
+
+    public IEnumerable<Translation> TranslateEnglishText(string englishText)
+    {
+        var dbContext = new TranslationsContext(_configuration);
+        return dbContext.Translations!.Where(t => t.English.ToLower() == englishText.ToLower());
+    }
 }

@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using FoodImportLabelGenerator.Contracts;
 using FoodImportLabelGenerator.Data;
 using FoodImportLabelGenerator.Models;
 using FoodImportLabelGenerator.Repository;
+using FoodImportLabelGenerator.Services.Translation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; //needed because this class derives from ControllerBase
@@ -17,12 +19,15 @@ public class TranslationController : ControllerBase
     private readonly ILogger<TranslationController> _logger;
     private readonly IConfiguration _configuration;
     private readonly ITranslationRepository _translationRepository;
+    private readonly GoogleTranslationService _googleTranslationService;
 
-    public TranslationController(ILogger<TranslationController> logger, IConfiguration configuration, ITranslationRepository translationRepository)
+    public TranslationController(ILogger<TranslationController> logger, IConfiguration configuration,
+        ITranslationRepository translationRepository, GoogleTranslationService googleTranslationService)
     {
         _logger = logger;
         _configuration = configuration;
         _translationRepository = translationRepository;
+        _googleTranslationService = googleTranslationService;
     }
 
     [HttpGet("GetAllAsync"), Authorize(Roles = "User, Admin")]
@@ -68,6 +73,9 @@ public class TranslationController : ControllerBase
     [HttpGet("GetByEnglishWordAsync/{englishWord}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Translation>> GetByEnglishAsync([FromRoute]string englishWord)
     {
+        Console.WriteLine(englishWord);
+        string decodedText = Uri.UnescapeDataString(englishWord);
+        Console.WriteLine(decodedText);
         var translations = _translationRepository.GetByEnglishWord(englishWord);
 
         if (!translations.Any())
@@ -165,4 +173,38 @@ public class TranslationController : ControllerBase
         _translationRepository.Delete(existingTranslation);
         return Ok($"Translation with id {id} has been deleted successfully.");
     }
+    
+    [HttpPost("Translate"), Authorize(Roles = "User, Admin")]
+    public async Task<IActionResult> Translate([FromBody] TranslateRequest request)
+    {
+        try
+        {
+            string translatedText = await _googleTranslationService.TranslateText(request.Text, request.TargetLanguage, request.SourceLanguage);
+            return Ok(new { TranslatedText = translatedText });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Translation failed: " + ex.Message);
+        }
+    }
+    
+    [HttpPost("TranslateEnglishText"), Authorize(Roles = "User, Admin")]
+    public async Task<IActionResult> TranslateEnglishText([FromBody] TranslateRequest request)
+    {
+        var translatedText = _translationRepository.TranslateEnglishText(request.Text);
+        if (!translatedText.Any())
+        {
+            return NotFound("Cannot find translation.");
+        }
+        try
+        {
+            return Ok(translatedText);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting translation");
+            return NotFound("Error getting translation.");
+        }
+    }
+    
 }

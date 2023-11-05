@@ -11,4 +11,5 @@ public interface ITranslationRepository
     void Add(Translation translation);
     void Update(Translation updatedTranslation);
     void Delete(Translation translation);
+    IEnumerable<Translation> TranslateEnglishText(string englishText);
 }

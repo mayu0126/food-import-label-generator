@@ -4,6 +4,7 @@ using FoodImportLabelGenerator.Data;
 using FoodImportLabelGenerator.Models;
 using FoodImportLabelGenerator.Repository;
 using FoodImportLabelGenerator.Services.Authentication;
+using FoodImportLabelGenerator.Services.Translation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +21,7 @@ var appSettings = configuration.GetSection("AppSettings");
 var validIssuer = appSettings["ValidIssuer"];
 var validAudience = appSettings["ValidAudience"];
 var issuerSigningKey = builder.Configuration["UserSecrets:IssuerSigningKey"];
+var googleApiKey = builder.Configuration["UserSecrets:GoogleApiKey"];
 
 var defaultRole = appSettings["DefaultRole"];
 
@@ -94,6 +96,8 @@ void AddServices()
     builder.Services.AddScoped<ITokenService>(provider => new TokenService(issuerSigningKey!, validIssuer!, validAudience!));
     
     builder.Services.AddSingleton(defaultRole!); // Register the defaultRole in the IoC  (Inversion of Control) container to be available in the AuthController
+    
+    builder.Services.AddSingleton(new GoogleTranslationService(googleApiKey!));
     
     /*
     // A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)

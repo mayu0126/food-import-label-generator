@@ -1,19 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Importáld be a Link komponenst
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import DeleteConfirmationModal from '../DeleteConfirmationModal';
 
 const LabelTable = ({ labelData, onDelete }) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [labelToDelete, setLabelToDelete] = useState(null);
+
+  const handleDeleteClick = (id) => {
+    setLabelToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirmation = () => {
+    onDelete(labelToDelete);
+    setShowDeleteModal(false);
+  };
+
   return (
-    <div className="mx-auto mt-20 max-w-screen-xl py-10 sm:py-16 lg:py-20">
+    <>
+    <div className="mx-auto mt-20 max-w-screen-2xl py-10 sm:py-16 lg:py-20">
       <table className="bg-white shadow-md rounded w-full">
         <thead className="border-b-2 border-slate-300">
           <tr>
             <th className="text-left px-6 py-3">Date</th>
-            <th className="text-left px-6 py-3">ProductName</th>
-            <th className="text-left px-6 py-3">LegalName</th>
+            <th className="text-left px-6 py-3">Product name</th>
+            <th className="text-left px-6 py-3">Legal name</th>
             <th className="text-left px-6 py-3">Producer</th>
             <th className="text-left px-6 py-3">Distributor</th>
-            <th className="text-left px-6 py-3">EAN</th>
+            <th className="text-left px-6 py-3">EAN code</th>
             <th className="text-left px-6 py-3"></th>
           </tr>
         </thead>
@@ -21,7 +36,11 @@ const LabelTable = ({ labelData, onDelete }) => {
           {labelData && labelData.map((item, index) => (
             <tr key={index} className="hover:bg-slate-200 border-b border-slate-200">
               <td className="px-6 py-4">{item.date.substring(0, 10)}</td>
-              <td className="px-6 py-4 font-bold text-rose-600">{item.productName}</td>
+
+              <td className="px-6 py-4 font-bold text-rose-600">
+                <Link to={`/details/${item.id}`}>{item.productName}</Link>
+              </td>
+
               <td className="px-6 py-4">{item.legalName}</td>
               <td className="px-6 py-4">{item.producer}</td>
               <td className="px-6 py-4">{item.distributor}</td>
@@ -34,7 +53,7 @@ const LabelTable = ({ labelData, onDelete }) => {
                 </Link>
                 <button
                   className="flex items-center justify-center font-bold text-xl w-8 h-8 pb-1 rounded ml-5 text-rose-500  hover:text-rose-600"
-                  type="button" onClick={() => onDelete(item.id)}>
+                  type="button" onClick={() => handleDeleteClick(item.id)}>
                   x
                 </button>
               </td>
@@ -49,7 +68,21 @@ const LabelTable = ({ labelData, onDelete }) => {
           Add new label
         </Link>
       </div>
+
+      <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        onRequestClose={() => setShowDeleteModal(false)}
+        onConfirmDelete={handleDeleteConfirmation}
+      />
+
+      {showDeleteModal && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"
+          aria-hidden="true" //aria-hidden attribute makes the background content inactive
+        />
+      )}
     </div>
+    </>
   );
 }
 
