@@ -19,8 +19,8 @@ const translateLabelData = (field, context) => {
             "Authorization": "Bearer " + context.user.token
         },
     }).then((res) => {
-        //console.log(res)
         if (res.status === 404) {
+            console.log("Can not find translation in the database, checking with translator...")
             //if the first fetch receives 404 response, start the second fetch
             return fetch(`${url}/Translation/Translate`, {
                 method: "POST",
@@ -40,7 +40,6 @@ const translateLabelData = (field, context) => {
                         throw new Error(errorMessage);
                     });
                 }
-
                 return secondRes.json(); //second fetch "ok"
             });
         }
@@ -66,7 +65,6 @@ const saveLabelData = (newLabel, user) => {
                         errorMessage = data["Bad credentials"][0];
                     }
                 }
-
                 throw new Error(errorMessage);
             });
         }
@@ -99,8 +97,7 @@ function LabelTranslation() {
     const [isDisabled, setIsDisabled] = useState(true);
     const [labelData, setLabelData] = useState({
         "date": formatDateToCustomFormat(new Date()).toString(),
-        "userId": currentUser.id,
-
+        //"userId": currentUser.id,
     });
     //const navigate = useNavigate();
 
@@ -158,10 +155,6 @@ const handleSaveLabelData = (newLabel) => {
 
     const handleTranslation = (englishLabel) => {
 
-        //az englishLabel egy objektum, amelynek a "value" értékeit kellene lefordítani
-        //amire nem talál fordítást, azt úgy hagyja
-        //Object.values -> arrayt ad vissza, egyesével kéne mappelni és meghívni a GET fetchet
-
         let translatedLabelData = {
             "date": formatDateToCustomFormat(new Date()).toString(),
             "userId": currentUser.id,
@@ -178,7 +171,8 @@ const handleSaveLabelData = (newLabel) => {
                 Object.keys(englishLabel)[index] === "netWeight" ||
                 Object.keys(englishLabel)[index] === "netVolume" ||
                 Object.keys(englishLabel)[index] === "organic" ||
-                Object.keys(englishLabel)[index] === "healthMark"
+                Object.keys(englishLabel)[index] === "healthMark" ||
+                field === ""
             ){
                 translatedLabelData[Object.keys(englishLabel)[index]] = field;
                 return null;
@@ -198,7 +192,7 @@ const handleSaveLabelData = (newLabel) => {
             })
             .catch((error) => {
                 setLoading(false);
-                console.error("Edit error:", error.message);
+                console.error("Translation error:", error.message);
                 setTranslationErrorMessage(`Failed to get translation for "${Object.keys(englishLabel)[index]}"`);
             });
         })
@@ -219,19 +213,19 @@ const handleSaveLabelData = (newLabel) => {
         </div>
 
         <div className="w-1/2">
-          <TranslationForm 
-            labelData={labelData}
-            errorMessage={errorMessage}
-            successfulMessage={successfulMessage}
-            isEdit={isEdit}
-            isDisabled={isDisabled}
-            disabled={loading}
-            onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
-            onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
-            onSave={(newLabel) => handleSaveLabelData(newLabel)}
-            currentUser={currentUser}
-            currentDate={formatDateToCustomFormat(new Date()).toString()}
-          />
+            <TranslationForm 
+                labelData={labelData}
+                errorMessage={errorMessage}
+                successfulMessage={successfulMessage}
+                isEdit={isEdit}
+                isDisabled={isDisabled}
+                disabled={loading}
+                onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
+                onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
+                onSave={(newLabel) => handleSaveLabelData(newLabel)}
+                currentUser={currentUser}
+                currentDate={formatDateToCustomFormat(new Date()).toString()}
+            />
         </div>
 
       </div>

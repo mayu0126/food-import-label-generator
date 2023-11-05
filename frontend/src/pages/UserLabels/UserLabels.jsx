@@ -11,8 +11,6 @@ import LabelTable from "../../components/LabelTable/LabelTable";
 const url = process.env.REACT_APP_MY_URL;
 
 const deleteLabel = (id, user) => {
-    console.log(id)
-    console.log(user)
     console.log("LABEL DELETE")
     return fetch(`${url}/Label/DeleteByIdAsync/${id}`, {
         method: "DELETE",
@@ -26,9 +24,7 @@ function UserLabels() {
 
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const [currentUser, setCurrentUser] = useState(""); //save actual user
-
     const [labelData, setLabelData] = useState([]);
-
     const [isCurrentUserLoaded, setIsCurrentUserLoaded] = useState(false);
 
     useEffect(() => {
@@ -51,7 +47,6 @@ function UserLabels() {
         //runs only if the currentUser has value
         if (isCurrentUserLoaded) {
             console.log("GET labels data");
-            console.log(currentUser.id);
             fetch(`${url}/Label/GetByUserIdAsync/${currentUser.id}`, {
                 method: "GET",
                 headers: {
@@ -65,7 +60,7 @@ function UserLabels() {
     }, [isCurrentUserLoaded, currentUser]);
     
     const handleDelete = (id) => {
-        console.log(`handleDelete ${id}`)
+        console.log(`Delete label with id ${id}`)
         deleteLabel(id, context.user)
         .then(() => {
           //after a successful delete, updating the local state
@@ -73,7 +68,7 @@ function UserLabels() {
         });
     }
 
-      console.log(labelData);
+      //console.log(labelData);
     return (
         <LabelTable
             labelData={labelData}

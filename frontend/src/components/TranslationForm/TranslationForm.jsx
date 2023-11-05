@@ -7,12 +7,23 @@ import { UserContext } from '../../index.js';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
+    console.log(labelData)
     const context  = useContext(UserContext);
     const [formFields, setFormFields] = useState(labelData);
     const [fillRequiredFields, setFillRequiredFields] = useState(null);
 
+    useEffect(() => {
+        setFormFields(labelData)
+    }, [labelData])
+
+    console.log(formFields)
+
     const validateFields = () => {
+        console.log("validating fields")
+        console.log(formFields);
         const requiredFields = ['ean', 'legalName', 'nutritions', 'distributor', 'storage'];
+        requiredFields.forEach(field => console.log(formFields[field]));
+        console.log(requiredFields.every(field => formFields[field]));
         return requiredFields.every(field => formFields[field]);
       };
 
@@ -21,6 +32,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
 
         if (!validateFields()) {
             //if validation fails, don't submit the form
+            console.log("validating fields - FALSE")
             setFillRequiredFields('Please fill in all required fields');
             return;
         }

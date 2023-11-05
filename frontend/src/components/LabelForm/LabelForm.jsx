@@ -49,6 +49,17 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
                     disabled={true}
                 />
 
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="productName">
+                    Product name
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="productName"
+                    id="productName"
+                    type="text"
+                    disabled={false}
+                />
+
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legalName">
                     Legal name*
                 </label>
@@ -56,6 +67,70 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="legalName"
                     id="legalName"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
+                    Allergens
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="allergens"
+                    id="allergens"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalNameAdditionalInformation">
+                    Additional information - legal name
+                </label>
+                <textarea
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="legalNameAdditionalInformation"
+                    id="legalNameAdditionalInformation"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="cookingInstructions">
+                    Cooking instructions
+                </label>
+                <textarea
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="cookingInstructions"
+                    id="cookingInstructions"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsList">
+                    Ingredients list
+                </label>
+                <textarea
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="ingredientsList"
+                    id="ingredientsList"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsListAdditionalInformation">
+                    Additional information - ingredients list
+                </label>
+                <textarea
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="ingredientsListAdditionalInformation"
+                    id="ingredientsListAdditionalInformation"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mayContain">
+                    'May contain' sentence
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="mayContain"
+                    id="mayContain"
                     type="text"
                     disabled={false}
                 />
@@ -92,6 +167,39 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
                     disabled={false}
                 />
 
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="countryOfOrigin">
+                    Country of origin
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="countryOfOrigin"
+                    id="countryOfOrigin"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mainIngredientCOO">
+                    Country of origin of main ingredient
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="mainIngredientCOO"
+                    id="mainIngredientCOO"
+                    type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeText">
+                    Best before text
+                </label>
+                <input
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="bestBeforeText"
+                    id="bestBeforeText"
+                    type="text"
+                    disabled={false}
+                />
+
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
                     Storage information*
                 </label>
@@ -100,6 +208,16 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
                     name="storage"
                     id="storage"
                     type="text"
+                    disabled={false}
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeAdditionalInformation">
+                    Additional information - best before
+                </label>
+                <textarea
+                    className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="bestBeforeAdditionalInformation"
+                    id="bestBeforeAdditionalInformation"
                     disabled={false}
                 />
 
@@ -162,14 +280,14 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
 
             </div>
             </>
-            <div className="relative">
-        <button
-            ref={firstTranslateButtonRef}
-            className="mt-1 bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            type="submit"
-            >TRANSLATE <span aria-hidden="true">&rarr;</span>
-        </button>
-        </div>
+            <div className="relative text-center">
+                <button
+                    ref={firstTranslateButtonRef}
+                    className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit"
+                    >TRANSLATE <span aria-hidden="true">&rarr;</span>
+                </button>
+            </div>
           </form>
         <div className="text-center">
           {translationErrorMessage && (
@@ -178,12 +296,12 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
         </div>
 
         <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          <button className="w-32 bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          <button className="w-36 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
               type="button"
               onClick={handleTranslateClick}
               >TRANSLATE <span aria-hidden="true">&rarr;</span>
           </button>
-          <div className="mt-20 w-40">
+          <div className="mt-20 w-52 text-center">
             {translationErrorMessage && (
               <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
             )}
