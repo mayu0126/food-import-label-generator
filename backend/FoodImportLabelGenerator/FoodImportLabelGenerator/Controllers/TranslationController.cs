@@ -73,6 +73,9 @@ public class TranslationController : ControllerBase
     [HttpGet("GetByEnglishWordAsync/{englishWord}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Translation>> GetByEnglishAsync([FromRoute]string englishWord)
     {
+        Console.WriteLine(englishWord);
+        string decodedText = Uri.UnescapeDataString(englishWord);
+        Console.WriteLine(decodedText);
         var translations = _translationRepository.GetByEnglishWord(englishWord);
 
         if (!translations.Any())
@@ -182,6 +185,25 @@ public class TranslationController : ControllerBase
         catch (Exception ex)
         {
             return BadRequest("Translation failed: " + ex.Message);
+        }
+    }
+    
+    [HttpPost("TranslateEnglishText"), Authorize(Roles = "User, Admin")]
+    public async Task<IActionResult> TranslateEnglishText([FromBody] TranslateRequest request)
+    {
+        var translatedText = _translationRepository.TranslateEnglishText(request.Text);
+        if (!translatedText.Any())
+        {
+            return NotFound("Cannot find translation.");
+        }
+        try
+        {
+            return Ok(translatedText);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting translation");
+            return NotFound("Error getting translation.");
         }
     }
     
