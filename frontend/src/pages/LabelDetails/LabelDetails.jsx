@@ -42,6 +42,7 @@ function LabelDetails() {
     const [loading, setLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
+    const [successfulMessage, setSuccessfulMessage] = useState("");
 
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const [currentUser, setCurrentUser] = useState(""); //save actual user
@@ -79,6 +80,7 @@ function LabelDetails() {
             console.log(data);
             setLoading(false);
             setLabelData(data); //set the label in the state
+            setSuccessfulMessage('Label has been saved successfully');
             //navigate("/mylabels");
           })
           .catch((error) => {
@@ -95,6 +97,7 @@ function LabelDetails() {
                 <TranslationForm
                     labelData={labelData}
                     errorMessage={errorMessage}
+                    successfulMessage={successfulMessage}
                     isEdit={isEdit}
                     isDisabled={isDisabled}
                     disabled={loading}

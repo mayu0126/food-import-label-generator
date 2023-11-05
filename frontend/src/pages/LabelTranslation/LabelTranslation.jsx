@@ -8,25 +8,43 @@ import TranslationForm from "../../components/TranslationForm/TranslationForm";
 
 const url = process.env.REACT_APP_MY_URL;
 
+//the main functionality
 const translateLabelData = (field, context) => {
     console.log(field);
     
     return fetch(`${url}/Translation/GetByEnglishWordAsync/${field}`, {
         method: "GET",
         headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + context.user.token
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + context.user.token
         },
     }).then((res) => {
-        console.log(res)
-        if (!res.ok) {
-            return res.json().then((data) => {
-                console.log(data)
-                let newTranslationErrorMessage = "Failed to get hungarian word";
-                throw new Error(newTranslationErrorMessage);
+        //console.log(res)
+        if (res.status === 404) {
+            //if the first fetch receives 404 response, start the second fetch
+            return fetch(`${url}/Translation/Translate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + context.user.token
+                },
+                body: JSON.stringify({
+                    "text": field,
+                    "targetLanguage": "hu",
+                    "sourceLanguage": "en"
+                }),
+            }).then((secondRes) => {
+                if (!secondRes.ok) {
+                    return secondRes.json().then((data) => {
+                        let errorMessage = "Translation failed";
+                        throw new Error(errorMessage);
+                    });
+                }
+
+                return secondRes.json(); //second fetch "ok"
             });
         }
-        return res.json(); //if the response is "ok"
+        return res.json(); //first fetch "ok"
     });
 };
 
@@ -169,13 +187,19 @@ const handleSaveLabelData = (newLabel) => {
             translateLabelData(field, context)
             .then((data) => {
                 console.log(data);
-                translatedLabelData[Object.keys(englishLabel)[index]] = data.hungarian;
+                if(data.hungarian){
+                    translatedLabelData[Object.keys(englishLabel)[index]] = data.hungarian;
+                }
+                else{
+                    translatedLabelData[Object.keys(englishLabel)[index]] = data.translatedText;
+                }
+
                 setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
                 console.error("Edit error:", error.message);
-                setTranslationErrorMessage(`Failed to get hungarian word for "${Object.keys(englishLabel)[index]}"`);
+                setTranslationErrorMessage(`Failed to get translation for "${Object.keys(englishLabel)[index]}"`);
             });
         })
 
