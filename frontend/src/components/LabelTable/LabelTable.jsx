@@ -19,16 +19,16 @@ const LabelTable = ({ labelData, onDelete }) => {
 
   return (
     <>
-    <div className="mx-auto mt-20 max-w-screen-xl py-10 sm:py-16 lg:py-20">
+    <div className="mx-auto mt-20 max-w-screen-2xl py-10 sm:py-16 lg:py-20">
       <table className="bg-white shadow-md rounded w-full">
         <thead className="border-b-2 border-slate-300">
           <tr>
             <th className="text-left px-6 py-3">Date</th>
-            <th className="text-left px-6 py-3">ProductName</th>
-            <th className="text-left px-6 py-3">LegalName</th>
+            <th className="text-left px-6 py-3">Product name</th>
+            <th className="text-left px-6 py-3">Legal name</th>
             <th className="text-left px-6 py-3">Producer</th>
             <th className="text-left px-6 py-3">Distributor</th>
-            <th className="text-left px-6 py-3">EAN</th>
+            <th className="text-left px-6 py-3">EAN code</th>
             <th className="text-left px-6 py-3"></th>
           </tr>
         </thead>
