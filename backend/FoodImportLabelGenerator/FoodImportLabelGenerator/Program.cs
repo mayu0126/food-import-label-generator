@@ -20,8 +20,13 @@ var configuration = new ConfigurationBuilder()
 var appSettings = configuration.GetSection("AppSettings");
 var validIssuer = appSettings["ValidIssuer"];
 var validAudience = appSettings["ValidAudience"];
-var issuerSigningKey = builder.Configuration["UserSecrets:IssuerSigningKey"];
-var googleApiKey = builder.Configuration["UserSecrets:GoogleApiKey"];
+
+//var issuerSigningKey = builder.Configuration["UserSecrets:IssuerSigningKey"];
+//var googleApiKey = builder.Configuration["UserSecrets:GoogleApiKey"];
+
+//for deployment:
+var issuerSigningKey = Environment.GetEnvironmentVariable("IssuerSigningKey");
+var googleApiKey = Environment.GetEnvironmentVariable("GoogleApiKey");
 
 var defaultRole = appSettings["DefaultRole"];
 

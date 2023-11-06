@@ -16,8 +16,10 @@ public class UsersContext : IdentityDbContext<User, IdentityRole, string>
     }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+        //var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
         //options.UseSqlServer(connectionString!);
+        
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionString"); //for deployment
         options.UseNpgsql(connectionString!);
 
     }
