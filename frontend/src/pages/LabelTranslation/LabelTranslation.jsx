@@ -11,7 +11,7 @@ const url = process.env.REACT_APP_MY_URL;
 //the main functionality
 const translateLabelData = (field, context) => {
 
-    return fetch(`${url}/Translation/TranslateEnglishText`, {
+    return fetch(`${url}/Translation/TranslateEnglishTextAsync`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
