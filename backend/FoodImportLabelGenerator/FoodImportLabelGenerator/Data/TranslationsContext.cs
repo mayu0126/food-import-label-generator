@@ -16,7 +16,7 @@ public class TranslationsContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
-        optionsBuilder.UseSqlServer(connectionString!);
+        optionsBuilder.UseNpgsql(connectionString!);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -142,7 +142,7 @@ public class LabelController : ControllerBase
         {
             //Id = labels.Count()+1,
             UserId = labelData.UserId,
-            Date = DateTime.Now,
+            Date = DateTime.UtcNow,
             ProductName = labelData.ProductName,
             LegalName = labelData.LegalName,
             IngredientsList = labelData.IngredientsList,
