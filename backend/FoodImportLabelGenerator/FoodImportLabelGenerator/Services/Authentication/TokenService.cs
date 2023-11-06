@@ -10,7 +10,7 @@ namespace FoodImportLabelGenerator.Services.Authentication;
 
 public class TokenService : ITokenService
 {
-    private const int ExpirationMinutes = 30;
+    private const int ExpirationMinutes = 120;
     
     private readonly string _issuerSigningKey;
     private readonly string _validIssuer;

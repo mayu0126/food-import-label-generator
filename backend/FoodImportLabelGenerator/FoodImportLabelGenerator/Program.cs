@@ -97,7 +97,8 @@ void AddServices()
     
     builder.Services.AddSingleton(defaultRole!); // Register the defaultRole in the IoC  (Inversion of Control) container to be available in the AuthController
     
-    builder.Services.AddSingleton(new GoogleTranslationService(googleApiKey!));
+    builder.Services.AddSingleton<IGoogleTranslationService>(new GoogleTranslationService(googleApiKey!));
+    //builder.Services.AddSingleton(new GoogleTranslationService(googleApiKey!));
     
     /*
     // A way to avoid "xy field is required." and 400 Bad Request (empty strings are allowed)

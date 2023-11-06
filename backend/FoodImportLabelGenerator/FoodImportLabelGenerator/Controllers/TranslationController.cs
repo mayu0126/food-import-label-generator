@@ -19,10 +19,10 @@ public class TranslationController : ControllerBase
     private readonly ILogger<TranslationController> _logger;
     private readonly IConfiguration _configuration;
     private readonly ITranslationRepository _translationRepository;
-    private readonly GoogleTranslationService _googleTranslationService;
+    private readonly IGoogleTranslationService _googleTranslationService;
 
     public TranslationController(ILogger<TranslationController> logger, IConfiguration configuration,
-        ITranslationRepository translationRepository, GoogleTranslationService googleTranslationService)
+        ITranslationRepository translationRepository, IGoogleTranslationService googleTranslationService)
     {
         _logger = logger;
         _configuration = configuration;
@@ -188,8 +188,8 @@ public class TranslationController : ControllerBase
         }
     }
     
-    [HttpPost("TranslateEnglishText"), Authorize(Roles = "User, Admin")]
-    public async Task<IActionResult> TranslateEnglishText([FromBody] TranslateRequest request)
+    [HttpPost("TranslateEnglishTextAsync"), Authorize(Roles = "User, Admin")]
+    public async Task<IActionResult> TranslateEnglishTextAsync([FromBody] TranslateRequest request)
     {
         var translatedText = _translationRepository.TranslateEnglishText(request.Text);
         if (!translatedText.Any())

@@ -3,7 +3,7 @@ using Google.Cloud.Translation.V2;
 
 namespace FoodImportLabelGenerator.Services.Translation;
 
-public class GoogleTranslationService
+public class GoogleTranslationService : IGoogleTranslationService
 {
     private TranslationClient _translationClient;
 
