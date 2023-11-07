@@ -18,14 +18,14 @@ const Header = () => {
     <header className="absolute inset-x-0 top-0 z-50">
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-        <a href="/" className="-m-1.5 p-1.5 flex items-center">
+        <Link to="/" className="-m-1.5 p-1.5 flex items-center">
           <img
             className="h-16 w-auto"
             src="https://i.pinimg.com/originals/bd/f7/54/bdf7546457ed6eabd9bafb318e4e07e0.png"
             alt=""
           />
           <span className="text-6xl font-semibold ml-1 mt-1 text-rose-600" style={{ fontFamily: 'Allura, cursive'}}>Raberu</span>
-        </a>
+        </Link>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (

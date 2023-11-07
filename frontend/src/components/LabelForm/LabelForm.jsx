@@ -30,7 +30,7 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
   
     return (
         <div className="mx-auto mt-20 max-w-lg py-10 sm:py-16 lg:py-20">
-          <h2 className="text-center text-gray-700 text-lg font-semibold mb-12">IMPORTED PRODUCT DETAILS</h2>
+        <h2 className="text-center text-gray-700 text-lg font-semibold mb-8">IMPORTED PRODUCT DETAILS</h2>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e)}>
 
             <>
@@ -298,8 +298,8 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
             )}
         </div>
 
-        <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          <button className="w-36 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        <div className='absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+          <button className="w-36 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -mt-6"
               type="button"
               onClick={handleTranslateClick}
               >TRANSLATE <span aria-hidden="true">&rarr;</span>

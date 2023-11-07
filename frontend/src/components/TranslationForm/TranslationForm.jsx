@@ -84,7 +84,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         <>
         {labelData && (
         <div className="mx-auto mt-20 max-w-lg py-10 sm:py-16 lg:py-20">
-            <h2 className="text-center text-gray-700 text-lg font-semibold mb-12">LABEL DETAILS</h2>
+            <h2 className="text-center text-gray-700 text-lg font-semibold mb-8">LABEL DETAILS</h2>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e)}>
 
             <>
