@@ -98,7 +98,9 @@ function LabelDetails() {
             //console.log(data);
             setLoading(false);
             setLabelData(data); //set the label in the state
-            setSuccessfulMessage('Label has been saved successfully');
+            setSuccessfulMessage('Label has been updated successfully');
+            setIsEdit(false);
+            setIsDisabled(true);
             //navigate("/mylabels");
           })
           .catch((error) => {
