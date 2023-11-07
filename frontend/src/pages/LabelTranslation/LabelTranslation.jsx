@@ -144,8 +144,10 @@ const handleSaveLabelData = (newLabel) => {
 
     saveLabelData(newLabel, context.user)
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setLoading(false);
+        setIsEdit(false);
+        setIsDisabled(true);
         setSuccessfulMessage('Label has been saved successfully');
         //setLabelData(data); //set the label in the state
         //navigate("/mylabels");
@@ -184,7 +186,7 @@ const handleSaveLabelData = (newLabel) => {
 
             translateLabelData(field, context)
             .then((data) => {
-                console.log(data);
+                //console.log(data);
                 if(data.hungarian){
                     translatedLabelData[Object.keys(englishLabel)[index]] = data.hungarian;
                 }
@@ -201,7 +203,7 @@ const handleSaveLabelData = (newLabel) => {
             });
         })
 
-        console.log(translatedLabelData);
+        //console.log(translatedLabelData);
         setLabelData(translatedLabelData);
         
       };

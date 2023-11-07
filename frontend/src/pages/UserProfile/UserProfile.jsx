@@ -1,16 +1,16 @@
 import { React, useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import ProfileData from "../../components/ProfileData/ProfileData";
 
 const url = process.env.REACT_APP_MY_URL;
 
 const saveUserData = (user, userName, token) => {
-    console.log(user);
-    console.log(userName);
-    console.log(token);
-
-    console.log(JSON.stringify(user));
+    //console.log(user);
+    //console.log(userName);
+    //console.log(token);
+    //console.log(JSON.stringify(user));
+    console.log("UPDATE profile data");
     
     return fetch(`${url}/User/UpdateAsync`, {
         method: "PUT",
@@ -20,7 +20,7 @@ const saveUserData = (user, userName, token) => {
         },
         body: JSON.stringify(user),
     }).then((res) => {
-        console.log(res)
+        //console.log(res)
         if (!res.ok) {
             return res.json().then((data) => {
                 let errorMessage = "Update failed";
@@ -39,13 +39,31 @@ const saveUserData = (user, userName, token) => {
 
 function UserProfile() {
     const [errorMessage, setErrorMessage] = useState("");
+    const [successfulMessage, setSuccessfulMessage] = useState("");
     const [isEdit, setIsEdit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
 
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
+
+    const clearErrorMessage = () => {
+        setErrorMessage("");
+    };
+    const clearSuccessfulMessage = () => {
+        setSuccessfulMessage("");
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', clearErrorMessage);
+        document.addEventListener('click', clearSuccessfulMessage);
+        //remove event listeners
+        return () => {
+            document.removeEventListener('click', clearErrorMessage);
+            document.removeEventListener('click', clearSuccessfulMessage);
+        };
+    }, []);
 
     useEffect(() => {
         console.log("GET profile data")
@@ -60,16 +78,16 @@ function UserProfile() {
 
     const handleSaveProfileData = (user, userName) => {
         setLoading(true);
-        console.log(context.user); //who signed in
-        console.log(context.user.userName);
-        console.log(context.user.token);
-        console.log(currentUser) //result of GET
+        //console.log(context.user); //who signed in
+        //console.log(context.user.token);
+        //console.log(currentUser) //result of GET
         saveUserData(user, userName, context.user.token)
           .then((data) => {
-            console.log(data);
             setLoading(false);
             setCurrentUser(data); //set the user in the state
-            //navigate("/myprofile");
+            setIsEdit(false);
+            setIsDisabled(true);
+            setSuccessfulMessage("You have successfully updated your user data");
           })
           .catch((error) => {
             setLoading(false);
@@ -85,6 +103,7 @@ function UserProfile() {
         onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
         onSave={(user, userName) => handleSaveProfileData(user, userName)}
         errorMessage={errorMessage}
+        successfulMessage={successfulMessage}
         disabled={loading}
         currentUser={currentUser}
         isDisabled={isDisabled}

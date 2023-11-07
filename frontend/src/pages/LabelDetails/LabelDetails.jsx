@@ -9,6 +9,7 @@ import TranslationForm from "../../components/TranslationForm/TranslationForm";
 const url = process.env.REACT_APP_MY_URL;
 
 const saveLabelData = (updatedLabel, user) => {
+    console.log("UPDATE label data");
     
     return fetch(`${url}/Label/UpdateAsync/${updatedLabel.id}`, {
         method: "PUT",
@@ -94,7 +95,7 @@ function LabelDetails() {
 
         saveLabelData(updatedLabel, context.user)
           .then((data) => {
-            console.log(data);
+            //console.log(data);
             setLoading(false);
             setLabelData(data); //set the label in the state
             setSuccessfulMessage('Label has been saved successfully');

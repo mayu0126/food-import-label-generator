@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
 import PropTypes from 'prop-types';
 
-const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled, currentUser, isDisabled }) => {
+const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, successfulMessage, disabled, currentUser, isDisabled }) => {
 
-    const context  = useContext(UserContext);
+    const context  = useContext(UserContext);    
 
     const onSubmit = (e, userName) => {
         e.preventDefault();
@@ -33,6 +33,7 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
   
     return (
         <div className="mx-auto mt-20 max-w-xs py-10 sm:py-16 lg:py-20">
+            <h2 className="text-center text-gray-700 text-lg font-semibold mb-1">ACCOUNT INFORMATION</h2>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e, currentUser.userName)}>
 
             <>
@@ -151,9 +152,14 @@ const ProfileData = ({ isEdit, onEdit, onCancel, onSave, errorMessage, disabled,
           )}
 
         </form>
-        {errorMessage && (
-          <p className="text-red-500 text-xs italic">{errorMessage}</p>
-        )}
+        <div className='text-center'>
+            {errorMessage && (
+            <p className="text-red-500 text-xs italic">{errorMessage}</p>
+            )}
+            {successfulMessage && (
+                <p className="text-green-500 text-xs italic">{successfulMessage}</p>
+            )}
+        </div>
       </div>
     );
   }

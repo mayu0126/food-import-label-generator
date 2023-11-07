@@ -11,7 +11,6 @@ import LabelTable from "../../components/LabelTable/LabelTable";
 const url = process.env.REACT_APP_MY_URL;
 
 const deleteLabel = (id, user) => {
-    console.log("LABEL DELETE")
     return fetch(`${url}/Label/DeleteByIdAsync/${id}`, {
         method: "DELETE",
         headers: {
@@ -60,7 +59,7 @@ function UserLabels() {
     }, [isCurrentUserLoaded, currentUser]);
     
     const handleDelete = (id) => {
-        console.log(`Delete label with id ${id}`)
+        console.log(`DELETE label with id ${id}`)
         deleteLabel(id, context.user)
         .then(() => {
           //after a successful delete, updating the local state

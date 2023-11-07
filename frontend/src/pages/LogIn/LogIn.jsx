@@ -4,7 +4,8 @@ import CustomerForm from "../../components/CustomerForm/CustomerForm";
 import { UserContext } from "../../index";
 
 const loginUser = (user) => {
-  console.log(user);
+  //console.log(user);
+  console.log(`You successfully logged in`)
   const url = process.env.REACT_APP_MY_URL;
 
   return fetch(`${url}/Auth/Login`, {

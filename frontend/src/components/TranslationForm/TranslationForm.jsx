@@ -7,7 +7,7 @@ import { UserContext } from '../../index.js';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
-    console.log(labelData)
+    //console.log(labelData)
     const context  = useContext(UserContext);
     const [formFields, setFormFields] = useState(labelData);
     const [fillRequiredFields, setFillRequiredFields] = useState(null);
@@ -16,14 +16,26 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         setFormFields(labelData)
     }, [labelData])
 
-    console.log(formFields)
+    const clearFillRequiredFieldsMessage = () => {
+        setFillRequiredFields("");
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', clearFillRequiredFieldsMessage);
+        //remove event listeners
+        return () => {
+            document.removeEventListener('click', clearFillRequiredFieldsMessage);
+        };
+    }, []);
+
+    //console.log(formFields)
 
     const validateFields = () => {
-        console.log("validating fields")
-        console.log(formFields);
+        //console.log("validating fields")
+        //console.log(formFields);
         const requiredFields = ['ean', 'legalName', 'nutritions', 'distributor', 'storage'];
         requiredFields.forEach(field => console.log(formFields[field]));
-        console.log(requiredFields.every(field => formFields[field]));
+        //console.log(requiredFields.every(field => formFields[field]));
         return requiredFields.every(field => formFields[field]);
       };
 
@@ -32,7 +44,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
 
         if (!validateFields()) {
             //if validation fails, don't submit the form
-            console.log("validating fields - FALSE")
+            //console.log("validating fields - FALSE")
             setFillRequiredFields('Please fill in all required fields');
             return;
         }
@@ -64,15 +76,15 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormFields({ ...formFields, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setFormFields({ ...formFields, [name]: type === "checkbox" ? checked : value });
     };
 
     return (
         <>
         {labelData && (
         <div className="mx-auto mt-20 max-w-lg py-10 sm:py-16 lg:py-20">
-            <h2 className="text-center text-gray-700 text-lg font-semibold mb-1">LABEL DETAILS</h2>
+            <h2 className="text-center text-gray-700 text-lg font-semibold mb-12">LABEL DETAILS</h2>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => onSubmit(e)}>
 
             <>
@@ -343,7 +355,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     type="checkbox"
                     name="organic"
                     id="organic"
-                    defaultChecked={labelData.organic}
+                    defaultChecked={formFields.organic}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -407,7 +419,14 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 <p className="text-red-500 text-xs italic">{errorMessage || fillRequiredFields}</p>
             )}
             {successfulMessage && (
+                <>
                 <p className="text-green-500 text-xs italic">{successfulMessage}</p>
+                <Link to="/mylabels" className="text-sm font-semibold leading-6 text-gray-900">
+                    <button type="button">
+                        Go to my labels <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </Link>
+                </>
             )}
         </div>
         </div>
