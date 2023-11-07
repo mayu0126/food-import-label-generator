@@ -144,12 +144,10 @@ const handleSaveLabelData = (newLabel) => {
 
     saveLabelData(newLabel, context.user)
       .then((data) => {
-        //console.log(data);
         setLoading(false);
         setIsEdit(false);
         setIsDisabled(true);
         setSuccessfulMessage('Label has been saved successfully');
-        //setLabelData(data); //set the label in the state
         //navigate("/mylabels");
       })
       .catch((error) => {
@@ -159,7 +157,7 @@ const handleSaveLabelData = (newLabel) => {
       });
   };
 
-    const handleTranslation = (englishLabel) => {
+    const handleTranslation = async (englishLabel) => {
 
         let translatedLabelData = {
             "date": formatDateToCustomFormat(new Date()).toString(),
@@ -167,9 +165,9 @@ const handleSaveLabelData = (newLabel) => {
         }
 
         setLoading(true);
-        Object.values(englishLabel).map((field, index) => {
 
-            if(
+        const translationPromises = Object.values(englishLabel).map(async (field, index) => {
+            if (
                 Object.keys(englishLabel)[index] === "date" ||
                 Object.keys(englishLabel)[index] === "distributor" ||
                 Object.keys(englishLabel)[index] === "ean" ||
@@ -179,31 +177,27 @@ const handleSaveLabelData = (newLabel) => {
                 Object.keys(englishLabel)[index] === "organic" ||
                 Object.keys(englishLabel)[index] === "healthMark" ||
                 field === ""
-            ){
+            ) {
                 translatedLabelData[Object.keys(englishLabel)[index]] = field;
                 return null;
             }
-
-            translateLabelData(field, context)
-            .then((data) => {
-                //console.log(data);
-                if(data.hungarian){
+    
+            try {
+                const data = await translateLabelData(field, context);
+                if (data.hungarian) {
                     translatedLabelData[Object.keys(englishLabel)[index]] = data.hungarian;
-                }
-                else{
+                } else {
                     translatedLabelData[Object.keys(englishLabel)[index]] = data.translatedText;
                 }
-
-                setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
+            } catch (error) {
                 console.error("Translation error:", error.message);
                 setTranslationErrorMessage(`Failed to get translation for "${Object.keys(englishLabel)[index]}"`);
-            });
-        })
+            }
+        });
+    
+        await Promise.all(translationPromises);
 
-        //console.log(translatedLabelData);
+        setLoading(false);
         setLabelData(translatedLabelData);
         
       };
@@ -215,6 +209,7 @@ const handleSaveLabelData = (newLabel) => {
                 onSave={(englishLabel) => handleTranslation(englishLabel)}
                 translationErrorMessage={translationErrorMessage}
                 currentDate={formatDateToCustomFormat(new Date()).toString()}
+                loading={loading}
             />
         </div>
 

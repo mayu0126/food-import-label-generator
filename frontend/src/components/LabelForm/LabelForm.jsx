@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../index.js';
 
-const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
+const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) => {
 
     const context  = useContext(UserContext);
     const firstTranslateButtonRef = useRef();
@@ -290,9 +290,12 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
             </div>
           </form>
         <div className="text-center">
-          {translationErrorMessage && (
-            <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
-          )}
+            {translationErrorMessage && (
+                <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
+            )}
+            {loading && (
+                <p className="text-slate-600 text-xs italic">Translation in progress...</p>
+            )}
         </div>
 
         <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
@@ -304,6 +307,9 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate }) => {
           <div className="mt-20 w-52 text-center">
             {translationErrorMessage && (
               <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
+            )}
+            {loading && (
+                <p className="text-slate-600 text-xs italic">Translation in progress...</p>
             )}
           </div>
         </div>
