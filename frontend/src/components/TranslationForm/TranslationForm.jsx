@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
+import { jsPDF } from 'jspdf';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
@@ -78,6 +79,68 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormFields({ ...formFields, [name]: type === "checkbox" ? checked : value });
+    };
+
+    // Generate pdf
+    const generatePDF = () => {
+        // Create a new jsPDF instance
+        const doc = new jsPDF({
+            orientation: 'landscape',
+            unit: 'mm',
+            format: 'a4',
+            lineHeight: 1.2
+        });
+      
+        // Calculate the dimensions for each quadrant
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const quadrantWidth = pageWidth / 2;
+        const quadrantHeight = pageHeight / 2;
+
+        // Collect form data
+        const pdfFormFields = {
+            productName: formFields.productName,
+            legalName: formFields.legalName,
+            allergens: formFields.allergens,
+            legalNameAdditionalInformation: formFields.legalNameAdditionalInformation,
+            cookingInstructions: formFields.cookingInstructions,
+            ingredientsList: formFields.ingredientsList,
+            ingredientsListAdditionalInformation: formFields.ingredientsListAdditionalInformation,
+            mayContain: formFields.mayContain,
+            nutritions: formFields.nutritions,
+            producer: formFields.producer,
+            distributor: formFields.distributor,
+            countryOfOrigin: formFields.countryOfOrigin,
+            mainIngredientCOO: formFields.mainIngredientCOO,
+            bestBeforeText: formFields.bestBeforeText,
+            storage: formFields.storage,
+            bestBeforeAdditionalInformation: formFields.bestBeforeAdditionalInformation,
+            netWeight: formFields.netWeight,
+            netVolume: formFields.netVolume,
+            ean: formFields.ean,
+            organic: formFields.organic ? "Organic logo" : null,
+            healthMark: formFields.healthMark,
+        };
+      
+        // Start adding content to the PDF
+        doc.text('Label Details', 10, 10);
+        doc.setFontSize(10);
+        //doc.addFont("../../assets/fonts/GARA.ttf", "gara", "normal");
+        //doc.setFont('gara');
+
+        // Loop through the formFields and add them to the PDF
+        let yOffset = 20;
+        for (const field in pdfFormFields) {
+            if (pdfFormFields[field]) {
+                for (let i = 0; i < 4; i++) {
+                    doc.text(`${field}: ${pdfFormFields[field]}`, 10 + (i % 2) * quadrantWidth, yOffset + Math.floor(i / 2) * quadrantHeight);
+                }
+                yOffset += 5; // set line spacing for all 4 occurrences
+            }
+        }
+
+        // Save the PDF and open a download dialog
+        doc.save('label_details.pdf');
     };
 
     return (
@@ -408,6 +471,13 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 onClick={() => onEdit()}
                 >
                     Edit
+                </button>
+                <button
+                    className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={generatePDF}
+                    >
+                    Print
                 </button>
             </div>
           </>
