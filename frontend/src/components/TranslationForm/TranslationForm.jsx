@@ -135,12 +135,29 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
 
         // Loop through the formFields and add them to the PDF
         let yOffset = 20;
-        for (const field in pdfFormFields) {
+        for (let field in pdfFormFields) {
+
             if (pdfFormFields[field]) {
+                console.log(field);
+                let field_2 = "";
+
                 for (let i = 0; i < 4; i++) {
                     const x = 10 + (i % 2) * quadrantWidth;
                     const y = yOffset + Math.floor(i / 2) * quadrantHeight;
-                    doc.text(`${field}: ${pdfFormFields[field]}`, x, y, { maxWidth: quadrantWidth - 20 });
+
+                    if (field === "cookingInstructions") field_2 = "Elkészítési javaslat: "
+                    if (field === "ingredientsList") field_2 = "Összetevök: "
+                    if (field === "nutritions") field_2 = "Átlagos tápérték 100 g termékben: "
+                    if (field === "distributor") field_2 = "Forgalmazza: "
+                    if (field === "producer") field_2 = "Gyártja: "
+                    if (field === "countryOfOrigin") field_2 = "Származási hely: "
+                    if (field === "mainIngredientCOO") field_2 = "A fö összetevö származási helye: "
+                    if (field === "bestBeforeText") field_2 = "Minöségét megörzi: "
+                    if (field === "storage") field_2 = "Tárolás: "
+                    if (field === "netWeight") field_2 = "Nettó tömeg: "
+                    if (field === "netVolume") field_2 = "Nettó térfogat: "
+
+                    doc.text(`${field_2}${pdfFormFields[field]}`, x, y, { maxWidth: quadrantWidth - 20 });
                 }
                 yOffset += 5 * Math.ceil(doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: quadrantWidth - 20 }).h / 5);
             }
