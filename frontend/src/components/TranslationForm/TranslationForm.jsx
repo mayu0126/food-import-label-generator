@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
+import generatePDF from '../../utils/pdfGenerator.js';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
@@ -79,6 +80,8 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         const { name, value, type, checked } = e.target;
         setFormFields({ ...formFields, [name]: type === "checkbox" ? checked : value });
     };
+
+
 
     return (
         <>
@@ -408,6 +411,13 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 onClick={() => onEdit()}
                 >
                     Edit
+                </button>
+                <button
+                    className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={() => generatePDF(formFields)}
+                    >
+                    Print
                 </button>
             </div>
           </>
