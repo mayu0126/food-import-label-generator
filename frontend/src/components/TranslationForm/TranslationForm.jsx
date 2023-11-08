@@ -83,6 +83,8 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
 
     // Generate pdf
     const generatePDF = () => {
+        console.log("generatePDF");
+
         // Create a new jsPDF instance
         const doc = new jsPDF({
             orientation: 'landscape',
@@ -121,26 +123,30 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
             organic: formFields.organic ? "Organic logo" : null,
             healthMark: formFields.healthMark,
         };
-      
+    
+        //doc.addFileToVFS('calibri.ttf', binaryString);
+        //doc.addFont('calibri.ttf', 'calibri', 'normal');
+        //doc.setFont('calibri');
+
         // Start adding content to the PDF
-        doc.text('Label Details', 10, 10);
+        doc.setFont('times');
+        doc.text(`LABEL DETAILS - ${formFields.productName}`, 10, 10);
         doc.setFontSize(10);
-        //doc.addFont("../../assets/fonts/GARA.ttf", "gara", "normal");
-        //doc.setFont('gara');
 
         // Loop through the formFields and add them to the PDF
         let yOffset = 20;
         for (const field in pdfFormFields) {
             if (pdfFormFields[field]) {
                 for (let i = 0; i < 4; i++) {
-                    doc.text(`${field}: ${pdfFormFields[field]}`, 10 + (i % 2) * quadrantWidth, yOffset + Math.floor(i / 2) * quadrantHeight);
+                    const x = 10 + (i % 2) * quadrantWidth;
+                    const y = yOffset + Math.floor(i / 2) * quadrantHeight;
+                    doc.text(`${field}: ${pdfFormFields[field]}`, x, y, { maxWidth: quadrantWidth - 20 });
                 }
-                yOffset += 5; // set line spacing for all 4 occurrences
+                yOffset += 5 * Math.ceil(doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: quadrantWidth - 20 }).h / 5);
             }
         }
-
         // Save the PDF and open a download dialog
-        doc.save('label_details.pdf');
+        doc.save('label.pdf');
     };
 
     return (
@@ -473,7 +479,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     Edit
                 </button>
                 <button
-                    className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={generatePDF}
                     >
