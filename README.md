@@ -1,7 +1,7 @@
 # RABERU - The import label generator for food products
 
 You can easily generate back of pack labels for your food product with this web application. If you register and log in, you can make collections of your labels as well, and save them for future usage.
-You can find the most up-to-date deployed version on this link: 🌟https://food-import-label-generator.onrender.com/🌟
+You can find the most up-to-date deployed version on this link: 🌟 https://food-import-label-generator.onrender.com/ 🌟
 
 ![image](https://github.com/mayu0126/food-import-label-generator/assets/117304817/4bd9b27c-a53a-41a6-8445-d27857ad5605)
 
@@ -20,7 +20,7 @@ You can find the most up-to-date deployed version on this link: 🌟https://food
 ## Languages/Tools/Technologies
 - C# (backend)
 - JavaScript (frontend)
-- HTML and CSS
+- HTML and Tailwind CSS
 - Node.js
 - React.js
 - ASP.NET Web API
