@@ -17,13 +17,20 @@ You can find the most up-to-date deployed version on this link: 🌟https://food
 
 +1. You can try the translation feature itself choosing the 'Translation feature' menu from 'My profile'
 
-## Technologies
+## Languages/Tools/Technologies
+- C# (backend)
+- JavaScript (frontend)
+- HTML and CSS
+- Node.js
 - React.js
 - ASP.NET Web API
 - Entity Framework Core
 - ASP.NET Core Identity
-- PostgreSQL
+- PostgreSQL (for the deployed application) or Microsoft SQL Server (to run locally)
+- Docker
 - Cloud Translation API
+- GitHub Actions - .NET CI workflow
+- Render - as part of the CD workflow
 
 ## Features
 - Automatic translation, currently from English to Hungarian language
