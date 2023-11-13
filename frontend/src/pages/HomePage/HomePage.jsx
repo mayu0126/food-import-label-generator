@@ -3,7 +3,7 @@ import React from 'react';
 function HomePage() {
   return (
     <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-      <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+      <div className="mb-8 flex justify-center">
         <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-rose-600/60 hover:ring-rose-600/80">
           Get started with 1 month of free services.{' '}
           <a href="onemonthfree" className="font-semibold text-rose-600">
