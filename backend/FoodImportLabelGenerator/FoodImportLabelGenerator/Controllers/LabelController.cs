@@ -64,7 +64,7 @@ public class LabelController : ControllerBase
         }
     }
 
-    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "Admin")]
+    [HttpGet("GetByIdAsync/{id}"), Authorize(Roles = "User, Admin")]
     public async Task<ActionResult<Label>> GetByIdAsync(int id)
     {
         var label = _labelRepository.GetById(id);
