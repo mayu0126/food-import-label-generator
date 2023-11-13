@@ -204,7 +204,7 @@ const handleSaveLabelData = (newLabel) => {
 
     return (
         <div className="flex justify-center flex-col xl:flex-row">
-        <div className="-mt-10 xl:w-1/2 xl:mt-5">
+        <div className="mt-auto xl:w-1/2 xl:mt-5">
             <p className="hidden xl:block text-slate-400 w-28 h-28 text-xs text-center absolute left-1/4 ml-40 top-32 p-3.5 rounded-full">
                 <b>STEP 1</b><br></br><br></br>Provide data of English label
                 <span className="absolute top-0 left-0 w-full h-full border-2 border-slate-300 rounded-full p-3.5 blur-sm"></span>
@@ -221,7 +221,7 @@ const handleSaveLabelData = (newLabel) => {
             />
         </div>
 
-        <div className="-mt-28 xl:w-1/2 xl:mt-5">
+        <div className="-mt-10 xl:w-1/2 xl:mt-5">
         <p className="hidden xl:block text-slate-400 w-36 h-36 text-xs text-center absolute right-1/4 -mr-64 top-32 p-3 rounded-full">
             <b>STEP 3</b><br></br><br></br>Click on the 'Edit' button, revise your label data, and save it to 'My labels'
             <span className="absolute top-0 left-0 w-full h-full border-2 border-slate-300 rounded-full p-3. blur-sm"></span>

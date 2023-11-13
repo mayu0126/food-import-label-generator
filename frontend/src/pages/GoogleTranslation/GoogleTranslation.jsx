@@ -45,7 +45,8 @@ function GoogleTranslation() {
 
   return (
     <div className='flex items-center justify-center h-screen'>
-    <div className='max-w-sm p-6 bg-slate-300 rounded-lg shadow-lg'>
+    <div className='max-w-sm p-6 bg-slate-200 rounded-lg shadow-lg'>
+    <h2 className="text-center text-gray-700 xl:text-lg text-auto font-semibold mb-5">TRANSLATION</h2>
       <textarea
         className="w-full h-32 p-2 mb-4 bg-white border rounded focus:outline-none focus:shadow-outline"
         type="text"

@@ -20,7 +20,7 @@ const LabelTable = ({ labelData, onDelete }) => {
   return (
     <>
     <div className="mx-auto mt-20 max-w-screen-2xl py-10 sm:py-16 lg:py-20">
-    <h2 className="text-center text-gray-700 xl:text-lg text-base font-semibold mb-12">MY LABELS</h2>
+    <h2 className="text-center text-gray-700 xl:text-lg text-auto font-semibold mb-12">MY LABELS</h2>
       <table className="bg-white shadow-md rounded w-full">
         <thead className="border-b-2 border-slate-300">
           <tr>
