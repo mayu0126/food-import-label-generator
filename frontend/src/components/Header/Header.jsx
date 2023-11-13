@@ -12,11 +12,25 @@ const navigation = [
 const Header = () => {
   const context = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMyProfileMenuOpen, setIsMyProfileMenuOpen] = useState(false);
   const [isCloseIcon, setIsCloseIcon] = useState(false);
+
+  const openMyProfileMenu = () => {
+    setIsMyProfileMenuOpen(!isMyProfileMenuOpen);
+  };
+
+  const closeMyProfileMenu = () => {
+    setIsMyProfileMenuOpen(false);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setIsCloseIcon(!isCloseIcon);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    setIsCloseIcon(false);
   };
 
   return (
@@ -72,26 +86,32 @@ const Header = () => {
                 {context.user ? (
                   <>
                     {navigation.map((item) => (
-                      <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                      <Link 
+                        key={item.name}
+                        to={item.href}
+                        onClick={closeMenu}
+                        className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
                         {item.name}
                       </Link>
                     ))
                     }
-                    <p className="border-t border-gray-200 px-4 py-2 font-semibold text-rose-600 pointer-events-none">{context.user.userName}</p>
+                    <p className="border-t border-gray-200 px-4 py-2 font-semibold text-rose-600 pointer-events-none">
+                      {context.user.userName}
+                    </p>
                     <hr className="w-full border-t border-gray-200 my-1" />
-                    <Link to="/myprofile" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/myprofile" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Account information
                     </Link>
-                    <Link to="/mylabels" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/mylabels" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       My labels
                     </Link>
-                    <Link to="/addnewlabel" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/addnewlabel" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Add new label
                     </Link>
-                    <Link to="/translation" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/translation" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Translation feature
                     </Link>
-                    <Link to="/" className="border-t border-gray-200 text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/" onClick={closeMenu} className="border-t border-gray-200 text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       <button type="button" onClick={context.logout}>
                         Log Out <span aria-hidden="true">&rarr;</span>
                       </button>
@@ -100,15 +120,15 @@ const Header = () => {
                 ) : (
                   <>
                   {navigation.map((item) => (
-                    <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link key={item.name} to={item.href} onClick={closeMenu} className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       {item.name}
                     </Link>
                   ))
                   }
-                  <Link to="/register" className="border-t border-gray-200 text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
+                  <Link to="/register" onClick={closeMenu} className="border-t border-gray-200 text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
                     Register <span aria-hidden="true">&rarr;</span>
                   </Link>
-                  <Link to="/login" className="text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
+                  <Link to="/login" onClick={closeMenu} className="text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
                     Log in <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </>
@@ -117,7 +137,6 @@ const Header = () => {
             )}
           </div>
         </div>
-
 
         <div className="hidden xl:flex xl:gap-x-12">
           {navigation.map((item) => (
@@ -141,40 +160,40 @@ const Header = () => {
             <div className="relative group">
               <button
                 className="mr-12 text-sm font-bold leading-6 text-rose-600 hover:text-rose-500 group"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={openMyProfileMenu}
               >
-                My profile {isMenuOpen ? <span aria-hidden="true">&uarr;</span> : <span aria-hidden="true">&darr;</span>}
+                My profile {isMyProfileMenuOpen ? <span aria-hidden="true">&uarr;</span> : <span aria-hidden="true">&darr;</span>}
               </button>
-              {isMenuOpen && (
+              {isMyProfileMenuOpen && (
                 <ul className="absolute w-[max-content] left-0 mt-2 space-y-2 bg-white border border-gray-200 rounded-lg p-2" onMouseLeave={() => setIsMenuOpen(false)}>
                   <li className="px-4 py-2 font-semibold text-gray-900 pointer-events-none">{context.user.userName}</li>
                   <li>
                     <hr className="w-full border-t border-gray-200 my-1" />
                   </li>
                   <li>
-                    <Link to="/myprofile" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/myprofile" onClick={closeMyProfileMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Account information
                     </Link>
                   </li>
                   <li>
-                    <Link to="/mylabels" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/mylabels" onClick={closeMyProfileMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       My labels
                     </Link>
                   </li>
                   <li>
-                    <Link to="/addnewlabel" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/addnewlabel" onClick={closeMyProfileMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Add new label
                     </Link>
                   </li>
                   <li>
-                    <Link to="/translation" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/translation" onClick={closeMyProfileMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Translation feature
                     </Link>
                   </li>
                 </ul>
               )}
             </div>
-            <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
+            <Link to="/" onClick={closeMyProfileMenu} className="text-sm font-semibold leading-6 text-gray-900">
               <button type="button" onClick={context.logout}>
                 Log Out <span aria-hidden="true">&rarr;</span>
               </button>
