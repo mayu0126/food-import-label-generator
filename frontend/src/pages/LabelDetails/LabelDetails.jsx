@@ -2,9 +2,9 @@ import { React, useState, useContext, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from "../../index";
 import TranslationForm from "../../components/TranslationForm/TranslationForm";
+import Loading from "../../components/Loading";
 
 //This page loads when the user clicks on the "Details" button next to each label at the LabelTable
-
 
 const url = process.env.REACT_APP_MY_URL;
 
@@ -44,9 +44,8 @@ function LabelDetails() {
     const [isEdit, setIsEdit] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [successfulMessage, setSuccessfulMessage] = useState("");
-
-    const context = useContext(UserContext); //connect to UserContext - email, userName, token
     const [currentUser, setCurrentUser] = useState(""); //save actual user
+    const context = useContext(UserContext); //connect to UserContext - email, userName, token
     //const navigate = useNavigate();
 
     const clearErrorMessage = () => {
@@ -67,6 +66,7 @@ function LabelDetails() {
     }, []);
 
     useEffect(() => {
+        setLoading(true);
         console.log("GET label details")
         fetch(`${url}/Label/GetByIdAsync/${id}`, {
             method: "GET",
@@ -74,10 +74,14 @@ function LabelDetails() {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + context.user.token
             },
-        }).then((res) => res.json()).then((data) => setLabelData(data))
+        })
+        .then((res) => res.json())
+        .then((data) => setLabelData(data))
+        .then(() => setLoading(false))
     }, [id]);
     
     useEffect(() => {
+        setLoading(true);
         console.log("GET profile data")
         fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
             method: "GET",
@@ -85,53 +89,49 @@ function LabelDetails() {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + context.user.token
             },
-        }).then((res) => res.json()).then((data) => setCurrentUser(data))
+        })
+        .then((res) => res.json())
+        .then((data) => setCurrentUser(data))
+        .then(() => setLoading(false))
     }, []); 
 
 
     const handleSaveLabelData = (updatedLabel) => {
-
         setLoading(true);
-
         saveLabelData(updatedLabel, context.user)
           .then((data) => {
             //console.log(data);
-            setLoading(false);
             setLabelData(data); //set the label in the state
             setSuccessfulMessage('Label has been updated successfully');
             setIsEdit(false);
             setIsDisabled(true);
+            setLoading(false);
             //navigate("/mylabels");
           })
           .catch((error) => {
-            setLoading(false);
             console.error("Edit error:", error.message);
             setErrorMessage(error.message);
+            setLoading(false);
           });
       };
 
     return (
-        <div>
-            {labelData ? (
-            <div>
-                <TranslationForm
-                    labelData={labelData}
-                    errorMessage={errorMessage}
-                    successfulMessage={successfulMessage}
-                    isEdit={isEdit}
-                    isDisabled={isDisabled}
-                    disabled={loading}
-                    onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
-                    onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
-                    onSave={(updatedLabel) => handleSaveLabelData(updatedLabel)}
-                    currentUser={currentUser}
-                    //onAmend={(updatedLabel) => onAmend(updatedLabel)}
-                />
-            </div>
-            ) : (
-            <div>Loading...</div>
-            )}
-        </div>
+        <>
+            {loading && <Loading />}
+            <TranslationForm
+                labelData={labelData}
+                errorMessage={errorMessage}
+                successfulMessage={successfulMessage}
+                isEdit={isEdit}
+                isDisabled={isDisabled}
+                disabled={loading}
+                onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
+                onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
+                onSave={(updatedLabel) => handleSaveLabelData(updatedLabel)}
+                currentUser={currentUser}
+                //onAmend={(updatedLabel) => onAmend(updatedLabel)}
+            />
+        </>
     );
 }
 

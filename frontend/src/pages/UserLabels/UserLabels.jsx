@@ -1,6 +1,7 @@
 import { React, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
+import Loading from "../../components/Loading";
 
 import LabelTable from "../../components/LabelTable/LabelTable";
 
@@ -25,6 +26,7 @@ function UserLabels() {
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const [labelData, setLabelData] = useState([]);
     const [isCurrentUserLoaded, setIsCurrentUserLoaded] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         console.log("GET profile data");
@@ -43,6 +45,7 @@ function UserLabels() {
     }, []);
     
     useEffect(() => {
+        setLoading(true);
         //runs only if the currentUser has value
         if (isCurrentUserLoaded) {
             console.log("GET labels data");
@@ -54,25 +57,31 @@ function UserLabels() {
                 },
             })
             .then((res) => res.json())
-            .then((data) => setLabelData(data));
+            .then((data) => setLabelData(data))
+            .then(() => setLoading(false))
         }
     }, [isCurrentUserLoaded, currentUser]);
     
     const handleDelete = (id) => {
+        setLoading(true);
         console.log(`DELETE label with id ${id}`)
         deleteLabel(id, context.user)
         .then(() => {
           //after a successful delete, updating the local state
           setLabelData(labelData.filter(c => c.id !== id));
+          setLoading(false);
         });
     }
 
       //console.log(labelData);
     return (
+        <>
+        {loading && <Loading />}
         <LabelTable
             labelData={labelData}
             onDelete={handleDelete}
         />
+        </>
     );
 }
 

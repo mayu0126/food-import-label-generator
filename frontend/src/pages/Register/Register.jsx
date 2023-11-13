@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerForm from "../../components/CustomerForm/CustomerForm";
+import Loading from "../../components/Loading";
 
 const createCustomer = (customer) => {
   console.log(customer);
@@ -57,6 +58,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    {loading && <Loading />}
     <CustomerForm
       onCancel={() => navigate("/")}
       onSave={handleCreateCustomer}
@@ -64,6 +67,7 @@ const Register = () => {
       isRegister={true}
       errorMessage={errorMessage}
     />
+    </>
   );
 };
 

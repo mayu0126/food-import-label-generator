@@ -2,10 +2,10 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerForm from "../../components/CustomerForm/CustomerForm";
 import { UserContext } from "../../index";
+import Loading from "../../components/Loading";
 
 const loginUser = (user) => {
   //console.log(user);
-  console.log(`You successfully logged in`)
   const url = process.env.REACT_APP_MY_URL;
 
   return fetch(`${url}/Auth/Login`, {
@@ -35,7 +35,6 @@ const LogIn = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const context = useContext(UserContext); //connect to UserContext
-
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogIn = (user) => {
@@ -43,6 +42,7 @@ const LogIn = () => {
     loginUser(user)
       .then((data) => {
         setLoading(false);
+        console.log(`You successfully logged in`)
         context.setUser(data); //set the user in the context
         navigate("/");
       })
@@ -64,13 +64,16 @@ const LogIn = () => {
   }
 
   return (
-    <CustomerForm
-      onCancel={() => navigate("/")}
-      onSave={handleLogIn}
-      disabled={loading}
-      isRegister={false}
-      errorMessage={errorMessage}
-    />
+    <>
+      {loading && <Loading />}
+      <CustomerForm
+        onCancel={() => navigate("/")}
+        onSave={handleLogIn}
+        disabled={loading}
+        isRegister={false}
+        errorMessage={errorMessage}
+      />
+    </>
   );
 };
 

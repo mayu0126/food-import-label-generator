@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import LabelForm from "../../components/LabelForm/LabelForm";
 import TranslationForm from "../../components/TranslationForm/TranslationForm";
+import Loading from "../../components/Loading";
 
 //This page loads when the user clicks on the "Add new label" button
 
@@ -128,6 +129,7 @@ function LabelTranslation() {
     }, []);
 
     useEffect(() => {
+        setLoading(true);
         console.log("GET profile data")
         fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
             method: "GET",
@@ -135,36 +137,36 @@ function LabelTranslation() {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + context.user.token
             },
-        }).then((res) => res.json()).then((data) => setCurrentUser(data))
+        })
+        .then((res) => res.json())
+        .then((data) => setCurrentUser(data))
+        .then(() => setLoading(false))
     }, []); 
 
 const handleSaveLabelData = (newLabel) => {
-
     setLoading(true);
-
     saveLabelData(newLabel, context.user)
       .then((data) => {
-        setLoading(false);
         setIsEdit(false);
         setIsDisabled(true);
         setSuccessfulMessage('Label has been saved successfully');
+        setLoading(false);
         //navigate("/mylabels");
       })
       .catch((error) => {
-        setLoading(false);
         console.error("Edit error:", error.message);
         setErrorMessage(error.message);
+        setLoading(false);
       });
   };
 
     const handleTranslation = async (englishLabel) => {
 
+        setLoading(true);
         let translatedLabelData = {
             "date": formatDateToCustomFormat(new Date()).toString(),
             "userId": currentUser.id,
         }
-
-        setLoading(true);
 
         const translationPromises = Object.values(englishLabel).map(async (field, index) => {
             if (
@@ -197,12 +199,13 @@ const handleSaveLabelData = (newLabel) => {
     
         await Promise.all(translationPromises);
 
-        setLoading(false);
         setLabelData(translatedLabelData);
-        
+        setLoading(false);
       };
 
     return (
+        <>
+        {loading && <Loading />}
         <div className="flex justify-center flex-col xl:flex-row">
         <div className="mt-auto xl:w-1/2 xl:mt-5">
             <p className="hidden xl:block text-slate-400 w-28 h-28 text-xs text-center absolute left-1/4 ml-40 top-32 p-3.5 rounded-full">
@@ -240,8 +243,8 @@ const handleSaveLabelData = (newLabel) => {
                 currentDate={formatDateToCustomFormat(new Date()).toString()}
             />
         </div>
-
       </div>
+      </>
     );
 }
 

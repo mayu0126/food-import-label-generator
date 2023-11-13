@@ -293,9 +293,6 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
             {translationErrorMessage && (
                 <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
             )}
-            {loading && (
-                <p className="text-slate-600 text-xs italic">Translation in progress...</p>
-            )}
         </div>
 
         <div className='hidden xl:block absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
@@ -307,9 +304,6 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
           <div className="mt-20 w-52 text-center">
             {translationErrorMessage && (
               <p className="text-red-500 text-xs italic">{translationErrorMessage}</p>
-            )}
-            {loading && (
-                <p className="text-slate-600 text-xs italic">Translation in progress...</p>
             )}
           </div>
         </div>
