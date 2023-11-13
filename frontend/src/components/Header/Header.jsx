@@ -16,6 +16,7 @@ const Header = () => {
   return (
     <header className="absolute inset-x-0 top-0 z-50 bg-white">
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5 flex items-center">
             <img
@@ -28,18 +29,10 @@ const Header = () => {
             </span>
           </Link>
         </div>
+
         <div className="lg:hidden">
           <div className="flex items-center">
-            {!context.user && (
-              <div className="flex items-center mr-4">
-                <Link to="/register" className="text-sm font-semibold leading-6 text-gray-900">
-                  Register <span aria-hidden="true">&rarr;</span>
-                </Link>
-                <Link to="/login" className="ml-4 text-sm font-semibold leading-6 text-gray-900">
-                  Log in <span aria-hidden="true">&rarr;</span>
-                </Link>
-              </div>
-            )}
+
             <button
               className="text-gray-900 p-2 focus:outline-none focus:ring"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -72,18 +65,34 @@ const Header = () => {
                     <Link to="/translation" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Translation feature
                     </Link>
+                    <Link to="/" className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                      <button type="button" onClick={context.logout}>
+                        Log Out <span aria-hidden="true">&rarr;</span>
+                      </button>
+                    </Link>
                   </>
                 ) : (
-                  navigation.map((item) => (
-                    <Link key={item.name} to={item.href} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                  <>
+                  {navigation.map((item) => (
+                    <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       {item.name}
                     </Link>
                   ))
+                  }
+                  <Link to="/register" className="text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
+                    Register <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                  <Link to="/login" className="text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
+                    Log in <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                </>
                 )}
               </div>
             )}
           </div>
         </div>
+
+
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
             <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
@@ -93,10 +102,10 @@ const Header = () => {
         </div>
         {!context.user && (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="/register" className="mr-12 text-sm font-semibold leading-6 text-gray-900">
+            <Link to="/register" className="mr-12 text-sm font-semibold leading-6 text-rose-600">
               Register <span aria-hidden="true">&rarr;</span>
             </Link>
-            <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
+            <Link to="/login" className="text-sm font-semibold leading-6 text-rose-600">
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
