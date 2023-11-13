@@ -298,7 +298,7 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
             )}
         </div>
 
-        <div className='absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+        <div className='hidden xl:block absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
           <button className="w-36 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -mt-6"
               type="button"
               onClick={handleTranslateClick}

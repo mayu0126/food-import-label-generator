@@ -20,22 +20,22 @@ const LabelTable = ({ labelData, onDelete }) => {
   return (
     <>
     <div className="mx-auto mt-20 max-w-screen-2xl py-10 sm:py-16 lg:py-20">
-    <h2 className="text-center text-gray-700 text-lg font-semibold mb-12">MY LABELS</h2>
+    <h2 className="text-center text-gray-700 xl:text-lg text-base font-semibold mb-12">MY LABELS</h2>
       <table className="bg-white shadow-md rounded w-full">
         <thead className="border-b-2 border-slate-300">
           <tr>
-            <th className="text-left px-6 py-3">Date</th>
-            <th className="text-left px-6 py-3">Product name</th>
-            <th className="text-left px-6 py-3">Legal name</th>
-            <th className="text-left px-6 py-3">Producer</th>
-            <th className="text-left px-6 py-3">Distributor</th>
-            <th className="text-left px-6 py-3">EAN code</th>
-            <th className="text-left px-6 py-3"></th>
+            <th className="xl:text-base text-xs text-left px-6 py-3">Date</th>
+            <th className="xl:text-base text-xs text-left px-6 py-3">Product name</th>
+            <th className="xl:text-base text-xs text-left px-6 py-3">Legal name</th>
+            <th className="xl:text-base text-xs text-left px-6 py-3">Producer</th>
+            <th className="xl:text-base text-xs text-left px-6 py-3">Distributor</th>
+            <th className="xl:text-base text-xs text-left px-6 py-3">EAN code</th>
+            <th className="xl:text-base text-xs text-left px-6 py-3"></th>
           </tr>
         </thead>
         <tbody>
           {labelData && labelData.map((item, index) => (
-            <tr key={index} className="hover:bg-slate-200 border-b border-slate-200">
+            <tr key={index} className="xl:text-lg text-xs hover:bg-slate-200 border-b border-slate-200">
               <td className="px-6 py-4">{item.date.substring(0, 10)}</td>
 
               <td className="px-6 py-4 font-bold text-rose-600">

@@ -203,13 +203,13 @@ const handleSaveLabelData = (newLabel) => {
       };
 
     return (
-        <div className="flex justify-center">
-        <div className="w-1/2">
-            <p className="text-slate-400 w-28 h-28 text-xs text-center absolute left-1/4 ml-40 top-28 p-3.5 rounded-full">
+        <div className="flex justify-center flex-col xl:flex-row">
+        <div className="-mt-10 xl:w-1/2 xl:mt-5">
+            <p className="hidden xl:block text-slate-400 w-28 h-28 text-xs text-center absolute left-1/4 ml-40 top-32 p-3.5 rounded-full">
                 <b>STEP 1</b><br></br><br></br>Provide data of English label
                 <span className="absolute top-0 left-0 w-full h-full border-2 border-slate-300 rounded-full p-3.5 blur-sm"></span>
             </p>
-            <p className="text-slate-400 w-24 h-24 text-xs text-center absolute left-1/2 -ml-5 top-56 p-3.5 rounded-full">
+            <p className="hidden xl:block text-slate-400 w-24 h-24 text-xs text-center absolute left-1/2 -ml-5 top-56 p-3.5 rounded-full">
                 <b>STEP 2</b><br></br><br></br>Click on the button
                 <span className="absolute top-0 left-0 w-full h-full border-2 border-slate-300 rounded-full p-3.5 blur-sm"></span>
             </p>
@@ -221,8 +221,8 @@ const handleSaveLabelData = (newLabel) => {
             />
         </div>
 
-        <div className="w-1/2">
-        <p className="text-slate-400 w-36 h-36 text-xs text-center absolute right-1/4 -mr-64 top-24 p-3 rounded-full">
+        <div className="-mt-28 xl:w-1/2 xl:mt-5">
+        <p className="hidden xl:block text-slate-400 w-36 h-36 text-xs text-center absolute right-1/4 -mr-64 top-32 p-3 rounded-full">
             <b>STEP 3</b><br></br><br></br>Click on the 'Edit' button, revise your label data, and save it to 'My labels'
             <span className="absolute top-0 left-0 w-full h-full border-2 border-slate-300 rounded-full p-3. blur-sm"></span>
         </p>

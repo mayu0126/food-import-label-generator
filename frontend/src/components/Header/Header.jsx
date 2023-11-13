@@ -21,9 +21,9 @@ const Header = () => {
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 bg-white">
-      <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav className="flex items-center justify-between p-6 xl:px-8" aria-label="Global">
 
-        <div className="flex lg:flex-1">
+        <div className="flex xl:flex-1">
           <Link to="/" className="-m-1.5 p-1.5 flex items-center">
             <img
               className="h-16 w-auto"
@@ -36,7 +36,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <div className="flex items-center">
 
             <button
@@ -119,7 +119,7 @@ const Header = () => {
         </div>
 
 
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden xl:flex xl:gap-x-12">
           {navigation.map((item) => (
             <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
               {item.name}
@@ -127,7 +127,7 @@ const Header = () => {
           ))}
         </div>
         {!context.user && (
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden xl:flex xl:flex-1 xl:justify-end">
             <Link to="/register" className="mr-12 text-sm font-semibold leading-6 text-rose-600">
               Register <span aria-hidden="true">&rarr;</span>
             </Link>
@@ -137,7 +137,7 @@ const Header = () => {
           </div>
         )}
         {context.user && (
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden xl:flex xl:flex-1 xl:justify-end">
             <div className="relative group">
               <button
                 className="mr-12 text-sm font-bold leading-6 text-rose-600 hover:text-rose-500 group"
