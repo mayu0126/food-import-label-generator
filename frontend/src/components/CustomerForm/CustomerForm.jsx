@@ -29,6 +29,7 @@ const CustomerForm = ({ onCancel, onSave, disabled, isRegister, errorMessage }) 
                 name="userName"
                 id="userName"
                 type="text"
+                disabled={disabled}
               />
             </div>
           )}
@@ -42,6 +43,7 @@ const CustomerForm = ({ onCancel, onSave, disabled, isRegister, errorMessage }) 
               name="email"
               id="email"
               type="email"
+              disabled={disabled}
             />
           </div>
   
@@ -54,6 +56,7 @@ const CustomerForm = ({ onCancel, onSave, disabled, isRegister, errorMessage }) 
               type="password"
               name="password"
               id="password"
+              disabled={disabled}
             />
           </div>
   
@@ -69,6 +72,7 @@ const CustomerForm = ({ onCancel, onSave, disabled, isRegister, errorMessage }) 
               className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               onClick={onCancel}
+              disabled={disabled}
             >
               Cancel
             </button>

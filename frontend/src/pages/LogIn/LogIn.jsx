@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerForm from "../../components/CustomerForm/CustomerForm";
 import { UserContext } from "../../index";
+import Loading from "../../components/Loading";
 
 const loginUser = (user) => {
   //console.log(user);
@@ -35,7 +36,6 @@ const LogIn = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const context = useContext(UserContext); //connect to UserContext
-
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogIn = (user) => {
@@ -64,13 +64,16 @@ const LogIn = () => {
   }
 
   return (
-    <CustomerForm
-      onCancel={() => navigate("/")}
-      onSave={handleLogIn}
-      disabled={loading}
-      isRegister={false}
-      errorMessage={errorMessage}
-    />
+    <>
+      {loading && <Loading />}
+      <CustomerForm
+        onCancel={() => navigate("/")}
+        onSave={handleLogIn}
+        disabled={loading}
+        isRegister={false}
+        errorMessage={errorMessage}
+      />
+    </>
   );
 };
 
