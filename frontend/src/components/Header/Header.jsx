@@ -12,6 +12,12 @@ const navigation = [
 const Header = () => {
   const context = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCloseIcon, setIsCloseIcon] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    setIsCloseIcon(!isCloseIcon);
+  };
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 bg-white">
@@ -35,23 +41,43 @@ const Header = () => {
 
             <button
               className="text-gray-900 p-2 focus:outline-none focus:ring"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={toggleMenu}
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
+              {isCloseIcon ? (
+                // X ikon
+                <svg
+                  className="h-6 w-6 text-rose-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                // Hamburger ikon
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+              )}
             </button>
             {isMenuOpen && (
               <div className="absolute top-16 right-0 w-48 bg-white border border-gray-200 rounded-lg p-2">
                 {context.user ? (
                   <>
-                    <p className="px-4 py-2 font-semibold text-gray-900 pointer-events-none">{context.user.userName}</p>
+                    {navigation.map((item) => (
+                      <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                        {item.name}
+                      </Link>
+                    ))
+                    }
+                    <p className="border-t border-gray-200 px-4 py-2 font-semibold text-rose-600 pointer-events-none">{context.user.userName}</p>
                     <hr className="w-full border-t border-gray-200 my-1" />
                     <Link to="/myprofile" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Account information
@@ -65,7 +91,7 @@ const Header = () => {
                     <Link to="/translation" className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Translation feature
                     </Link>
-                    <Link to="/" className="text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                    <Link to="/" className="border-t border-gray-200 text-sm font-semibold leading-6 block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       <button type="button" onClick={context.logout}>
                         Log Out <span aria-hidden="true">&rarr;</span>
                       </button>
@@ -79,7 +105,7 @@ const Header = () => {
                     </Link>
                   ))
                   }
-                  <Link to="/register" className="text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
+                  <Link to="/register" className="border-t border-gray-200 text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
                     Register <span aria-hidden="true">&rarr;</span>
                   </Link>
                   <Link to="/login" className="text-sm font-semibold leading-6 block px-4 py-2 text-rose-600 hover:bg-gray-100">
