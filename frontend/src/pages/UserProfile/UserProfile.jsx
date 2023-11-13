@@ -1,7 +1,7 @@
 import { React, useState, useContext, useEffect } from "react";
-//import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import ProfileData from "../../components/ProfileData/ProfileData";
+import Loading from "../../components/Loading";
 
 const url = process.env.REACT_APP_MY_URL;
 
@@ -43,7 +43,6 @@ function UserProfile() {
     const [isEdit, setIsEdit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
-
     const [currentUser, setCurrentUser] = useState(""); //save actual user
     const context = useContext(UserContext); //connect to UserContext - email, userName, token
     //const navigate = useNavigate();
@@ -66,6 +65,7 @@ function UserProfile() {
     }, []);
 
     useEffect(() => {
+        setLoading(true);
         console.log("GET profile data")
         fetch(`${url}/User/GetByUserNameAsync/${context.user.userName}`, {
             method: "GET",
@@ -73,7 +73,10 @@ function UserProfile() {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + context.user.token
             },
-        }).then((res) => res.json()).then((data) => setCurrentUser(data))
+        })
+        .then((res) => res.json())
+        .then((data) => setCurrentUser(data))
+        .then(() => setLoading(false))
     }, []);    
 
     const handleSaveProfileData = (user, userName) => {
@@ -83,31 +86,34 @@ function UserProfile() {
         //console.log(currentUser) //result of GET
         saveUserData(user, userName, context.user.token)
           .then((data) => {
-            setLoading(false);
             setCurrentUser(data); //set the user in the state
             setIsEdit(false);
             setIsDisabled(true);
             setSuccessfulMessage("You have successfully updated your user data");
+            setLoading(false);
           })
           .catch((error) => {
-            setLoading(false);
             console.error("Edit error:", error.message);
             setErrorMessage(error.message);
+            setLoading(false);
           });
       };
 
     return (
-    <ProfileData
-        isEdit={isEdit}
-        onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
-        onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
-        onSave={(user, userName) => handleSaveProfileData(user, userName)}
-        errorMessage={errorMessage}
-        successfulMessage={successfulMessage}
-        disabled={loading}
-        currentUser={currentUser}
-        isDisabled={isDisabled}
-    />
+        <>
+        {loading && <Loading />}
+        <ProfileData
+            isEdit={isEdit}
+            onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
+            onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
+            onSave={(user, userName) => handleSaveProfileData(user, userName)}
+            errorMessage={errorMessage}
+            successfulMessage={successfulMessage}
+            disabled={loading}
+            currentUser={currentUser}
+            isDisabled={isDisabled}
+        />
+        </>
     );
 }
 

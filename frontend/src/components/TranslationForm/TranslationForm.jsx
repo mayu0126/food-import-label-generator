@@ -113,7 +113,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="productName"
                     id="productName"
                     type="text"
-                    defaultValue={formFields.productName}
+                    defaultValue={labelData.productName}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -126,7 +126,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="legalName"
                     id="legalName"
                     type="text"
-                    defaultValue={formFields.legalName}
+                    defaultValue={labelData.legalName}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -139,7 +139,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="allergens"
                     id="allergens"
                     type="text"
-                    defaultValue={formFields.allergens}
+                    defaultValue={labelData.allergens}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -152,7 +152,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="legalNameAdditionalInformation"
                     id="legalNameAdditionalInformation"
                     type="text"
-                    defaultValue={formFields.legalNameAdditionalInformation}
+                    defaultValue={labelData.legalNameAdditionalInformation}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -164,7 +164,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="cookingInstructions"
                     id="cookingInstructions"
-                    defaultValue={formFields.cookingInstructions}
+                    defaultValue={labelData.cookingInstructions}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -176,7 +176,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="ingredientsList"
                     id="ingredientsList"
-                    defaultValue={formFields.ingredientsList}
+                    defaultValue={labelData.ingredientsList}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -189,7 +189,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="ingredientsListAdditionalInformation"
                     id="ingredientsListAdditionalInformation"
                     type="text"
-                    defaultValue={formFields.ingredientsListAdditionalInformation}
+                    defaultValue={labelData.ingredientsListAdditionalInformation}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -202,7 +202,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="mayContain"
                     id="mayContain"
                     type="text"
-                    defaultValue={formFields.mayContain}
+                    defaultValue={labelData.mayContain}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -214,7 +214,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="nutritions"
                     id="nutritions"
-                    defaultValue={formFields.nutritions}
+                    defaultValue={labelData.nutritions}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -227,7 +227,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="producer"
                     id="producer"
                     type="text"
-                    defaultValue={formFields.producer}
+                    defaultValue={labelData.producer}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -240,7 +240,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="distributor"
                     id="distributor"
                     type="text"
-                    defaultValue={formFields.distributor}
+                    defaultValue={labelData.distributor}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -253,7 +253,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="countryOfOrigin"
                     id="countryOfOrigin"
                     type="text"
-                    defaultValue={formFields.countryOfOrigin}
+                    defaultValue={labelData.countryOfOrigin}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -266,7 +266,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="mainIngredientCOO"
                     id="mainIngredientCOO"
                     type="text"
-                    defaultValue={formFields.mainIngredientCOO}
+                    defaultValue={labelData.mainIngredientCOO}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -279,7 +279,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="bestBeforeText"
                     id="bestBeforeText"
                     type="text"
-                    defaultValue={formFields.bestBeforeText}
+                    defaultValue={labelData.bestBeforeText}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -292,7 +292,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="storage"
                     id="storage"
                     type="text"
-                    defaultValue={formFields.storage}
+                    defaultValue={labelData.storage}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -304,7 +304,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="bestBeforeAdditionalInformation"
                     id="bestBeforeAdditionalInformation"
-                    defaultValue={formFields.bestBeforeAdditionalInformation}
+                    defaultValue={labelData.bestBeforeAdditionalInformation}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -319,7 +319,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="netWeight"
                     id="netWeight"
                     type="text"
-                    defaultValue={formFields.netWeight}
+                    defaultValue={labelData.netWeight}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -331,7 +331,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="netVolume"
                     id="netVolume"
                     type="text"
-                    defaultValue={formFields.netVolume}
+                    defaultValue={labelData.netVolume}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -345,7 +345,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="ean"
                     id="ean"
                     type="text"
-                    defaultValue={formFields.ean}
+                    defaultValue={labelData.ean}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -358,7 +358,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     type="checkbox"
                     name="organic"
                     id="organic"
-                    defaultChecked={formFields.organic}
+                    defaultChecked={labelData.organic}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
@@ -371,7 +371,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     name="healthMark"
                     id="healthMark"
                     type="text"
-                    defaultValue={formFields.healthMark}
+                    defaultValue={labelData.healthMark}
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />

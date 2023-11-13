@@ -6,7 +6,6 @@ import Loading from "../../components/Loading";
 
 const loginUser = (user) => {
   //console.log(user);
-  console.log(`You successfully logged in`)
   const url = process.env.REACT_APP_MY_URL;
 
   return fetch(`${url}/Auth/Login`, {
@@ -43,6 +42,7 @@ const LogIn = () => {
     loginUser(user)
       .then((data) => {
         setLoading(false);
+        console.log(`You successfully logged in`)
         context.setUser(data); //set the user in the context
         navigate("/");
       })
