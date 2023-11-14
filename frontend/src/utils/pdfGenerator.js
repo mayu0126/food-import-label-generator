@@ -1,8 +1,8 @@
 import { jsPDF } from 'jspdf';
-import euroleaf from '../assets/images/eu-organic-logo.jpg';    
+import euroleaf from '../assets/images/eu-organic-logo.jpg';
     
     // Generate pdf
-    const generatePDF = (formFields) => {
+    const generatePDF = async (formFields) => {
         console.log("generatePDF");
 
         // Create a new jsPDF instance
@@ -13,16 +13,14 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
             //a7 (74.25 mm * 105 mm), a8 (52.5 mm * 74.25 mm) - x-height min. 0.9 mm - font size: min. 6 pt
             //a6 (105 mm * 148.5 mm) - x-height min 1.2 mm - font size: min. 8 pt (times), min. 7 pt (arial, helvetice, univers)
         });
-        /*
+        
         const addOrganicLogo = (doc) => {
-            doc.addImage(
-                euroleaf,
-                "JPEG",
-                50, 100, 24, 16);
-            return ""; //organic text??
+            return doc.addImage(euroleaf, "JPEG", 50, 100, 24, 16)
+            
+            //return ""; //+organic text??
         }
-        addOrganicLogo(doc);
-        */
+        //addOrganicLogo(doc);
+        
       
         // Calculate the dimensions for each quadrant
         
@@ -119,14 +117,33 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
                         doc.text(`${pdfFormFields[field]}`, x+14, y, { maxWidth: pageWidth - 5 });
                         continue;
                     }
+                    */
 
                     // organic logo
                     
                     if (field === "organic") {
-                        doc.text(`organic`, x, y, { maxWidth: quadrantWidth - 20 });
+                        const imagePath = 'https://www.fibl.org/fileadmin/news_images/eu-logo.jpg';
+                
+                        // Aszinkron művelet: kép beolvasása
+                        const blob = await fetch(imagePath).then(response => response.blob());
+                
+                        // Aszinkron művelet: kép bázis64 kódolása
+                        const imageData = await new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                            reader.onerror = reject;
+                            reader.readAsDataURL(blob);
+                        });
+                
+                        // Kép hozzáadása a PDF-hez
+                        doc.addImage(`data:image/jpeg;base64,${imageData}`, "JPEG", 40, 60, 10, 7);
+                
+                        doc.text(`organic`, 40, 70, { maxWidth: pageWidth - 5 });
+                        yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
+                
                         continue;
                     }
-                    */
+                    
 
                     doc.text(`${field_2}${pdfFormFields[field]}`, x, y, { maxWidth: pageWidth - 5 });
                 //}
