@@ -81,6 +81,10 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         setFormFields({ ...formFields, [name]: type === "checkbox" ? checked : value });
     };
 
+    //generatePDF(formFields)
+    const handlePrint = (formFields) => {
+        //here would be the pop-up, and we could choose from differend dimensions 
+    }
 
 
     return (

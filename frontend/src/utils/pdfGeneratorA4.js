@@ -2,16 +2,14 @@ import { jsPDF } from 'jspdf';
 import euroleaf from '../assets/images/eu-organic-logo.jpg';    
     
     // Generate pdf
-    const generatePDF = (formFields) => {
+    const generatePDFA4 = (formFields) => {
         console.log("generatePDF");
 
         // Create a new jsPDF instance
         const doc = new jsPDF({
-            orientation: 'portrait', //portrait
+            orientation: 'landscape',
             unit: 'mm',
-            format: 'a8',
-            //a7 (74.25 mm * 105 mm), a8 (52.5 mm * 74.25 mm) - x-height min. 0.9 mm - font size: min. 6 pt
-            //a6 (105 mm * 148.5 mm) - x-height min 1.2 mm - font size: min. 8 pt (times), min. 7 pt (arial, helvetice, univers)
+            format: 'a8', //a7 (74.25 mm * 105 mm), a8 (52.5 mm * 74.25 mm)
         });
         /*
         const addOrganicLogo = (doc) => {
@@ -25,13 +23,10 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
         */
       
         // Calculate the dimensions for each quadrant
-        
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
-        /*
         const quadrantWidth = pageWidth / 2;
         const quadrantHeight = pageHeight / 2;
-        */
 
         // Collect form data
         const pdfFormFields = {
@@ -64,22 +59,22 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
 
         // Start adding content to the PDF
         doc.setFont('times');
-        //doc.text(`LABEL DETAILS - ${formFields.productName}`, 10, 10);
+        doc.text(`LABEL DETAILS - ${formFields.productName}`, 10, 10);
 
-        doc.setFontSize(8);
+        doc.setFontSize(10);
         doc.setLanguage('hu');
 
         // Loop through the formFields and add them to the PDF
-        let yOffset = 5; //distance from the top
+        let yOffset = 20;
         for (let field in pdfFormFields) {
 
             if (pdfFormFields[field]) {
                 console.log(field);
                 let field_2 = "";
 
-                //for (let i = 0; i < 4; i++) {
-                    const x = 3 //distance from the left side //+ (i % 2) * quadrantWidth;
-                    const y = yOffset //+ Math.floor(i / 2) * quadrantHeight;
+                for (let i = 0; i < 4; i++) {
+                    const x = 10 + (i % 2) * quadrantWidth;
+                    const y = yOffset + Math.floor(i / 2) * quadrantHeight;
 
                     if (field === "cookingInstructions") field_2 = "Elkészítési javaslat: "
                     if (field === "ingredientsList") field_2 = "Összetevök: "
@@ -110,31 +105,28 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
                         doc.setFont("times", "normal");
                     }
 
-                    /*
                     // Bold storage
                     if (field === "storage") {
                         doc.setFont("times", "bold");
-                        doc.text(`${field_2}`, x, y, { maxWidth: pageWidth - 5 });
+                        doc.text(`${field_2}`, x, y, { maxWidth: quadrantWidth - 20 });
                         doc.setFont("times", "normal");
-                        doc.text(`${pdfFormFields[field]}`, x+14, y, { maxWidth: pageWidth - 5 });
+                        doc.text(`${pdfFormFields[field]}`, x+14, y, { maxWidth: quadrantWidth - 20 });
                         continue;
                     }
 
                     // organic logo
-                    
                     if (field === "organic") {
                         doc.text(`organic`, x, y, { maxWidth: quadrantWidth - 20 });
                         continue;
                     }
-                    */
 
-                    doc.text(`${field_2}${pdfFormFields[field]}`, x, y, { maxWidth: pageWidth - 5 });
-                //}
-                yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h; //spacing can be set by division
+                    doc.text(`${field_2}${pdfFormFields[field]}`, x, y, { maxWidth: quadrantWidth - 20 });
+                }
+                yOffset += 4 * Math.ceil(doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: quadrantWidth - 20 }).h / 5);
             }
         }
         // Save the PDF and open a download dialog
         doc.save('label.pdf');
     };
 
-    export default generatePDF;
+    export default generatePDFA4;
