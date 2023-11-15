@@ -2,19 +2,19 @@ import { jsPDF } from 'jspdf';
 import euroleaf from '../assets/images/eu-organic-logo.jpg';
     
     // Generate pdf
-    const generatePDF = async (formFields) => {
+    const generatePDF = async (formFields, printingDetails) => {
         console.log("generatePDF");
 
         // Create a new jsPDF instance
         const doc = new jsPDF({
-            orientation: 'landscape', //portrait
+            orientation: `${printingDetails.labelOrientation}`, //portrait or landscape
             unit: 'mm',
-            format: 'a7',
+            format: `${printingDetails.labelSize}` //a6, a7 or a8
             //a7 (74.25 mm * 105 mm), a8 (52.5 mm * 74.25 mm) - x-height min. 0.9 mm - font size: min. 6 pt
             //a6 (105 mm * 148.5 mm) - x-height min 1.2 mm - font size: min. 8 pt (times), min. 7 pt (arial, helvetice, univers)
         });
 
-        doc.setFontSize(8);
+        doc.setFontSize(`${Number(printingDetails.fontSize)}`);
         doc.setLanguage('hu');
         
         const addOrganicLogo = (doc) => {
