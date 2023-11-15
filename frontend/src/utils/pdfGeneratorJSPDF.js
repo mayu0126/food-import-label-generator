@@ -7,12 +7,15 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
 
         // Create a new jsPDF instance
         const doc = new jsPDF({
-            orientation: 'portrait', //portrait
+            orientation: 'landscape', //portrait
             unit: 'mm',
-            format: 'a8',
+            format: 'a7',
             //a7 (74.25 mm * 105 mm), a8 (52.5 mm * 74.25 mm) - x-height min. 0.9 mm - font size: min. 6 pt
             //a6 (105 mm * 148.5 mm) - x-height min 1.2 mm - font size: min. 8 pt (times), min. 7 pt (arial, helvetice, univers)
         });
+
+        doc.setFontSize(8);
+        doc.setLanguage('hu');
         
         const addOrganicLogo = (doc) => {
             return doc.addImage(euroleaf, "JPEG", 50, 100, 24, 16)
@@ -87,9 +90,6 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
         //doc.setFont('times');
         //doc.text(`LABEL DETAILS - ${formFields.productName}`, 10, 10);
 
-        doc.setFontSize(8);
-        doc.setLanguage('hu');
-
         // Loop through the formFields and add them to the PDF
         let yOffset = 5; //distance from the top
         for (let field in pdfFormFields) {
@@ -159,9 +159,9 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
                         });
                 
                         // Kép hozzáadása a PDF-hez
-                        doc.addImage(`data:image/jpeg;base64,${imageData}`, "JPEG", 40, 60, 10, 7);
+                        doc.addImage(`data:image/jpeg;base64,${imageData}`, "JPEG", pageWidth-15, pageHeight-14, 10, 7);
                 
-                        doc.text(`organic`, 40, 70, { maxWidth: pageWidth - 5 });
+                        doc.text(`organic`, pageWidth-15, pageHeight-4, { maxWidth: pageWidth - 5 });
                         yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
                 
                         continue;

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
 import generatePDF from '../../utils/pdfGeneratorJSPDF.js';
+import PrintingModal from '../PrintingModal';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
@@ -12,6 +13,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
     const context  = useContext(UserContext);
     const [formFields, setFormFields] = useState(labelData);
     const [fillRequiredFields, setFillRequiredFields] = useState(null);
+    const [showPrintingModal, setShowPrintingModal] = useState(false);
 
     useEffect(() => {
         setFormFields(labelData)
@@ -419,7 +421,7 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 <button
                     className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
-                    onClick={() => generatePDF(formFields)}
+                    onClick={() => setShowPrintingModal(true)}
                     >
                     Print
                 </button>
@@ -443,6 +445,20 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                 </>
             )}
         </div>
+
+            <PrintingModal
+            isOpen={showPrintingModal}
+            onRequestClose={() => setShowPrintingModal(false)}
+            formFields={formFields}
+            />
+
+            {showPrintingModal && (
+                <div
+                className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"
+                aria-hidden="true" //aria-hidden attribute makes the background content inactive
+                />
+            )}
+
         </div>
         )}
     </>
