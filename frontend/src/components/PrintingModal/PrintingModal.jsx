@@ -112,44 +112,83 @@ const PrintingModal = ({ isOpen, onRequestClose, formFields }) => {
         </div>
 
         <p className='mt-5 text-rose-600 text-sm font-bold mb-1 border-b border-gray-200'>FONT SIZE</p>
-        <div className="mt-3 mb-8 flex space-x-4">
-
-          <input
-              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
-              type="radio"
-              name="fontSize"
-              id="6"
-              onChange={handleInputChange}
-          />
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize6">
-            6 pt
-          </label>
-
-          <input
-              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
-              type="radio"
-              name="fontSize"
-              id="7"
-              onChange={handleInputChange}
-          />
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize7">
-            7 pt
-          </label>
-
-          <input
-              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
-              type="radio"
-              name="fontSize"
-              id="8"
-              onChange={handleInputChange}
-          />
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize8">
-            8 pt
-          </label>
-
+        <div className="mt-3 space-x-4 flex flex-wrap">
+          <div className="flex items-center mb-2">
+            <input
+                className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                type="radio"
+                name="fontSize"
+                id="6"
+                onChange={handleInputChange}
+            />
+            <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize6">
+              6 pt
+            </label>
+          </div>
+          <div className="flex items-center mb-2">
+            <input
+                className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                type="radio"
+                name="fontSize"
+                id="7"
+                onChange={handleInputChange}
+            />
+            <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize7">
+              7 pt
+            </label>
+          </div>
+          <div className="flex items-center mb-2">
+            <input
+                className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                type="radio"
+                name="fontSize"
+                id="8"
+                onChange={handleInputChange}
+            />
+            <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize8">
+              8 pt
+            </label>
+          </div>
         </div>
 
-
+        <div className="mb-8 space-x-4 flex flex-wrap">
+          <div className="flex items-center mb-2">
+            <input
+                className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                type="radio"
+                name="fontSize"
+                id="9"
+                onChange={handleInputChange}
+            />
+            <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize9">
+              9 pt
+            </label>
+          </div>
+          <div className="flex items-center mb-2">
+            <input
+                className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                type="radio"
+                name="fontSize"
+                id="10"
+                onChange={handleInputChange}
+            />
+            <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize10">
+              10 pt
+            </label>
+          </div>
+          <div className="flex items-center mb-2">
+            <input
+                className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+                type="radio"
+                name="fontSize"
+                id="11"
+                onChange={handleInputChange}
+            />
+            <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize11">
+              11 pt
+            </label>
+          </div>
+        </div>
 
         <button
           className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded mr-4"

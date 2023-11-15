@@ -14,10 +14,10 @@ import { jsPDF } from 'jspdf';
             //a6 (105 mm * 148.5 mm) - x-height min 1.2 mm - font size: min. 8 pt (times), min. 7 pt (arial, helvetice, univers)
         });
 
-        /*
+        
         doc.setFontSize(`${Number(printingDetails.fontSize)}`);
         doc.setLanguage('hu');
-        
+        /*
         const addOrganicLogo = (doc) => {
             return doc.addImage(euroleaf, "JPEG", 50, 100, 24, 16)
             
