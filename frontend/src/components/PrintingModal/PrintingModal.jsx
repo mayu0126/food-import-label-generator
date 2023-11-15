@@ -41,105 +41,111 @@ const PrintingModal = ({ isOpen, onRequestClose, formFields }) => {
         <h2 className="text-xl font-bold mb-4 mt-3">Set label details</h2>
 
         <p className='mt-5 text-rose-600 text-sm font-bold mb-1 border-b border-gray-200'>LABEL SIZE</p>
-        <div className="mt-3 flex space-x-4">
-
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="labelSizeA6">
-              A6
-          </label>
+        <div className="mt-3 mb-8">
+          
+          <div className="flex space-x-4">
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="labelSize"
               id="a6"
               onChange={handleInputChange}
           />
-
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="labelSizeA7">
-              A7
+          <label className="text-gray-700 text-sm font-bold mb-1" htmlFor="labelSizeA6">
+              A6 <span className='font-normal'>(105 mm × 148.5 mm)</span>
           </label>
+          </div>
+
+          <div className="flex space-x-4">
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="labelSize"
               id="a7"
               onChange={handleInputChange}
           />
-
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="labelSizeA8">
-              A8
+          <label className="text-gray-700 text-sm font-bold mb-1" htmlFor="labelSizeA7">
+              A7 <span className='font-normal'>(74.25 mm × 105 mm)</span>
           </label>
+          </div>
+
+          <div className="flex space-x-4">
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="labelSize"
               id="a8"
               onChange={handleInputChange}
           />
+          <label className="text-gray-700 text-sm font-bold mb-1" htmlFor="labelSizeA8">
+              A8 <span className='font-normal'>(52.5 mm × 74.25 mm)</span>
+          </label>
+          </div>
 
         </div>
 
         <p className='mt-5 text-rose-600 text-sm font-bold mb-1 border-b border-gray-200'>LABEL ORIENTATION</p>
         <div className="mt-3 flex space-x-4">
 
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="portrait">
-            Portrait
-          </label>
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="labelOrientation"
               id="portrait"
               onChange={handleInputChange}
           />
-
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="landscape">
-            Landscape
+          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="portrait">
+            Portrait
           </label>
+
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="labelOrientation"
               id="landscape"
               onChange={handleInputChange}
           />
+          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="landscape">
+            Landscape
+          </label>
 
         </div>
 
         <p className='mt-5 text-rose-600 text-sm font-bold mb-1 border-b border-gray-200'>FONT SIZE</p>
         <div className="mt-3 mb-8 flex space-x-4">
 
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize6">
-            6 pt
-          </label>
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="fontSize"
               id="6"
               onChange={handleInputChange}
           />
-
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize7">
-            7 pt
+          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize6">
+            6 pt
           </label>
+
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="fontSize"
               id="7"
               onChange={handleInputChange}
           />
-
-          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize8">
-            8 pt
+          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize7">
+            7 pt
           </label>
+
           <input
-              className="inline-block mr-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="inline-block appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="radio"
               name="fontSize"
               id="8"
               onChange={handleInputChange}
           />
+          <label className="inline-block text-gray-700 text-sm font-bold mb-1" htmlFor="fontSize8">
+            8 pt
+          </label>
 
         </div>
 
