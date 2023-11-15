@@ -1,6 +1,5 @@
 import { jsPDF } from 'jspdf';
 import euroleaf from '../assets/images/eu-organic-logo.jpg';
-import LiberationSerifRegular from './LiberationSerif-Regular.ttf'
     
     // Generate pdf
     const generatePDF = async (formFields) => {
@@ -32,6 +31,23 @@ import LiberationSerifRegular from './LiberationSerif-Regular.ttf'
         const quadrantHeight = pageHeight / 2;
         */
 
+        function replaceSpecialCharacters(str) {
+
+            if (typeof str !== 'string') {
+              return str; //if not string, return the original value
+            }
+        
+            return str.replace(/[űŰőŐ]/g, function(match) {
+              switch (match) {
+                case 'ű': return 'û';
+                case 'Ű': return 'Û';
+                case 'ő': return 'õ';
+                case 'Ő': return 'Õ';
+                default: return match;
+              }
+            });
+        }
+
         // Collect form data
         const pdfFormFields = {
             productName: formFields.productName,
@@ -56,6 +72,12 @@ import LiberationSerifRegular from './LiberationSerif-Regular.ttf'
             healthMark: formFields.healthMark,
             ean: formFields.ean,
         };
+
+        for (const key in pdfFormFields) {
+            if (pdfFormFields.hasOwnProperty(key)) {
+              pdfFormFields[key] = replaceSpecialCharacters(pdfFormFields[key]);
+            }
+        }
     
         // Add the font directly using addFont
         //doc.addFont('LiberationSerif.ttf', 'LiberationSerif', 'normal');
@@ -80,14 +102,14 @@ import LiberationSerifRegular from './LiberationSerif-Regular.ttf'
                     const x = 3 //distance from the left side //+ (i % 2) * quadrantWidth;
                     const y = yOffset //+ Math.floor(i / 2) * quadrantHeight;
 
-                    if (field === "cookingInstructions") field_2 = "Elkészítési javaslat: "
-                    if (field === "ingredientsList") field_2 = "Összetevök: "
+                    if (field === 'cookingInstructions') field_2 = 'Elkészítési javaslat: ';
+                    if (field === "ingredientsList") field_2 = "Összetevõk: "
                     if (field === "nutritions") field_2 = "Átlagos tápérték 100 g termékben: "
                     if (field === "distributor") field_2 = "Forgalmazza: "
                     if (field === "producer") field_2 = "Gyártja: "
                     if (field === "countryOfOrigin") field_2 = "Származási hely: "
-                    if (field === "mainIngredientCOO") field_2 = "A fö összetevö származási helye: "
-                    if (field === "bestBeforeText") field_2 = "Minöségét megörzi: "
+                    if (field === "mainIngredientCOO") field_2 = "A fõ összetevõ származási helye: "
+                    if (field === "bestBeforeText") field_2 = "Minõségét megõrzi: "
                     if (field === "storage") field_2 = "Tárolás: "
                     if (field === "netWeight") field_2 = "Nettó tömeg: "
                     if (field === "netVolume") field_2 = "Nettó térfogat: "

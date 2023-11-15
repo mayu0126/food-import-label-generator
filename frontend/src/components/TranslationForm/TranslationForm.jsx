@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../index.js';
-import generatePDF from '../../utils/pdfGenerator.js';
+import generatePDF from '../../utils/pdfGeneratorJSPDF.js';
 
 const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
