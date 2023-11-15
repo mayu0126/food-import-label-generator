@@ -2,14 +2,14 @@ import { jsPDF } from 'jspdf';
 import euroleaf from '../assets/images/eu-organic-logo.jpg';    
     
     // Generate pdf
-    const generatePDF = (formFields) => {
+    const generatePDFA4 = (formFields) => {
         console.log("generatePDF");
 
         // Create a new jsPDF instance
         const doc = new jsPDF({
             orientation: 'landscape',
             unit: 'mm',
-            format: 'a4',
+            format: 'a8', //a7 (74.25 mm * 105 mm), a8 (52.5 mm * 74.25 mm)
         });
         /*
         const addOrganicLogo = (doc) => {
@@ -129,4 +129,4 @@ import euroleaf from '../assets/images/eu-organic-logo.jpg';
         doc.save('label.pdf');
     };
 
-    export default generatePDF;
+    export default generatePDFA4;
