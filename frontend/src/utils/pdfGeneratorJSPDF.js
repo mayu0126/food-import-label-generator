@@ -144,8 +144,18 @@ import { jsPDF } from 'jspdf';
                     });
             
                     // add image to PDF
-                    doc.addImage(`data:image/jpeg;base64,${imageData}`, "JPEG", pageWidth - pageWidth*0.25, pageHeight - pageHeight*0.14, pageWidth*0.17, pageHeight*0.075);
-                    doc.text(`organic`, pageWidth - pageWidth*0.25, pageHeight - pageHeight*0.04, { maxWidth: pageWidth });
+                    doc.addImage(`data:image/jpeg;base64,${imageData}`,
+                        "JPEG",
+                        pageWidth < pageHeight ? pageWidth - pageWidth*0.25 : pageWidth - pageWidth*0.20,
+                        pageWidth < pageHeight ? pageHeight - pageHeight*0.14 : pageHeight - pageHeight*0.20,
+                        pageWidth < pageHeight ? pageWidth*0.17 : pageHeight*0.17,
+                        pageWidth < pageHeight ? pageHeight*0.075 : pageWidth*0.075);
+
+                    doc.text(`bio termék`,
+                        pageWidth < pageHeight ? pageWidth - pageWidth*0.25 : pageWidth - pageWidth*0.20,
+                        pageWidth < pageHeight ? pageHeight - pageHeight*0.04 : pageHeight - pageHeight*0.06,
+                        { maxWidth: pageWidth });
+
                     yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
             
                     continue;
