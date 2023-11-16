@@ -21,7 +21,31 @@ const PrintingModal = ({ isOpen, onRequestClose, formFields }) => {
     }*/
     setPrintingDetails({ ...printingDetails, [name]: id ? id : value});
     console.log(printingDetails);
-};
+  };
+
+  const validateSelection = () => {
+    const labelSizeSelected = printingDetails.labelSize !== undefined;
+    const fontSizeSelected = printingDetails.fontSize !== undefined;
+    const labelOrientationSelected =
+      printingDetails.labelOrientation !== undefined;
+
+    if (!labelSizeSelected) {
+      alert("Please select a label size.");
+      return false;
+    }
+
+    if (!fontSizeSelected) {
+      alert("Please select a font size.");
+      return false;
+    }
+
+    if (!labelOrientationSelected) {
+      alert("Please select a label orientation.");
+      return false;
+    }
+
+    return true;
+  };
 
   return (
     <Modal
@@ -90,7 +114,11 @@ const PrintingModal = ({ isOpen, onRequestClose, formFields }) => {
             className="border border-gray-300 rounded py-2 focus:outline-none"
             name="fontSize"
             onChange={handleInputChange}
+            defaultValue={"pleaseSelect"}
           >
+            <option value="pleaseSelect" disabled hidden>
+              - Please select -
+            </option>
             <option value="6">6 pt</option>
             <option value="7">7 pt</option>
             <option value="8">8 pt</option>
@@ -130,7 +158,11 @@ const PrintingModal = ({ isOpen, onRequestClose, formFields }) => {
 
         <button
           className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded mr-4"
-          onClick={() => generatePDF(formFields, printingDetails)}
+          onClick={() => {
+            if (validateSelection()) {
+              generatePDF(formFields, printingDetails);
+            }
+          }}
         >
           Print
         </button>
