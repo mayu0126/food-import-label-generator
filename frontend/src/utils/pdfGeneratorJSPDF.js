@@ -144,8 +144,18 @@ import { jsPDF } from 'jspdf';
                     });
             
                     // add image to PDF
-                    doc.addImage(`data:image/jpeg;base64,${imageData}`, "JPEG", pageWidth - 15, pageHeight-14, 10, 7);
-                    doc.text(`organic`, pageWidth - 15, pageHeight - 4, { maxWidth: pageWidth - 5 });
+                    doc.addImage(`data:image/jpeg;base64,${imageData}`,
+                        "JPEG",
+                        pageWidth < pageHeight ? pageWidth - pageWidth*0.25 : pageWidth - pageWidth*0.20,
+                        pageWidth < pageHeight ? pageHeight - pageHeight*0.14 : pageHeight - pageHeight*0.20,
+                        pageWidth < pageHeight ? pageWidth*0.17 : pageHeight*0.17,
+                        pageWidth < pageHeight ? pageHeight*0.075 : pageWidth*0.075);
+
+                    doc.text(`bio termék`,
+                        pageWidth < pageHeight ? pageWidth - pageWidth*0.25 : pageWidth - pageWidth*0.20,
+                        pageWidth < pageHeight ? pageHeight - pageHeight*0.04 : pageHeight - pageHeight*0.06,
+                        { maxWidth: pageWidth });
+
                     yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
             
                     continue;
@@ -156,7 +166,15 @@ import { jsPDF } from 'jspdf';
             }
         }
         // save the PDF and open a download dialog
-        doc.save('label.pdf');
+        //doc.save('label.pdf');
+
+        // save the PDF as data URI
+        const pdfDataUri = doc.output('datauristring', { filename: 'food-label' });
+
+        // open a new window or tab with the PDF
+        const pdfWindow = window.open();
+        pdfWindow.document.write('<iframe width="100%" height="100%" src="' + pdfDataUri + '" frameborder="0" style="border: none"></iframe>');
+
     };
 
     export default generatePDF;

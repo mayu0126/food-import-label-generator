@@ -26,10 +26,10 @@ const LabelTable = ({ labelData, onDelete }) => {
           <tr>
             <th className="px-6 py-3">Date</th>
             <th className="px-6 py-3">Product name</th>
-            <th className="px-6 py-3">Legal name</th>
-            <th className="px-6 py-3">Producer</th>
-            <th className="px-6 py-3">Distributor</th>
-            <th className="px-6 py-3">EAN code</th>
+            <th className="px-6 py-3 hidden sm:table-cell">Legal name</th>
+            <th className="px-6 py-3 hidden lg:table-cell">Producer</th>
+            <th className="px-6 py-3 hidden md:table-cell">Distributor</th>
+            <th className="px-6 py-3 hidden sm:table-cell">EAN code</th>
             <th className="px-6 py-3"></th>
           </tr>
         </thead>
@@ -42,10 +42,10 @@ const LabelTable = ({ labelData, onDelete }) => {
                 <Link to={`/details/${item.id}`}>{item.productName}</Link>
               </td>
 
-              <td className="px-6 py-4">{item.legalName}</td>
-              <td className="px-6 py-4">{item.producer}</td>
-              <td className="px-6 py-4">{item.distributor}</td>
-              <td className="px-6 py-4">{item.ean}</td>
+              <td className="px-6 py-4 hidden sm:table-cell">{item.legalName}</td>
+              <td className="px-6 py-4 hidden lg:table-cell">{item.producer}</td>
+              <td className="px-6 py-4 hidden md:table-cell">{item.distributor}</td>
+              <td className="px-6 py-4 hidden sm:table-cell">{item.ean}</td>
               <td className="px-6 py-4 flex items-center">
                 <Link
                   className="bg-slate-500 hover:bg-slate-400 text-white font-semibold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
