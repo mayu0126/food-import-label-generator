@@ -5,6 +5,10 @@ import { jsPDF } from 'jspdf';
     const generatePDF = async (formFields, printingDetails) => {
         console.log("generatePDF");
 
+        const allergens = ["glutén", "gabona", "zab", "búza", "rák", "garnéla", "homár", "tojás", "földimogyoró",
+            "szója", "tej", "dió", "mandula", "mogyoró", "pisztácia", "makadámia", "zeller", "mustár", "szezámmag",
+            "kén-dioxid", "szulfit", "szulfát", "csillagfürt", "puhatestűek", "kagyló", "polip", "osztriga", "csiga"];
+
         // Create a new jsPDF instance
         const doc = new jsPDF({
             orientation: `${printingDetails.labelOrientation}`, // portrait or landscape
@@ -100,15 +104,6 @@ import { jsPDF } from 'jspdf';
                 if (field === "netWeight") field_2 = "Nettó tömeg: "
                 if (field === "netVolume") field_2 = "Nettó térfogat: "
 
-                // Check if the field contains "tej" and set font style to bold if true
-                /*
-                if (field === "ingredientsList" && pdfFormFields[field].includes("tej")) {
-                    doc.setFont("times", "bold");
-                } else {
-                    doc.setFont("times", "normal");
-                }
-                */
-
                 // Bold legal name
                 if (field === "legalName") {
                     doc.setFont("times", "bold");
@@ -120,13 +115,7 @@ import { jsPDF } from 'jspdf';
                 //highlight the allergens
                 if (field === "ingredientsList") {
                     pdfFormFields[field] = pdfFormFields[field].split(", ").map(word => {
-                        console.log(word);
-                        if(word.includes("tej")){
-                            return word.toUpperCase();
-                        }
-                        else {
-                            return word;
-                        }
+                        return allergens.some(a => word.includes(a)) ? word.toUpperCase() : word;
                     }).join(", ");
                 }
 
