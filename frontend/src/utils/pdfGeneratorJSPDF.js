@@ -82,7 +82,7 @@ import { jsPDF } from 'jspdf';
         for (let field in pdfFormFields) {
 
             if (pdfFormFields[field]) {
-                console.log(field);
+                //console.log(field);
                 let field_2 = "";
 
                 const x = 3
@@ -116,6 +116,39 @@ import { jsPDF } from 'jspdf';
                 else {
                     doc.setFont("times", "normal");
                 }
+                
+                //highlight the allergens
+                if (field === "ingredientsList") {
+                    pdfFormFields[field] = pdfFormFields[field].split(", ").map(word => {
+                        console.log(word);
+                        if(word.includes("tej")){
+                            return word.toUpperCase();
+                        }
+                        else {
+                            return word;
+                        }
+                    }).join(", ");
+                }
+
+                /*
+                if (field === "ingredientsList") {
+                    pdfFormFields[field] = pdfFormFields[field].split(", ").map(word => {
+                        console.log(word);
+                        if(word.includes("tej")){
+                            doc.setFont("times", "bold")
+                            doc.text(word, x2, yOffset, { maxWidth: pageWidth - 5 });
+                            x2 += doc.getTextDimensions(word, { maxWidth: pageWidth - 5 }).h;
+                            return;
+                        }
+                        else {
+                            doc.setFont("times", "normal")
+                            doc.text(word, x2, yOffset, { maxWidth: pageWidth - 5 });
+                            x2 += doc.getTextDimensions(word, { maxWidth: pageWidth - 5 }).h;
+                            return;
+                        }
+                    })
+                }
+                */
 
                 /*
                 // Bold storage
