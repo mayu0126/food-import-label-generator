@@ -5,7 +5,7 @@ import { jsPDF } from 'jspdf';
     const generatePDF = async (formFields, printingDetails) => {
         console.log("generatePDF");
 
-        const allergens = ["glutén", "gabona", "zab", "búza", "rák", "garnéla", "homár", "tojás", "földimogyoró",
+        const allergens = ["glutén", "gabona", "zab", "búza", "rák", "hal", "garnéla", "homár", "tojás", "földimogyoró",
             "szója", "tej", "dió", "mandula", "mogyoró", "pisztácia", "makadámia", "zeller", "mustár", "szezámmag",
             "kén-dioxid", "szulfit", "szulfát", "csillagfürt", "puhatestűek", "kagyló", "polip", "osztriga", "csiga"];
 
@@ -70,9 +70,9 @@ import { jsPDF } from 'jspdf';
             bestBeforeAdditionalInformation: formFields.bestBeforeAdditionalInformation,
             netWeight: formFields.netWeight,
             netVolume: formFields.netVolume,
-            organic: formFields.organic,
             healthMark: formFields.healthMark,
             ean: formFields.ean,
+            organic: formFields.organic,
         };
 
         for (const key in pdfFormFields) {
@@ -104,8 +104,8 @@ import { jsPDF } from 'jspdf';
                 if (field === "netWeight") field_2 = "Nettó tömeg: "
                 if (field === "netVolume") field_2 = "Nettó térfogat: "
 
-                // Bold legal name
-                if (field === "legalName") {
+                // Bold legal name and ean
+                if (field === "legalName" || field === "ean") {
                     doc.setFont("times", "bold");
                 }
                 else {
@@ -139,16 +139,44 @@ import { jsPDF } from 'jspdf';
                 }
                 */
 
-                /*
                 // Bold storage
                 if (field === "storage") {
+                    let x2 = x;
                     doc.setFont("times", "bold");
                     doc.text(`${field_2}`, x, y, { maxWidth: pageWidth - 5 });
                     doc.setFont("times", "normal");
-                    doc.text(`${pdfFormFields[field]}`, x+14, y, { maxWidth: pageWidth - 5 });
+                    x2 += doc.getTextDimensions(`${field_2}`, { maxWidth: pageWidth - 5 }).w;
+                    doc.text(`${pdfFormFields[field]}`, x2+1, y, { maxWidth: pageWidth - 15 });
+                    yOffset += doc.getTextDimensions(`${field_2}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
                     continue;
                 }
-                */
+
+                // healthmark
+                if (field === "healthMark") {
+                
+                    // Draw oval
+                    doc.ellipse(
+                        pageWidth < pageHeight ? pageWidth - pageWidth*0.40 : pageWidth - pageWidth*0.33,
+                        pageWidth < pageHeight ? pageHeight - pageHeight*0.09 : pageHeight - pageHeight*0.13,
+                        pageWidth < pageHeight ? pageWidth*0.10 : pageHeight*0.10,
+                        pageWidth < pageHeight ? pageHeight*0.05 : pageWidth*0.05
+                    );
+                    doc.setFontSize(`${pageWidth < pageHeight ? Math.ceil(pageHeight/12) : Math.ceil(pageHeight/9)}`)
+
+                    let newRow = 0;
+                    pdfFormFields[field].split(" ").map(e => {
+                        doc.text(`${e}`,
+                        pageWidth < pageHeight ? pageWidth - pageWidth*0.43 : pageWidth - pageWidth*0.35,
+                        pageWidth < pageHeight ? pageHeight - pageHeight*0.11 + newRow : pageHeight - pageHeight*0.16 + newRow,
+                        { maxWidth: pageWidth });
+                        newRow += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
+                        return;
+                    })
+                    doc.setFontSize(`${Number(printingDetails.fontSize)}`)
+                    yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h;
+            
+                    continue;
+                }
 
                 // organic logo
                 if (field === "organic") {
@@ -184,7 +212,7 @@ import { jsPDF } from 'jspdf';
                 }
                 
                 doc.text(`${field_2}${pdfFormFields[field]}`, x, y, { maxWidth: pageWidth - 5 });
-                yOffset += doc.getTextDimensions(`${field}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h; //spacing can be set by division
+                yOffset += doc.getTextDimensions(`${field_2}: ${pdfFormFields[field]}`, { maxWidth: pageWidth - 5 }).h; //spacing can be set by division
             }
         }
         // save the PDF and open a download dialog
