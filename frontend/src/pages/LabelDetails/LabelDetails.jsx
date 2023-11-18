@@ -128,6 +128,7 @@ function LabelDetails() {
                 onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
                 onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
                 onSave={(updatedLabel) => handleSaveLabelData(updatedLabel)}
+                onTranslation={false}
                 currentUser={currentUser}
                 //onAmend={(updatedLabel) => onAmend(updatedLabel)}
             />
