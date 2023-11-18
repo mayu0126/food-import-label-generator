@@ -119,6 +119,8 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="productName">
                     Product name
                 </label>
+
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="productName"
@@ -128,6 +130,15 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="productName"
+                    onChange={(e) => handleSaveWord(e, "productName")}
+                    />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalName">
                     Legal name*
@@ -150,13 +161,14 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     type="checkbox"
                     name="legalName"
                     onChange={(e) => handleSaveWord(e, "legalName")}
-                />
+                    />
                 )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
                     Allergens
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="allergens"
@@ -166,10 +178,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="allergens"
+                    onChange={(e) => handleSaveWord(e, "allergens")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalNameAdditionalInformation">
                     Additional information - legal name
                 </label>
+                <div className='flex mb-2'>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="legalNameAdditionalInformation"
@@ -179,6 +201,15 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="legalNameAdditionalInformation"
+                    onChange={(e) => handleSaveWord(e, "legalNameAdditionalInformation")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="cookingInstructions">
                     Cooking instructions
@@ -207,6 +238,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsListAdditionalInformation">
                     Additional information - ingredients list
                 </label>
+                <div className='flex mb-1'>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="ingredientsListAdditionalInformation"
@@ -216,10 +248,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="ingredientsListAdditionalInformation"
+                    onChange={(e) => handleSaveWord(e, "ingredientsListAdditionalInformation")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mayContain">
                     'May contain' sentence
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="mayContain"
@@ -229,6 +271,15 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="mayContain"
+                    onChange={(e) => handleSaveWord(e, "mayContain")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="nutritions">
                     Nutritions*
@@ -271,6 +322,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="countryOfOrigin">
                     Country of origin
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="countryOfOrigin"
@@ -280,10 +332,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="countryOfOrigin"
+                    onChange={(e) => handleSaveWord(e, "countryOfOrigin")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mainIngredientCOO">
                     Country of origin of main ingredient
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="mainIngredientCOO"
@@ -293,10 +355,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="mainIngredientCOO"
+                    onChange={(e) => handleSaveWord(e, "mainIngredientCOO")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeText">
                     Best before text
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="bestBeforeText"
@@ -306,10 +378,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="bestBeforeText"
+                    onChange={(e) => handleSaveWord(e, "bestBeforeText")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
                     Storage information*
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="storage"
@@ -319,10 +401,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="storage"
+                    onChange={(e) => handleSaveWord(e, "storage")}
+                />
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeAdditionalInformation">
                     Additional information - best before
                 </label>
+                <div className='flex mb-2'>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="bestBeforeAdditionalInformation"
@@ -331,6 +423,15 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
+                    type="checkbox"
+                    name="bestBeforeAdditionalInformation"
+                    onChange={(e) => handleSaveWord(e, "bestBeforeAdditionalInformation")}
+                />
+                )}
+                </div>
 
             <div className='border-x border-rose-400 px-3 rounded'>
                 <div className='text-rose-600 text-xs'>Please provide one of the below fields:</div>

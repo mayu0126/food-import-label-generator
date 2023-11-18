@@ -60,7 +60,7 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
                     disabled={false}
                 />
 
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legalName">
+                <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalName">
                     Legal name*
                 </label>
                 <input
