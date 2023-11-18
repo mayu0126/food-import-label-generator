@@ -149,7 +149,7 @@ public class TranslationControllerUnitTests
             _translationRepositoryMock.Setup(x => x.Add(newTranslation));
 
             // Act
-            var result = await _translationController.AddAsync(englishWord, hungarianWord);
+            var result = await _translationController.AddAsync(newTranslation);
 
             // Assert
             Assert.IsInstanceOf<OkObjectResult>(result.Result);
