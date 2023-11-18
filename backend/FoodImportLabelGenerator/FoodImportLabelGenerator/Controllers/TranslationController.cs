@@ -114,15 +114,15 @@ public class TranslationController : ControllerBase
     }
 
     [HttpPost("AddAsync"), Authorize(Roles = "User, Admin")]
-    public async Task<ActionResult<IEnumerable<Translation>>> AddAsync([Required]string englishWord, [Required]string hungarianWord)
+    public async Task<ActionResult<IEnumerable<Translation>>> AddAsync([FromBody] Translation translation)
     {
         // Additional validation for mandatory parameters
-        if (string.IsNullOrWhiteSpace(englishWord))
+        if (string.IsNullOrWhiteSpace(translation.English))
         {
             ModelState.AddModelError("englishWord", "English word field cannot be empty.");
         }
         
-        if (string.IsNullOrWhiteSpace(hungarianWord))
+        if (string.IsNullOrWhiteSpace(translation.Hungarian))
         {
             ModelState.AddModelError("hungarianWord", "Hungarian word field cannot be empty.");
         }
@@ -134,8 +134,8 @@ public class TranslationController : ControllerBase
         
         Translation newTranslation = new Translation()
         {
-            English = englishWord,
-            Hungarian = hungarianWord
+            English = translation.English,
+            Hungarian = translation.Hungarian
         };
         _translationRepository.Add(newTranslation);
         return Ok("New translation added successfully.");
