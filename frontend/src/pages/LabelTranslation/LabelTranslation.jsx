@@ -213,8 +213,9 @@ const handleSaveLabelData = (newLabel) => {
     
             try {
                 const data = await translateLabelData(field, context);
-                if (data.hungarian) {
-                    translatedLabelData[Object.keys(englishLabel)[index]] = data.hungarian;
+                console.log(data);
+                if (Array.isArray(data)) { //data is an array when comes from the db, when translated it's just an object
+                    translatedLabelData[Object.keys(englishLabel)[index]] = data[0].hungarian;
                 } else {
                     translatedLabelData[Object.keys(englishLabel)[index]] = data.translatedText;
                 }
