@@ -77,6 +77,31 @@ const saveLabelData = (newLabel, user) => {
     });
 };
 
+const saveNewWord = (newWord, user) => {
+        
+    return fetch(`${url}/Translation/AddAsync`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + user.token
+        },
+        body: JSON.stringify(newWord),
+    }).then((res) => {
+        if (!res.ok) {
+            return res.json().then((data) => {
+                let errorMessage = "Failed adding new translation";
+                if (data) {
+                    if (data["Bad credentials"]) {
+                        errorMessage = data["Bad credentials"][0];
+                    }
+                }
+                throw new Error(errorMessage);
+            });
+        }
+        return res //.json(); //if the response is "ok"
+    });
+}
+
 //helper method for proper DateTime format
 function formatDateToCustomFormat(date) {
     const year = date.getFullYear();
@@ -212,6 +237,7 @@ const handleSaveLabelData = (newLabel) => {
             hungarian: translatedWord
         }
         console.log(newWord);
+        saveNewWord(newWord, context.user);
     }
 
     return (

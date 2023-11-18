@@ -132,6 +132,8 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalName">
                     Legal name*
                 </label>
+
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="legalName"
@@ -144,11 +146,13 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
 
                 {onTranslation && (
                     <input
+                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
                     type="checkbox"
                     name="legalName"
                     onChange={(e) => handleSaveWord(e, "legalName")}
                 />
                 )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
                     Allergens
