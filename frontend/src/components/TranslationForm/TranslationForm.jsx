@@ -7,7 +7,8 @@ import { UserContext } from '../../index.js';
 import generatePDF from '../../utils/pdfGeneratorJSPDF.js';
 import PrintingModal from '../PrintingModal';
 
-const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
+const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage, successfulMessage,
+    onSave, isDisabled, disabled, isEdit, onEdit, onCancel, currentUser, currentDate }) => {
 
     //console.log(labelData)
     const context  = useContext(UserContext);
@@ -83,11 +84,15 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
         setFormFields({ ...formFields, [name]: type === "checkbox" ? checked : value });
     };
 
-    //generatePDF(formFields)
-    const handlePrint = (formFields) => {
-        //here would be the pop-up, and we could choose from differend dimensions 
-    }
 
+    const handleSaveWord = (e, fieldName) => {
+        if (e.target.checked){ //if the fields value is true
+            console.log(e)
+            console.log(formFields[fieldName]);
+            console.log(fieldName)
+            return onSaveNewWord(fieldName, formFields[fieldName]);
+        }
+    };
 
     return (
         <>
@@ -136,6 +141,14 @@ const TranslationForm = ({ labelData, errorMessage, successfulMessage, onSave, i
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+
+                {onTranslation && (
+                    <input
+                    type="checkbox"
+                    name="legalName"
+                    onChange={(e) => handleSaveWord(e, "legalName")}
+                />
+                )}
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
                     Allergens

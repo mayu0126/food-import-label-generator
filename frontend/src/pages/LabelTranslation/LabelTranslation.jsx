@@ -1,5 +1,5 @@
 import { React, useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../index";
 import LabelForm from "../../components/LabelForm/LabelForm";
 import TranslationForm from "../../components/TranslationForm/TranslationForm";
@@ -104,6 +104,7 @@ function LabelTranslation() {
         "date": formatDateToCustomFormat(new Date()).toString(),
         //"userId": currentUser.id,
     });
+    const [savedEnglishLabel, setSavedEnglishLabel] = useState({});
     //const navigate = useNavigate();
 
     const clearErrorMessage = () => {
@@ -162,6 +163,7 @@ const handleSaveLabelData = (newLabel) => {
 
     const handleTranslation = async (englishLabel) => {
 
+        setSavedEnglishLabel(englishLabel);
         setLoading(true);
         let translatedLabelData = {
             "date": formatDateToCustomFormat(new Date()).toString(),
@@ -201,7 +203,16 @@ const handleSaveLabelData = (newLabel) => {
 
         setLabelData(translatedLabelData);
         setLoading(false);
-      };
+    };
+
+    const handleSaveWord = (fieldName, translatedWord) => {
+        console.log(savedEnglishLabel)
+        let newWord = {
+            english: `${savedEnglishLabel[fieldName]}`,
+            hungarian: translatedWord
+        }
+        console.log(newWord);
+    }
 
     return (
         <>
@@ -230,6 +241,7 @@ const handleSaveLabelData = (newLabel) => {
             <span className="absolute top-0 left-0 w-full h-full border-2 border-slate-300 rounded-full p-3. blur-sm"></span>
         </p>
             <TranslationForm 
+                     
                 labelData={labelData}
                 errorMessage={errorMessage}
                 successfulMessage={successfulMessage}
@@ -239,6 +251,8 @@ const handleSaveLabelData = (newLabel) => {
                 onEdit={() => {setIsEdit(true); setIsDisabled(false);}}
                 onCancel={() => {setIsEdit(false); setIsDisabled(true);}}
                 onSave={(newLabel) => handleSaveLabelData(newLabel)}
+                onSaveNewWord={(fieldName, translatedWord) => handleSaveWord(fieldName, translatedWord)}
+                onTranslation={true}
                 currentUser={currentUser}
                 currentDate={formatDateToCustomFormat(new Date()).toString()}
             />
