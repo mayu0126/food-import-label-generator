@@ -15,6 +15,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
     const [formFields, setFormFields] = useState(labelData);
     const [fillRequiredFields, setFillRequiredFields] = useState(null);
     const [showPrintingModal, setShowPrintingModal] = useState(false);
+    const [savedStates, setSavedStates] = useState({});
 
     useEffect(() => {
         setFormFields(labelData)
@@ -38,7 +39,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
         //console.log("validating fields")
         //console.log(formFields);
         const requiredFields = ['ean', 'legalName', 'nutritions', 'distributor', 'storage'];
-        requiredFields.forEach(field => console.log(formFields[field]));
+        //requiredFields.forEach(field => console.log(formFields[field]));
         //console.log(requiredFields.every(field => formFields[field]));
         return requiredFields.every(field => formFields[field]);
       };
@@ -86,7 +87,12 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
 
 
     const handleSaveWord = (e, fieldName) => {
-        if (e.target.checked){ //if the fields value is true
+        //console.log(savedStates);
+        const newSavedStates = { ...savedStates };
+        newSavedStates[fieldName] = true;
+        setSavedStates(newSavedStates);
+
+        if (!savedStates[fieldName]){
             console.log(e)
             console.log(formFields[fieldName]);
             console.log(fieldName)
@@ -131,12 +137,20 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     disabled={isDisabled}
                 />
                 {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="productName"
-                    onChange={(e) => handleSaveWord(e, "productName")}
-                    />
+                    <button
+                    className={`ml-3 ${savedStates["productName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                    onClick={(e) => handleSaveWord(e, "productName")}
+                    >
+                    {savedStates["productName"] ?
+                        <>
+                            Saved ✓
+                        </>
+                        :
+                        <>
+                            Save
+                        </>
+                    }
+                    </button>
                 )}
                 </div>
 
@@ -155,14 +169,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     disabled={isDisabled}
                 />
 
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="legalName"
-                    onChange={(e) => handleSaveWord(e, "legalName")}
-                    />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["legalName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "legalName")}
+                        >
+                        {savedStates["legalName"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
@@ -178,14 +200,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="allergens"
-                    onChange={(e) => handleSaveWord(e, "allergens")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["allergens"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "allergens")}
+                        >
+                        {savedStates["allergens"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalNameAdditionalInformation">
@@ -201,14 +231,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="legalNameAdditionalInformation"
-                    onChange={(e) => handleSaveWord(e, "legalNameAdditionalInformation")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["legalNameAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "legalNameAdditionalInformation")}
+                        >
+                        {savedStates["legalNameAdditionalInformation"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="cookingInstructions">
@@ -248,14 +286,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="ingredientsListAdditionalInformation"
-                    onChange={(e) => handleSaveWord(e, "ingredientsListAdditionalInformation")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["ingredientsListAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "ingredientsListAdditionalInformation")}
+                        >
+                        {savedStates["ingredientsListAdditionalInformation"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mayContain">
@@ -271,14 +317,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="mayContain"
-                    onChange={(e) => handleSaveWord(e, "mayContain")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["mayContain"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "mayContain")}
+                        >
+                        {savedStates["mayContain"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="nutritions">
@@ -332,14 +386,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="countryOfOrigin"
-                    onChange={(e) => handleSaveWord(e, "countryOfOrigin")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["countryOfOrigin"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "countryOfOrigin")}
+                        >
+                        {savedStates["countryOfOrigin"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mainIngredientCOO">
@@ -355,14 +417,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="mainIngredientCOO"
-                    onChange={(e) => handleSaveWord(e, "mainIngredientCOO")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["mainIngredientCOO"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "mainIngredientCOO")}
+                        >
+                        {savedStates["mainIngredientCOO"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeText">
@@ -378,14 +448,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="bestBeforeText"
-                    onChange={(e) => handleSaveWord(e, "bestBeforeText")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["bestBeforeText"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "bestBeforeText")}
+                        >
+                        {savedStates["bestBeforeText"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
@@ -401,14 +479,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="storage"
-                    onChange={(e) => handleSaveWord(e, "storage")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["storage"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "storage")}
+                        >
+                        {savedStates["storage"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeAdditionalInformation">
@@ -423,14 +509,22 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
-                {onTranslation && (
-                    <input
-                    className='ml-3 mt-2 appearance-none h-4 w-4 border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative'
-                    type="checkbox"
-                    name="bestBeforeAdditionalInformation"
-                    onChange={(e) => handleSaveWord(e, "bestBeforeAdditionalInformation")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["bestBeforeAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "bestBeforeAdditionalInformation")}
+                        >
+                        {savedStates["bestBeforeAdditionalInformation"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
                 </div>
 
             <div className='border-x border-rose-400 px-3 rounded'>
@@ -537,7 +631,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     Edit
                 </button>
                 <button
-                    className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={() => setShowPrintingModal(true)}
                     >
