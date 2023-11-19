@@ -16,7 +16,7 @@ const DeleteConfirmationModal = ({ isOpen, onRequestClose, onConfirmDelete }) =>
           className="absolute top-0 right-0 mr-3 text-xl font-bold text-gray-400 hover:text-gray-600"
           onClick={onRequestClose}
         >
-          x
+          ✗
         </button>
         <h2 className="text-xl font-bold mb-4 mt-3">Are you sure you want to delete the label?</h2>
         <button

@@ -138,7 +138,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                 {onTranslation && (
                     <button
-                    className={`ml-3 ${savedStates["productName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                    className={`ml-3 ${savedStates["productName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                     onClick={(e) => handleSaveWord(e, "productName")}
                     type='button'
                     >
@@ -172,7 +172,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
 
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["legalName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["legalName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "legalName")}
                         type='button'
                         >
@@ -204,7 +204,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["allergens"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["allergens"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "allergens")}
                         type='button'
                         >
@@ -236,7 +236,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["legalNameAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["legalNameAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "legalNameAdditionalInformation")}
                         type='button'
                         >
@@ -292,7 +292,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["ingredientsListAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["ingredientsListAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "ingredientsListAdditionalInformation")}
                         type='button'
                         >
@@ -324,7 +324,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["mayContain"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["mayContain"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "mayContain")}
                         type='button'
                         >
@@ -394,7 +394,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["countryOfOrigin"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["countryOfOrigin"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "countryOfOrigin")}
                         type='button'
                         >
@@ -426,7 +426,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["mainIngredientCOO"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["mainIngredientCOO"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "mainIngredientCOO")}
                         type='button'
                         >
@@ -458,7 +458,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["bestBeforeText"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["bestBeforeText"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "bestBeforeText")}
                         type='button'
                         >
@@ -490,7 +490,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["storage"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["storage"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "storage")}
                         type='button'
                         >
@@ -521,7 +521,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 />
                     {onTranslation && (
                         <button
-                        className={`ml-3 ${savedStates["bestBeforeAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        className={`ml-3 ${savedStates["bestBeforeAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 hover:bg-slate-300 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
                         onClick={(e) => handleSaveWord(e, "bestBeforeAdditionalInformation")}
                         type='button'
                         >
