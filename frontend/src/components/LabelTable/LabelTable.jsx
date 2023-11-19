@@ -35,7 +35,7 @@ const LabelTable = ({ labelData, onDelete }) => {
         </thead>
         <tbody>
           {labelData && labelData.map((item, index) => (
-            <tr key={index} className="xl:text-base text-xs hover:bg-slate-200 border-b border-slate-200">
+            <tr key={index} className="xl:text-base text-xs hover:bg-slate-100 border-b border-slate-200">
               <td className="px-6 py-4">{item.date.substring(0, 10)}</td>
 
               <td className="px-6 py-4 font-bold text-rose-600">

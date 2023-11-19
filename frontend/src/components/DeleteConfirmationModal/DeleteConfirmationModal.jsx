@@ -13,7 +13,7 @@ const DeleteConfirmationModal = ({ isOpen, onRequestClose, onConfirmDelete }) =>
     >
       <div className="relative text-center text-sm bg-white p-6 rounded cursor-not-allowed">
         <button
-          className="absolute top-0 right-0 mr-3 text-xl font-bold text-gray-400 hover:text-gray-600"
+          className="absolute top-0 right-0 mr-2 text-xl font-bold text-gray-400 hover:text-gray-600"
           onClick={onRequestClose}
         >
           ✗

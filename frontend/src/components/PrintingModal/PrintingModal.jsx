@@ -57,10 +57,10 @@ const PrintingModal = ({ isOpen, onRequestClose, formFields }) => {
     >
       <div className="relative text-center text-sm bg-white p-6 rounded cursor-default">
         <button
-          className="absolute top-0 right-0 mr-3 text-xl font-bold text-gray-400 hover:text-gray-600"
+          className="absolute top-0 right-0 mr-2 text-xl font-bold text-gray-400 hover:text-gray-600"
           onClick={onRequestClose}
         >
-          x
+          ✗
         </button>
         <h2 className="text-xl font-bold mb-4 mt-3">Set label details</h2>
 

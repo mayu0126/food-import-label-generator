@@ -285,7 +285,7 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
                     ref={firstTranslateButtonRef}
                     className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit"
-                    >TRANSLATE <span aria-hidden="true">&rarr;</span>
+                    >TRANSLATE ➜
                 </button>
             </div>
           </form>
@@ -299,7 +299,7 @@ const LabelForm = ({ onSave, translationErrorMessage, currentDate, loading }) =>
           <button className="w-36 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -mt-6"
               type="button"
               onClick={handleTranslateClick}
-              >TRANSLATE <span aria-hidden="true">&rarr;</span>
+              >TRANSLATE ➜
           </button>
           <div className="mt-20 w-52 text-center">
             {translationErrorMessage && (
