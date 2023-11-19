@@ -77,6 +77,31 @@ const saveLabelData = (newLabel, user) => {
     });
 };
 
+const saveNewWord = (newWord, user) => {
+        
+    return fetch(`${url}/Translation/AddAsync`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + user.token
+        },
+        body: JSON.stringify(newWord),
+    }).then((res) => {
+        if (!res.ok) {
+            return res.json().then((data) => {
+                let errorMessage = "Failed adding new translation";
+                if (data) {
+                    if (data["Bad credentials"]) {
+                        errorMessage = data["Bad credentials"][0];
+                    }
+                }
+                throw new Error(errorMessage);
+            });
+        }
+        return res //.json(); //if the response is "ok"
+    });
+}
+
 //helper method for proper DateTime format
 function formatDateToCustomFormat(date) {
     const year = date.getFullYear();
@@ -188,8 +213,9 @@ const handleSaveLabelData = (newLabel) => {
     
             try {
                 const data = await translateLabelData(field, context);
-                if (data.hungarian) {
-                    translatedLabelData[Object.keys(englishLabel)[index]] = data.hungarian;
+                console.log(data);
+                if (Array.isArray(data)) { //data is an array when comes from the db, when translated it's just an object
+                    translatedLabelData[Object.keys(englishLabel)[index]] = data[0].hungarian;
                 } else {
                     translatedLabelData[Object.keys(englishLabel)[index]] = data.translatedText;
                 }
@@ -212,6 +238,7 @@ const handleSaveLabelData = (newLabel) => {
             hungarian: translatedWord
         }
         console.log(newWord);
+        saveNewWord(newWord, context.user);
     }
 
     return (

@@ -15,6 +15,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
     const [formFields, setFormFields] = useState(labelData);
     const [fillRequiredFields, setFillRequiredFields] = useState(null);
     const [showPrintingModal, setShowPrintingModal] = useState(false);
+    const [savedStates, setSavedStates] = useState({});
 
     useEffect(() => {
         setFormFields(labelData)
@@ -38,7 +39,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
         //console.log("validating fields")
         //console.log(formFields);
         const requiredFields = ['ean', 'legalName', 'nutritions', 'distributor', 'storage'];
-        requiredFields.forEach(field => console.log(formFields[field]));
+        //requiredFields.forEach(field => console.log(formFields[field]));
         //console.log(requiredFields.every(field => formFields[field]));
         return requiredFields.every(field => formFields[field]);
       };
@@ -86,7 +87,12 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
 
 
     const handleSaveWord = (e, fieldName) => {
-        if (e.target.checked){ //if the fields value is true
+        //console.log(savedStates);
+        const newSavedStates = { ...savedStates };
+        newSavedStates[fieldName] = true;
+        setSavedStates(newSavedStates);
+
+        if (!savedStates[fieldName]){
             console.log(e)
             console.log(formFields[fieldName]);
             console.log(fieldName)
@@ -119,6 +125,8 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="productName">
                     Product name
                 </label>
+
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="productName"
@@ -128,10 +136,30 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                {onTranslation && (
+                    <button
+                    className={`ml-3 ${savedStates["productName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                    onClick={(e) => handleSaveWord(e, "productName")}
+                    type='button'
+                    >
+                    {savedStates["productName"] ?
+                        <>
+                            Saved ✓
+                        </>
+                        :
+                        <>
+                            Save
+                        </>
+                    }
+                    </button>
+                )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalName">
                     Legal name*
                 </label>
+
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="legalName"
@@ -142,17 +170,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     disabled={isDisabled}
                 />
 
-                {onTranslation && (
-                    <input
-                    type="checkbox"
-                    name="legalName"
-                    onChange={(e) => handleSaveWord(e, "legalName")}
-                />
-                )}
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["legalName"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "legalName")}
+                        type='button'
+                        >
+                        {savedStates["legalName"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="allergens">
                     Allergens
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="allergens"
@@ -162,10 +202,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["allergens"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "allergens")}
+                        type='button'
+                        >
+                        {savedStates["allergens"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="legalNameAdditionalInformation">
                     Additional information - legal name
                 </label>
+                <div className='flex mb-2'>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="legalNameAdditionalInformation"
@@ -175,6 +234,24 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["legalNameAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "legalNameAdditionalInformation")}
+                        type='button'
+                        >
+                        {savedStates["legalNameAdditionalInformation"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="cookingInstructions">
                     Cooking instructions
@@ -203,6 +280,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="ingredientsListAdditionalInformation">
                     Additional information - ingredients list
                 </label>
+                <div className='flex mb-1'>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="ingredientsListAdditionalInformation"
@@ -212,10 +290,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["ingredientsListAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "ingredientsListAdditionalInformation")}
+                        type='button'
+                        >
+                        {savedStates["ingredientsListAdditionalInformation"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mayContain">
                     'May contain' sentence
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="mayContain"
@@ -225,6 +322,24 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["mayContain"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "mayContain")}
+                        type='button'
+                        >
+                        {savedStates["mayContain"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="nutritions">
                     Nutritions*
@@ -267,6 +382,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="countryOfOrigin">
                     Country of origin
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="countryOfOrigin"
@@ -276,10 +392,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["countryOfOrigin"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "countryOfOrigin")}
+                        type='button'
+                        >
+                        {savedStates["countryOfOrigin"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="mainIngredientCOO">
                     Country of origin of main ingredient
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="mainIngredientCOO"
@@ -289,10 +424,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["mainIngredientCOO"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "mainIngredientCOO")}
+                        type='button'
+                        >
+                        {savedStates["mainIngredientCOO"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeText">
                     Best before text
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="bestBeforeText"
@@ -302,10 +456,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["bestBeforeText"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "bestBeforeText")}
+                        type='button'
+                        >
+                        {savedStates["bestBeforeText"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="storage">
                     Storage information*
                 </label>
+                <div className='flex'>
                 <input
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-rose-400"
                     name="storage"
@@ -315,10 +488,29 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["storage"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "storage")}
+                        type='button'
+                        >
+                        {savedStates["storage"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
                 <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="bestBeforeAdditionalInformation">
                     Additional information - best before
                 </label>
+                <div className='flex mb-2'>
                 <textarea
                     className="mb-2 shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="bestBeforeAdditionalInformation"
@@ -327,6 +519,24 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     onChange={handleInputChange}
                     disabled={isDisabled}
                 />
+                    {onTranslation && (
+                        <button
+                        className={`ml-3 ${savedStates["bestBeforeAdditionalInformation"] ? 'bg-rose-600 text-white text-sm font-semibold'  : 'bg-slate-400 text-white text-sm font-semibold'} w-20 h-8 px-1 rounded focus:outline-none`}
+                        onClick={(e) => handleSaveWord(e, "bestBeforeAdditionalInformation")}
+                        type='button'
+                        >
+                        {savedStates["bestBeforeAdditionalInformation"] ?
+                            <>
+                                Saved ✓
+                            </>
+                            :
+                            <>
+                                Save
+                            </>
+                        }
+                        </button>
+                    )}
+                </div>
 
             <div className='border-x border-rose-400 px-3 rounded'>
                 <div className='text-rose-600 text-xs'>Please provide one of the below fields:</div>
@@ -432,7 +642,7 @@ const TranslationForm = ({onSaveNewWord, onTranslation, labelData, errorMessage,
                     Edit
                 </button>
                 <button
-                    className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={() => setShowPrintingModal(true)}
                     >

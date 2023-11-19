@@ -55,7 +55,7 @@ const LabelTable = ({ labelData, onDelete }) => {
                 <button
                   className="flex items-center justify-center font-bold text-xl w-8 h-8 pb-1 rounded ml-5 text-rose-500  hover:text-rose-600"
                   type="button" onClick={() => handleDeleteClick(item.id)}>
-                  x
+                  ✘
                 </button>
               </td>
             </tr>
