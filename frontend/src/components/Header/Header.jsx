@@ -108,6 +108,9 @@ const Header = () => {
                     <Link to="/addnewlabel" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Add new label
                     </Link>
+                    <Link to="/glossary" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                      Glossary
+                    </Link>
                     <Link to="/translation" onClick={closeMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Translation feature
                     </Link>
@@ -183,6 +186,11 @@ const Header = () => {
                   <li>
                     <Link to="/addnewlabel" onClick={closeMyProfileMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
                       Add new label
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/glossary" onClick={closeMyProfileMenu} className="text-sm block px-4 py-2 text-gray-900 hover:bg-gray-100">
+                      Glossary
                     </Link>
                   </li>
                   <li>
