@@ -15,6 +15,10 @@ import UserLabels from './pages/UserLabels';
 import LabelTranslation from './pages/LabelTranslation';
 import LabelDetails from './pages/LabelDetails';
 import GoogleTranslation from "./pages/GoogleTranslation";
+import AboutUs from "./pages/AboutUs";
+import Features from "./pages/Features";
+import Company from "./pages/Company";
+import Feedbacks from "./pages/Feedbacks";
 
 
 function App() {
@@ -30,6 +34,10 @@ function App() {
         <Route path="/addnewlabel" element={<LabelTranslation />} />
         <Route path="/details/:id" element={<LabelDetails />} />
         <Route path="/translation" element={<GoogleTranslation />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/company" element={<Company />} />
+        <Route path="/feedbacks" element={<Feedbacks />} />
       </Routes>
     </div>
   );

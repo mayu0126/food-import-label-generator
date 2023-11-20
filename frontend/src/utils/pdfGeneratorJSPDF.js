@@ -5,7 +5,7 @@ import { jsPDF } from 'jspdf';
     const generatePDF = async (formFields, printingDetails) => {
         console.log("generatePDF");
 
-        const allergens = ["glutén", "gabona", "zab", "búza", "rák", "hal", "garnéla", "homár", "tojás", "földimogyoró",
+        const allergens = ["glutén", "gabona", /*"zab",*/ "búza", "rák", "hal", "garnéla", "homár", "tojás", "földimogyoró",
             "szója", "tej", "dió", "mandula", "mogyoró", "pisztácia", "makadámia", "zeller", "mustár", "szezámmag",
             "kén-dioxid", "szulfit", "szulfát", "csillagfürt", "puhatestűek", "kagyló", "polip", "osztriga", "csiga"];
 
