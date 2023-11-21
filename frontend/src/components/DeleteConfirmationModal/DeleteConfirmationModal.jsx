@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 
-const DeleteConfirmationModal = ({ isOpen, onRequestClose, onConfirmDelete }) => {
+const DeleteConfirmationModal = ({ isOpen, onRequestClose, onConfirmDelete, isGlossary, isLabel }) => {
   Modal.setAppElement('#root');
 
   return (
@@ -18,7 +18,7 @@ const DeleteConfirmationModal = ({ isOpen, onRequestClose, onConfirmDelete }) =>
         >
           ✗
         </button>
-        <h2 className="text-xl font-bold mb-4 mt-3">Are you sure you want to delete the label?</h2>
+        <h2 className="text-xl font-bold mb-4 mt-3">Are you sure you want to delete {isLabel ? "the label" : "the record"}?</h2>
         <button
           className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded mr-4"
           onClick={onConfirmDelete}

@@ -57,6 +57,7 @@ const GlossaryTable = ({ glossaryData, onDelete }) => {
         isOpen={showDeleteModal}
         onRequestClose={() => setShowDeleteModal(false)}
         onConfirmDelete={handleDeleteConfirmation}
+        isGlossary={true}
       />
 
       {showDeleteModal && (
