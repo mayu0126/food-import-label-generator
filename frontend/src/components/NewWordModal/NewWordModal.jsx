@@ -4,15 +4,15 @@ import { useState } from 'react';
 const PrintingModal = ({ isOpen, onRequestClose, addNewRecord }) => {
   Modal.setAppElement('#root');
 
-  const [newRecordDetails, setNewRecordDetails] = useState({});
+  const [newRecordDetails, setNewRecordDetails] = useState({id:0});
 
   const handleInputChange = (e) => {
-    console.log(e)
+    //console.log(e)
     console.log(e.target.value)
     const { name, value, } = e.target;
 
     setNewRecordDetails({ ...newRecordDetails, [name]: value});
-    console.log(newRecordDetails);
+    //console.log(newRecordDetails);
   };
 
   const validateSelection = () => {

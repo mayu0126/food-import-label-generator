@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
+import NewWordModal from '../NewWordModal';
 
-const GlossaryTable = ({ glossaryData, onDelete }) => {
+const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [wordToDelete, setWordToDelete] = useState(null);
+
+  const [showNewWordModal, setShowNewWordModal] = useState(false);
 
   const handleDeleteClick = (id) => {
     setWordToDelete(id);
@@ -15,6 +18,16 @@ const GlossaryTable = ({ glossaryData, onDelete }) => {
   const handleDeleteConfirmation = () => {
     onDelete(wordToDelete);
     setShowDeleteModal(false);
+  };
+
+  const handleAddNewWordClick = () => {
+    setShowNewWordModal(true);
+  };
+
+  const handleAddNewWordConfirmation = (newWordToAdd) => {
+    console.log(newWordToAdd)
+    onAdd(newWordToAdd);
+    setShowNewWordModal(false);
   };
 
   return (
@@ -46,11 +59,11 @@ const GlossaryTable = ({ glossaryData, onDelete }) => {
         </tbody>
       </table>
       <div className="flex mt-6 justify-center">
-        <Link
+        <button
           className="bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          to="/addnewword">
+          onClick={handleAddNewWordClick}>
           Add new word or expression
-        </Link>
+        </button>
       </div>
 
       <DeleteConfirmationModal
@@ -66,19 +79,23 @@ const GlossaryTable = ({ glossaryData, onDelete }) => {
           aria-hidden="true" //aria-hidden attribute makes the background content inactive
         />
       )}
+
+      <NewWordModal
+        isOpen={showNewWordModal}
+        onRequestClose={() => setShowNewWordModal(false)}
+        addNewRecord={(newWordToAdd) => handleAddNewWordConfirmation(newWordToAdd)}
+      />
+
+      {showNewWordModal && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"
+          aria-hidden="true" //aria-hidden attribute makes the background content inactive
+        />
+      )}
+
     </div>
     </>
   );
 }
-
-/*
-GlossaryTable.propTypes = {
-  glossaryData: PropTypes.arrayOf(PropTypes.shape({
-    english: PropTypes.string,
-    hungarian: PropTypes.string,
-    id: PropTypes.number,
-  })).isRequired,
-};
-*/
 
 export default GlossaryTable;

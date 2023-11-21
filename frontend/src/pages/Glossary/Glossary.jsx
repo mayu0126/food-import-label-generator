@@ -17,6 +17,30 @@ const deleteLabel = (id, user) => {
     });
 };
 
+const addNewWord = (newWord, user) => {
+  return fetch(`${url}/Translation/AddAsync`, {
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + user.token
+    },
+    body: JSON.stringify(newWord),
+  }).then((res) => {
+    if (!res.ok) {
+        return res.json().then((data) => {
+            let errorMessage = "Failed adding new translation";
+            if (data) {
+                if (data["Bad credentials"]) {
+                    errorMessage = data["Bad credentials"][0];
+                }
+            }
+            throw new Error(errorMessage);
+        });
+    }
+    return res //.json(); //if the response is "ok"
+  });
+};
+
 function Glossary() {
 
   const context = useContext(UserContext); //connect to UserContext - email, userName, token
@@ -70,12 +94,25 @@ function Glossary() {
       });
   }
 
+  const handleAdd = (newWord) => {
+    setLoading(true);
+    console.log(`ADD word/expression`)
+    console.log(newWord)
+    addNewWord(newWord, context.user)
+    .then(() => {
+      //after a successful add, updating the local state
+      setGlossaryData([...glossaryData, newWord]);
+      setLoading(false);
+    });
+}
+
   return (
     <>
     {loading && <Loading />}
     <GlossaryTable
         glossaryData={glossaryData}
         onDelete={handleDelete}
+        onAdd={(newWord) => handleAdd(newWord)}
     />
     </>
   );
