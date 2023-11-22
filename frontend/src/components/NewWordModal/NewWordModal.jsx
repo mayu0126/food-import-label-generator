@@ -55,7 +55,7 @@ const PrintingModal = ({ isOpen, onRequestClose, addNewRecord }) => {
               English:
           </label>
           <input
-              className="appearance-none w-auto border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="py-1 px-2 appearance-none w-auto border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="text"
               name="english"
               id="english"
@@ -68,7 +68,7 @@ const PrintingModal = ({ isOpen, onRequestClose, addNewRecord }) => {
               Hungarian:
           </label>
           <input
-              className="appearance-none w-auto border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
+              className="py-1 px-2 appearance-none w-auto border border-gray-300 rounded checked:border-2 checked:bg-rose-600 focus:outline-none relative"
               type="text"
               name="hungarian"
               id="hungarian"
