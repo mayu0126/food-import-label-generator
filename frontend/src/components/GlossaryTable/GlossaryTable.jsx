@@ -32,7 +32,7 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
 
   return (
     <>
-    <div className="mx-auto mt-20 w-1/2 py-10 sm:py-16 lg:py-20">
+    <div className="mx-auto mt-20 w-full sm:w-1/2 py-10 xs:py-10 sm:py-16 lg:py-20">
     <h2 className="text-center text-gray-700 xl:text-lg text-auto font-semibold mb-12">GLOSSARY OF WORDS AND PHRASES ACCEPTED BY FOOD LAW</h2>
       <table className="bg-white shadow-md rounded w-full">
         <thead className="border-b-2 border-slate-300 xl:text-base text-xs text-left ">
@@ -44,10 +44,10 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
         </thead>
         <tbody>
           {glossaryData && glossaryData.map((word, index) => (
-            <tr key={index} className="xl:text-base text-xs hover:bg-slate-100 border-b border-slate-200">
-              <td className="px-6 hidden sm:table-cell">{word.english}</td>
-              <td className="px-6 hidden lg:table-cell">{word.hungarian}</td>
-              <td className="px-6 flex items-center">
+            <tr key={index} className="text-xs xl:text-base  hover:bg-slate-100 border-b border-slate-200">
+              <td className="px-2 md:px-4 sm:table-cell">{word.english}</td>
+              <td className="px-2 md:px-4 sm:table-cell">{word.hungarian}</td>
+              <td className="px-2 md:px-4 sm:table-cell flex items-center">
                 <button
                   className="flex items-center justify-center font-bold text-xl w-8 h-8 pb-1 rounded ml-5 text-rose-500  hover:text-rose-600"
                   type="button" onClick={() => handleDeleteClick(word.id)}>
