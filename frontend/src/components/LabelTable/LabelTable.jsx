@@ -74,6 +74,7 @@ const LabelTable = ({ labelData, onDelete }) => {
         isOpen={showDeleteModal}
         onRequestClose={() => setShowDeleteModal(false)}
         onConfirmDelete={handleDeleteConfirmation}
+        isLabel={true}
       />
 
       {showDeleteModal && (

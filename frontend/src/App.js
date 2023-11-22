@@ -19,6 +19,7 @@ import AboutUs from "./pages/AboutUs";
 import Features from "./pages/Features";
 import Company from "./pages/Company";
 import Feedbacks from "./pages/Feedbacks";
+import Glossary from "./pages/Glossary";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/features" element={<Features />} />
         <Route path="/company" element={<Company />} />
         <Route path="/feedbacks" element={<Feedbacks />} />
+        <Route path="/glossary" element={<Glossary />} />
       </Routes>
     </div>
   );
