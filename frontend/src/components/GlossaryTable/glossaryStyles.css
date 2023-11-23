@@ -3,12 +3,13 @@
     display: inline-block; /* show items horizontally */
     margin-right: 0.25rem; /* spacing between elements */
     font-weight: bold;
+    vertical-align: middle;
   }
   
   /* page-link class styles (<a> link items) */
   .page-link {
     display: block;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.75rem;
     color: rgb(225 29 72); /* rose-600 */
     border-radius: 5rem;
   }
@@ -17,3 +18,4 @@
   .page-item.active .page-link {
     background-color: #ffffff; /* Az aktív oldal háttérszínét állíthatod be */
   }
+  
