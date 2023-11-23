@@ -107,19 +107,19 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
         <table className="bg-white shadow-md rounded w-full flex-1">
           <thead className="border-b-2 border-slate-300 xl:text-base text-xs text-left ">
             <tr>
-              <th className="px-6 py-3">English</th>
-              <th className="px-6 py-3">Hungarian</th>
-              <th className="px-6 py-3"></th>
+              <th className="px-6 py-3 w-2/5">English</th>
+              <th className="px-6 py-3 w-2/5">Hungarian</th>
+              <th className="px-6 py-3 w-1/5"></th>
             </tr>
           </thead>
           <tbody>
             {currentItems.map((word, index) => (
-              <tr key={index} className="text-xs xl:text-base  hover:bg-slate-100 border-b border-slate-200">
-                <td className="px-2 md:px-4 sm:table-cell">{word.english}</td>
-                <td className="px-2 md:px-4 sm:table-cell">{word.hungarian}</td>
-                <td className="px-2 md:px-4 sm:table-cell flex items-center">
+              <tr key={index} className="text-xs xl:text-base  hover:bg-slate-100 transition duration-100 ease-in-out border-b border-slate-200">
+                <td className="px-2 md:px-6 sm:table-cell w-2/5">{word.english}</td>
+                <td className="px-2 md:px-6 sm:table-cell w-2/5">{word.hungarian}</td>
+                <td className="px-2 md:px-6 sm:table-cell w-1/5 text-center">
                   <button
-                    className="flex items-center justify-center font-bold text-xl w-8 h-8 pb-1 rounded ml-5 text-rose-500  hover:text-rose-600"
+                    className="font-bold text-xl w-8 h-8 pb-1 rounded ml-5 text-rose-500  hover:text-rose-600 transition duration-300 ease-in-out"
                     type="button" onClick={() => handleDeleteClick(word.id)}>
                     ✘
                   </button>
@@ -132,25 +132,25 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
         <div className="flex justify-center mt-4 bg-slate-200 p-1 rounded-lg">
           <ReactPaginate
             nextPageText={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4 hover:text-rose-400 transition duration-300 ease-in-out">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             }
 
             prevPageText={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4 hover:text-rose-400 transition duration-300 ease-in-out">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             }
 
             firstPageText={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4 hover:text-rose-400 transition duration-300 ease-in-out">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
               </svg>
             } 
 
             lastPageText={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4 hover:text-rose-400 transition duration-300 ease-in-out">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
               </svg>
             }
@@ -160,8 +160,8 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
             totalItemsCount={filteredGlossaryData.length > 0 ? filteredGlossaryData.length : glossaryData.length}
             pageRangeDisplayed={5}
             onChange={handlePageChange}
-            itemClass="page-item"
-            linkClass="page-link"
+            itemClass="page-item hover:text-rose-400 transition duration-100 ease-in-out"
+            linkClass="page-link hover:text-rose-400 transition duration-300 ease-in-out"
           />
         </div>
       </div>
