@@ -1,0 +1,19 @@
+/* page-item class styles (<li> items) */
+.page-item {
+    display: inline-block; /* show items horizontally */
+    margin-right: 0.25rem; /* spacing between elements */
+    font-weight: bold;
+  }
+  
+  /* page-link class styles (<a> link items) */
+  .page-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: rgb(225 29 72); /* rose-600 */
+    border-radius: 5rem;
+  }
+  
+  /* Az aktív oldal stílusai */
+  .page-item.active .page-link {
+    background-color: #ffffff; /* Az aktív oldal háttérszínét állíthatod be */
+  }

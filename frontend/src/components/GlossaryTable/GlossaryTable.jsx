@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import ReactPaginate from 'react-js-pagination';
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
 import NewWordModal from '../NewWordModal';
+import './glossaryStyles.css';
 
 const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -55,6 +55,19 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
     setShowNewWordModal(false);
   };
 
+  //pagination
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredGlossaryData.length > 0 ? filteredGlossaryData.slice(indexOfFirstItem, indexOfLastItem) : glossaryData.slice(indexOfFirstItem, indexOfLastItem);
+
+
   return (
     <>
     <div className="flex flex-col">
@@ -75,7 +88,7 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
                 disabled={false}
             />
             <button type='submit' className='flex items-center justify-center pb-2'>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-7 h-7 stroke-slate-500 hover:stroke-slate-400 ml-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-7 h-7 stroke-slate-500 hover:stroke-slate-400 ml-2 transition duration-300 ease-in-out">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
             </button>
@@ -83,15 +96,15 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
         </div>
 
         <button
-          className="mt-12 bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+          className="mt-12 bg-rose-600 hover:bg-rose-500 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
           onClick={handleAddNewWordClick}>
           Add new word or expression
         </button>
       </div>
 
-      <div className="bg-rose-200 mx-auto w-1/2 sm:w-1/2 mb-36">
+      <div className="flex flex-col mx-auto w-1/2 sm:w-1/2 mb-36">
 
-        <table className="bg-white shadow-md rounded w-full">
+        <table className="bg-white shadow-md rounded w-full flex-1">
           <thead className="border-b-2 border-slate-300 xl:text-base text-xs text-left ">
             <tr>
               <th className="px-6 py-3">English</th>
@@ -100,7 +113,7 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
             </tr>
           </thead>
           <tbody>
-            {(filteredGlossaryData.length > 0 ? filteredGlossaryData : glossaryData).map((word, index) => (
+            {currentItems.map((word, index) => (
               <tr key={index} className="text-xs xl:text-base  hover:bg-slate-100 border-b border-slate-200">
                 <td className="px-2 md:px-4 sm:table-cell">{word.english}</td>
                 <td className="px-2 md:px-4 sm:table-cell">{word.hungarian}</td>
@@ -115,7 +128,19 @@ const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
             ))}
           </tbody>
         </table>
+        {/* Pagination */}
+        <div className="flex justify-center mt-4 bg-slate-200 p-1 rounded-lg">
+          <ReactPaginate
+            activePage={currentPage}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={filteredGlossaryData.length > 0 ? filteredGlossaryData.length : glossaryData.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+            itemClass="page-item"
+            linkClass="page-link"
+          />
         </div>
+      </div>
       </div>
     </div>
 
