@@ -34,11 +34,14 @@ You can find the most up-to-date deployed version on this link: 🌟 https://foo
 
 ## Features
 - Automatic translation, currently from English to Hungarian language
-- Consistent formatting of the labels
-- Generated labels can be saved for future usage or can be deleted
+- Generated labels can be saved for future usage, can be modified or deleted
 - A PDF file can be generated from the label data, printing possibility
+- Consistent formatting of the labels
+- Label size, font size and label orientation can be selected, taking into account the nature of the product
+- Highlighting the allergens automatically
+- Smart database can be created by saving legally safe translations
 
 ## Future improvements
-- The generated label will be in line with the EU and local Hungarian regulations
-- Highlighting the allergens automatically
-- Select label size taking into consideration the size of the product
+- The generated label perfectly will be in line with the EU and local Hungarian regulations
+
+
