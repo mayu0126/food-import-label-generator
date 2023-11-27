@@ -7,32 +7,28 @@ import './glossaryStyles.css';
 const GlossaryTable = ({ glossaryData, onDelete, onAdd }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [wordToDelete, setWordToDelete] = useState(null);
-
   const [showNewWordModal, setShowNewWordModal] = useState(false);
-
   const [filteredGlossaryData, setFilteredGlossaryData] = useState([]);
+
+  const handleSearch = (value) => {
+    const lowercaseValue = value.toLowerCase();
+
+    const filteredData = glossaryData.filter((wordObject) => {
+      return (
+        wordObject.english.toLowerCase().includes(lowercaseValue) ||
+        wordObject.hungarian.toLowerCase().includes(lowercaseValue)
+      );
+    });
+
+    setFilteredGlossaryData(filteredData);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setFilteredGlossaryData([]);
 
     const formData = new FormData(e.target);
-    const searchTerm = {};
-
-    for (let [key, value] of formData.entries()) {
-
-      searchTerm[key] = value;
-    } 
-    const value = searchTerm.searchWord.toLowerCase();
-
-    const filteredData = glossaryData.filter( wordObject => {
-      return (
-        wordObject.english.toLowerCase().includes(value) ||
-        wordObject.hungarian.toLowerCase().includes(value)
-      );
-    });
-    console.log(filteredData);
-    setFilteredGlossaryData(filteredData);
+    const searchTerm = formData.get('searchWord');
+    handleSearch(searchTerm);
   };
 
   const handleDeleteClick = (id) => {
