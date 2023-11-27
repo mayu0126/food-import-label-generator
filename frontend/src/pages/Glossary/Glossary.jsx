@@ -48,6 +48,7 @@ function Glossary() {
   const [glossaryData, setGlossaryData] = useState([]);
   const [isCurrentUserLoaded, setIsCurrentUserLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [shouldFetchGlossaryData, setShouldFetchGlossaryData] = useState(true);
 
   useEffect(() => {
       console.log("GET profile data");
@@ -66,9 +67,9 @@ function Glossary() {
   }, []);
   
   useEffect(() => {
+    if (shouldFetchGlossaryData && isCurrentUserLoaded) {
       setLoading(true);
       //runs only if the currentUser has value
-      if (isCurrentUserLoaded) {
           console.log("GET glossary data");
           fetch(`${url}/Translation/GetAllAsync`, {
               method: "GET",
@@ -79,9 +80,12 @@ function Glossary() {
           })
           .then((res) => res.json())
           .then((data) => setGlossaryData(data))
-          .then(() => setLoading(false))
+          .then(() => {
+            setLoading(false);
+            setShouldFetchGlossaryData(false); // Reset the flag after fetching data
+        });
       }
-  }, [isCurrentUserLoaded, currentUser]);
+  }, [isCurrentUserLoaded, currentUser, shouldFetchGlossaryData]);
   
   const handleDelete = (id) => {
       setLoading(true);
@@ -89,7 +93,7 @@ function Glossary() {
       deleteLabel(id, context.user)
       .then(() => {
         //after a successful delete, updating the local state
-        setGlossaryData(glossaryData.filter(c => c.id !== id));
+        setShouldFetchGlossaryData(true);
         setLoading(false);
       });
   }
@@ -101,7 +105,7 @@ function Glossary() {
     addNewWord(newWord, context.user)
     .then(() => {
       //after a successful add, updating the local state
-      setGlossaryData([...glossaryData, newWord]);
+      setShouldFetchGlossaryData(true);
       setLoading(false);
     });
 }
