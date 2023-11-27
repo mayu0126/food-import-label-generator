@@ -4,7 +4,7 @@ import { useState } from 'react';
 const PrintingModal = ({ isOpen, onRequestClose, addNewRecord }) => {
   Modal.setAppElement('#root');
 
-  const [newRecordDetails, setNewRecordDetails] = useState({id:0});
+  const [newRecordDetails, setNewRecordDetails] = useState({});
 
   const handleInputChange = (e) => {
     //console.log(e)
